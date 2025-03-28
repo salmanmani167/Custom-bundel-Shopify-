@@ -15,9 +15,18 @@
         "padding_top": 28,
         "padding_bottom": 28
       }
+    },
+    "bundle_builder_zBignP": {
+      "type": "bundle-builder",
+      "settings": {
+        "heading": "Build Your Own Bundle",
+        "subheading": "Mix and match cases of your favourite flavours to create a custom bundle.",
+        "collection": "cart-collection"
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+    "bundle_builder_zBignP"
   ]
 }
