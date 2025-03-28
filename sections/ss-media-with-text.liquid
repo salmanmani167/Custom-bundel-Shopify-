@@ -1,0 +1,346 @@
+<div class="media__with-text">
+  <div class="media__inner-with-text">
+    <div class="media__inner-col image--item">
+      {% if section.settings.img != blank or section.settings.video != blank %}
+
+        <div class="media__inner-container">
+          {% unless section.settings.video != blank %}
+            {% if section.settings.img != blank %}
+              <img src="{{ section.settings.img | img_url: 'master' }}">
+            {% endif %}
+            {% else %}
+            {{ section.settings.video | video_tag: autoplay: false, loop: true, controls: true, class: 'video-items' }}
+          {% endunless %}
+        </div>
+        {% else %}
+        <div class="media__inner-container">
+          {{ 'collection-1' | placeholder_svg_tag: 'placeholder-svg placeholder-svg--promotions' }}
+          </div>
+      {% endif %}
+
+      <div class="media__inner-rating">
+        <div class="media__inner-stars">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 468.75"><g data-name="Layer 2"><g data-name="Layer 1"><path d="M0 0h468.75v468.75H0Zm507.81 0h468.75v468.75H507.81Zm507.81 0h468.76v468.75h-468.76Zm507.82 0h468.75v468.75h-468.75Zm507.81 0H2500v468.75h-468.75Z" style="fill:#00b67a"/><path d="m234.38 315.92 71.28-18.07 29.79 91.8Zm164.06-118.65H273L234.38 79.1 195.8 197.27H70.31l101.56 73.24-38.57 118.16 101.56-73.24 62.5-44.92Zm343.75 118.65 71.29-18.07 29.78 91.8Zm164.06-118.65H780.76L742.19 79.1l-38.58 118.17H578.13l101.56 73.24-38.58 118.16 101.57-73.24 62.5-44.92ZM1250 315.92l71.29-18.07 29.78 91.8Zm164.06-118.65h-125.49L1250 79.1l-38.57 118.17h-125.49l101.56 73.24-38.57 118.16 101.56-73.24 62.5-44.92Zm343.75 118.65 71.29-18.07 29.79 91.8Zm164.07-118.65h-125.49L1757.81 79.1l-38.57 118.17h-125.49l101.56 73.24-38.57 118.16 101.56-73.24 62.5-44.92Zm343.74 118.65 71.29-18.07 29.79 91.8Zm164.07-118.65H2304.2L2265.62 79.1l-38.57 118.17h-125.49l101.56 73.24-38.57 118.16 101.56-73.24 62.5-44.92Z" style="fill:#fff"/></g></g></svg>
+        </div>
+        <div class="media__inner-star-text">
+          4.5/5 Trustpilot • 300+ reviews
+        </div>
+      </div>
+    </div>
+
+    <div class="media__inner-col text--content-item">
+      <div class="media__inner-col-content">
+        {% if section.settings.content != blank %}
+          <div class="media__content-inner">
+            {{ section.settings.content }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.listitem != blank %}
+          <div class="media__content-inner-lists">
+            {{ section.settings.listitem }}
+          </div>
+        {% endif %}
+
+        {% if section.settings.btntext != blank %}
+          <div class="media__content-inner-btn">
+            <a href="{{ section.settings.btnurl }}">{{ section.settings.btntext }}</a>
+            {% if section.settings.textbtnbelow != blank %}
+              <p>{{ section.settings.textbtnbelow }}</p>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+  #shopify-section-{{section.id }} .media__inner-with-text{
+    display: flex;
+    align-items: center;
+    position: relative;
+  }
+  #shopify-section-{{section.id }} .media__inner-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  #shopify-section-{{section.id }} .media__inner-container {
+    width: 100%;
+    height: 500px;
+  }
+
+  #shopify-section-{{section.id }} .media__inner-col-content .media__content-inner p {
+    font-weight: 700;
+    margin-bottom: 12px;
+    font-family: 'Sora', sans-serif !important;
+  }
+
+
+  #shopify-section-{{section.id }} .media__inner-col-content .media__content-inner p strong{
+    color: #F2542C;
+  }
+
+  #shopify-section-{{section.id }} .media__inner-col-content .media__content-inner-btn a {
+    /* padding: 18px; */
+    width: 332px;
+    display: block;
+    /* border: 1px solid #000; */
+    text-align: center;
+    /* font-size: 16px; */
+    font-size:24px;
+    padding: 25px 18px;
+    font-weight: 700;
+    color: #fff;
+    /* background-color: #F2542C; */
+    border-radius: 6px;
+    background: #00bd4c;
+    letter-spacing: 2px !important;
+    margin-bottom: 6px;
+    margin-left: auto;
+    margin-right: auto;
+    text-decoration: none;
+    font-family: Roboto, sans-serif;
+    line-height: 22px;
+  }
+
+  #shopify-section-{{section.id }} .media__inner-col-content .media__content-inner p{
+    font-size: 27px;
+    text-align: center;
+    line-height: 1.2;
+    color: #fff;
+  }
+
+  #shopify-section-{{section.id }} .media__content-inner-btn{
+    text-align: center;
+  }
+  #shopify-section-{{section.id }} .media__content-inner-btn p{
+    font-size: 14px;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  #shopify-section-{{section.id }} .media__content-inner-lists ul {
+    margin: 0 0 12px 0;
+    padding: 0;
+    display: flex;
+    list-style: none;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #shopify-section-{{section.id }} .media__content-inner-lists ul li{
+    margin-bottom: 0px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+  }
+
+  #shopify-section-{{section.id }} .media__content-inner-lists ul li:before{
+    content: "";
+    background-image: url({{ 'checkicons.svg' | asset_url }});
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+  }
+
+  #shopify-section-{{section.id }} .media__inner-with-text .media__inner-col{
+    width: 100%;
+    height: 100%;
+  }
+
+  #shopify-section-{{section.id }} .media__inner-rating .media__inner-stars {
+    width: 120px;
+    display: flex;
+    align-items: center;
+  }
+
+  #shopify-section-{{section.id }} .media__inner-rating .media__inner-star-text{
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.2;
+    font-family: Roboto, sans-serif;
+  }
+
+  #shopify-section-{{section.id }} .media__inner-with-text .media__inner-rating{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    padding: 15px 48px;
+    background-color:#FDEAE5;
+    -webkit-column-gap: 6px;
+       -moz-column-gap: 6px;
+            column-gap: 6px;
+    border-top: 1px solid #000;
+    border-bottom: 1px solid #000;
+  }
+
+  #shopify-section-{{section.id }} .media__inner-rating .media__inner-stars svg {
+    width: 100%;
+    height: 100%;
+}
+  @media (min-width: 769px){
+    #shopify-section-{{ section.id }} .media__inner-col.text--content-item {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #shopify-section-{{ section.id }} .media__content-inner-lists ul li,
+    #shopify-section-{{ section.id }} .media__content-inner-btn p{
+      color: #fff;
+    }
+  }
+
+
+  @media (max-width: 768px){
+    #shopify-section-{{section.id }} .media__inner-with-text{
+      flex-wrap: wrap;
+    }
+
+    #shopify-section-{{section.id }} .media__inner-with-text .media__inner-rating{
+      border-bottom: unset;
+    }
+
+    #shopify-section-{{section.id }} .media__inner-with-text .media__inner-col{
+      width: 100%;
+      height: 100%;
+    }
+
+    #shopify-section-{{section.id }} .media__inner-with-text .media__inner-rating{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8.5px 48px;
+      background-color:#FDEAE5;
+      column-gap: 6px;
+    }
+
+    #shopify-section-{{section.id }} .media__inner-container {
+      height: 360px;
+    }
+
+    #shopify-section-{{section.id }} .media__inner-rating .media__inner-stars {
+      width: 90px;
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+          -ms-flex-align: center;
+              align-items: center;
+     }
+
+    #shopify-section-{{section.id }} .media__inner-rating .media__inner-star-text{
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    #shopify-section-{{section.id }} .media__inner-col-content .media__content-inner p{
+      color: #000;
+    }
+
+    #shopify-section-{{section.id }} .media__inner-col .media__inner-col-content{
+      padding: 14px;
+    }
+
+    #shopify-section-{{section.id }} .media__inner-col-content .media__content-inner p{
+      font-size: 27px;
+    }
+
+    #shopify-section-{{section.id }} .media__inner-col-content .media__content-inner-btn a {
+      width: 100%;
+    }
+
+    #shopify-section-{{section.id }} .media__inner-col .media__inner-col-content{
+      border: 1px solid #000;
+    }
+
+    #shopify-section-{{section.id }} .media__inner-with-text .media__inner-rating{
+      padding: 8.5px 48px;
+    }
+
+  }
+  @media (max-width: 767px){
+    #shopify-section-{{section.id }} .media__inner-col-content .media__content-inner-btn a {
+      font-size:20px;
+      padding: 19px 18px;
+    }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "Media with text",
+  "class": "shopify-media-with-textv2",
+  "settings":[
+    {
+      "type": "image_picker",
+      "id": "img",
+      "label": "Image"
+    },
+    {
+      "type": "video",
+      "id": "videolocal",
+      "label": "Local video"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content",
+      "info": "Please make the word bold if you want to highlight to show the highlight color",
+      "default": "<p>Lorem ipsum dolor <strong>sit amet</strong></p>"
+    },
+    {
+      "type": "richtext",
+      "id": "listitem",
+      "label": "List item",
+      "info": "Please make content in unordered list.",
+      "default": "<ul><li>Lorem ipsum dolor</li><li>Lorem ipsum dolor</li></ul>"
+    },
+    {
+      "type": "text",
+      "id": "btntext",
+      "label": "Button text",
+      "default": "Buy Now"
+    },
+    {
+      "type": "url",
+      "id": "btnurl",
+      "label": "Button Link"
+    },
+    {
+      "type": "text",
+      "id": "textbtnbelow",
+      "label":"Text below button",
+      "default": "Lorem ipsum dolor sit amet"
+    }
+  ],
+  "presets":[
+    {
+      "name": "Media with text"
+    }
+  ]
+}
+{% endschema %}

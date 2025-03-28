@@ -1,0 +1,209 @@
+{% schema %}
+{
+  "name": "Custom Banner Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "background_image",
+      "label": "Background Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "background_image-mbl",
+      "label": "Background Image Mobile"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The Fast & Convenient Way To Connect Wires."
+    },
+
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    },
+    {
+      "type": "image_picker",
+      "id": "icon",
+      "label": "Icon"
+    },
+    {
+      "type": "text",
+      "id": "icon_text",
+      "label": "Icon Text",
+      "default": "30 Day Money Back Guarantee"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Banner Section"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+    .custom-banner-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+        background: url({{ section.settings.background_image | img_url: '1500x' }}) no-repeat center center/cover;
+      padding:88px 50px;
+    }
+        .custom-banner{
+          max-width:1130px;
+        margin: 0px auto 0px;
+        width:100%;
+        }
+    .custom-banner-content .main-section-heading{
+      max-width: 603px;
+    }
+    .custom-banner-content .banner-text img {
+      max-width: 100px;
+    }
+    .custom-banner-content .banner-text{
+        font-weight: 400;
+        font-size: 18.58px;
+        line-height: 25.34px;
+        letter-spacing: 0;
+        color:#000000;
+        display: flex;
+      gap: 13px;
+      align-items: center;
+        margin:0px;
+    }
+    .main-section-heading{
+      font-weight: 900;
+      font-size: 65px;
+      line-height: 63px;
+        color:#030303;
+        margin:20px 0px 40px;
+    }
+     .banner-text svg{
+        width:100px;
+     }
+    .banner-button {
+      background: #00BD4C;
+      color: white;
+      padding: 18px 142px;
+      text-decoration: none;
+      font-weight: 900;
+      font-size: 26px;
+      line-height: 35.46px;
+      letter-spacing: 0%;
+      border-radius:8px;
+            display: block;
+      width: fit-content;
+        text-transform: uppercase;
+    }
+    .icon-with-text-banner{
+      display: flex;
+      align-items: center;
+         margin-top: 10px;
+      width: 418px;
+      justify-content: center;
+        gap:4px;
+        color:#000000;
+  font-weight: 400;
+  font-size: 15.92px;
+  line-height: 21.72px;
+
+    }
+        .icon-with-text-banner span{
+          color:#000000;
+        font-weight: 400;
+        font-size: 15.92px;
+        line-height: 21.72px;
+        }
+    .icon-with-text-banner img {
+      width: 14px!important;
+    }
+
+
+
+
+
+
+  @media screen and (max-width: 760px) {
+
+   .custom-banner-main {
+      background: url({{ section.settings.background_image-mbl | img_url: '800x' }}) no-repeat center center/cover;
+      padding:204px 20px 27px;
+    }
+  .custom-banner-content .banner-text{
+        font-size:13px;
+            justify-content: center;
+  }
+  .main-section-heading{
+        margin:9px 0px 21px;
+        font-size:38px;
+         line-height:40px;
+        text-align:center;
+  }
+  .banner-button{
+        padding:14px 62px;
+        font-size:16px;
+        line-height:21px;
+          margin: 0px auto;
+  }
+
+  .icon-with-text-banner span{
+        font-size:11px;
+        line-height:16px;
+  }
+  .icon-with-text-banner{
+        width:100%;
+  }
+
+
+
+
+
+        }
+</style>
+{% # Preload critical images %}
+<link rel="preload" as="image" href="{{ section.settings.background_image | img_url: '1500x' }}">
+<link rel="preload" as="image" href="{{ section.settings.background_image-mbl | img_url: '800x' }}">
+<div class="custom-banner-main">
+  <div class="custom-banner">
+    <div class="custom-banner-content">
+      <!-- <img src="{{ section.settings.banner_image | img_url: 'master' }}" alt="Banner Image"> -->
+      <p class="banner-text">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 468.75">
+          <g data-name="Layer 2"><g data-name="Layer 1"><path d="M0 0h468.75v468.75H0Zm507.81 0h468.75v468.75H507.81Zm507.81 0h468.76v468.75h-468.76Zm507.82 0h468.75v468.75h-468.75Zm507.81 0H2500v468.75h-468.75Z" style="fill:#00b67a"></path><path d="m234.38 315.92 71.28-18.07 29.79 91.8Zm164.06-118.65H273L234.38 79.1 195.8 197.27H70.31l101.56 73.24-38.57 118.16 101.56-73.24 62.5-44.92Zm343.75 118.65 71.29-18.07 29.78 91.8Zm164.06-118.65H780.76L742.19 79.1l-38.58 118.17H578.13l101.56 73.24-38.58 118.16 101.57-73.24 62.5-44.92ZM1250 315.92l71.29-18.07 29.78 91.8Zm164.06-118.65h-125.49L1250 79.1l-38.57 118.17h-125.49l101.56 73.24-38.57 118.16 101.56-73.24 62.5-44.92Zm343.75 118.65 71.29-18.07 29.79 91.8Zm164.07-118.65h-125.49L1757.81 79.1l-38.57 118.17h-125.49l101.56 73.24-38.57 118.16 101.56-73.24 62.5-44.92Zm343.74 118.65 71.29-18.07 29.79 91.8Zm164.07-118.65H2304.2L2265.62 79.1l-38.57 118.17h-125.49l101.56 73.24-38.57 118.16 101.56-73.24 62.5-44.92Z" style="fill:#fff"></path></g></g>
+        </svg>
+        {{ section.settings.description }}
+      </p>
+      <h2 class="main-section-heading">{{ section.settings.heading }}</h2>
+
+      <a href="{{ section.settings.button_link }}" class="banner-button">{{ section.settings.button_text }}</a>
+      <div class="icon-with-text-banner">
+        <img src="{{ section.settings.icon | img_url: 'small' }}" alt="icon" width="14" height="14">
+        <span>{{ section.settings.icon_text }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const banner = document.querySelector('.custom-banner-main');
+    if (banner) {
+      // Add loaded class after images are loaded
+      banner.classList.add('loaded');
+      banner.setAttribute('data-banner-loaded', 'true');
+    }
+  });
+</script>

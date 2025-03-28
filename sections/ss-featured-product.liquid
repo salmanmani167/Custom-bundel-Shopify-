@@ -1,0 +1,307 @@
+<div class="featured__product-container">
+  
+    {% if section.settings.pretitle != blank or section.settings.content != blank %}
+        <div class="featured__product-header">
+            {% if section.settings.pretitle != blank %}
+                <h3>{{ section.settings.pretitle }}</h3>
+            {% endif %}
+            {% if section.settings.content != blank %}
+                <div class="featured__product-header-text">{{ section.settings.content }}</div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 or section.settings.img != blank %}
+        <div class="featured__product-inner-content-row">
+            {% if section.settings.img != blank or section.settings.salebadge != blank %}
+                <div class="featured__product-inner-col">
+                    <div class="featured__product-image">
+                        <img src="{{ section.settings.img | img_url: 'master'}}">
+                        {% if section.settings.salebadge != blank %}
+                            <div class="featured__product-badge">
+                                {{ section.settings.salebadge }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="featured__product-inner-col">
+                    <div class="featured__product-image">
+                        {{ 'image' | placeholder_svg_tag }}
+                        {% if section.settings.salebadge != blank %}
+                            <div class="featured__product-badge">
+                                {{ section.settings.salebadge }}
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+
+            {% if section.blocks.size > 0 or section.settings.btntext != blank %}
+                <div class="featured__product-inner-col">
+                    <ul class="featured__product-list">
+                    {% for block in section.blocks %}
+                        <li>
+                            <span class="checkicon">
+                                <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <rect width="18" height="18" rx="9" fill="#F2542C"/>
+                                    <path d="M5 9.42857L7.4 12L13 6" stroke="white" stroke-width="2"/>
+                                </svg>
+                            </span>
+                            {{ block.settings.listtext }}</li>
+                    {% endfor %}
+                    </ul>
+
+                    {% if section.settings.btntext != blank %}
+                        <div class="view__all-button">
+                            <a href="{{ section.settings.btnurl }}">{{ section.settings.btntext }}</a>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    {% endif %}
+
+</div>
+
+<style>
+  .featured__product-image img{
+    width: 100%;
+  }
+    #shopify-section-{{ section.id }}{
+        padding: 38px 24px;
+        border-bottom: 1px solid #000;
+    }
+
+    #shopify-section-{{ section.id }} .featured__product-header{
+        text-align: center;
+
+    }
+
+    #shopify-section-{{ section.id }} .featured__product-header h3{
+        font-size: 12px;
+        line-height: 1.2;
+        letter-spacing: 3px !important;
+        text-transform: UPPERCASE;
+        margin-bottom: 6px;
+    }
+
+    #shopify-section-{{ section.id }} .featured__product-header .featured__product-header-text,
+    #shopify-section-{{ section.id }} .featured__product-header .featured__product-header-text p{
+        text-align: center;
+        font-size: 24px;
+        font-weight: 600;
+        color: #000;
+        font-family: 'Sora', sans-serif !important;
+    }
+
+    #shopify-section-{{ section.id }} .featured__product-header .featured__product-header-text p strong{
+        color: #F2542C;
+        font-weight: 600;
+    }
+
+    #shopify-section-{{ section.id }} .view__all-button a{
+        display: block;
+        /* padding: 18px; */
+        /* font-size: 16px; */
+        font-size:24px;
+        padding: 25px 18px;
+        font-weight: bold;
+        letter-spacing: 0.04em;
+        text-transform: UPPERCASE;
+        color: #fff;
+        /* background-color: #F2542C;
+        border: 1px solid #000; */
+        border-radius: 6px;
+        background: #00bd4c;
+        width: 332px;
+        text-align: center;
+        margin-left: 0;
+        margin-right: auto;
+          line-height: 1;
+    text-decoration: none;
+      
+    }
+  
+
+    #shopify-section-{{ section.id }} .featured__product-image {
+        position: relative;
+        border: 1px solid #000;
+    }
+
+    #shopify-section-{{ section.id }} .featured__product-image .featured__product-badge{
+        width: fit-content;
+        padding: 4px 6px;
+        font-size: 16px;
+        line-height: 1.2;
+        color: #fff;
+        background-color:#F2542C;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-weight: bold;
+    }
+
+    #shopify-section-{{ section.id }} ul.featured__product-list {
+        list-style: none;
+        margin: 18px 0 30px 0;
+        padding: 0;
+    }
+    #shopify-section-{{ section.id }} ul.featured__product-list li{
+        font-size: 16px;
+        line-height: 1.2;
+        display: flex;
+        align-items: center;
+        column-gap: 8px;
+        font-weight: 600;
+        font-family: 'Nunito Sans' !important;
+    }
+
+    #shopify-section-{{ section.id }} ul.featured__product-list li .checkicon{
+        width: 18px;
+        height: 18px;
+    }
+
+    #shopify-section-{{ section.id }} ul.featured__product-list li:not(:last-child){
+        margin-bottom: 14px;
+    }
+    #shopify-section-{{ section.id }} .featured__product-inner-content-row {
+        display: flex;
+        align-items: center;
+        gap: 100px;
+    }
+
+    #shopify-section-{{ section.id }}  .featured__product-container {
+        max-width: 920px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #shopify-section-{{ section.id }} .featured__product-inner-col:first-child{
+        width: 50%;
+    }
+
+    #shopify-section-{{ section.id }} .featured__product-inner-col:last-child{
+        width: 50%;
+    }
+
+
+    @media (min-width: 769px){
+        #shopify-section-{{ section.id }} .featured__product-header{
+            margin-bottom: 44px;
+        }
+    }
+
+    @media (max-width: 768px){
+        #shopify-section-{{ section.id }}{
+            padding: 38px 14px;
+        }
+
+        #shopify-section-{{ section.id }} .featured__product-inner-content-row {
+            flex-direction: column;
+            gap: 0px;
+        }
+
+        #shopify-section-{{ section.id }} .featured__product-header .featured__product-header-text{
+            font-size: 24px;
+        }
+
+        #shopify-section-{{ section.id }} .view__all-button a{
+            width: 100%;
+        }
+
+        #shopify-section-{{ section.id }} ul.featured__product-list {
+            margin: 18px 0 30px 0;
+        }
+
+        #shopify-section-{{ section.id }} .featured__product-inner-col{
+            width: 100% !important;
+        }
+
+        #shopify-section-{{ section.id }} .view__all-button a{
+            margin-left: auto;
+        }
+    }
+
+    @media (max-width: 767px){
+    #shopify-section-{{ section.id }} .view__all-button a{
+      font-size:20px;
+      padding: 19px 18px;
+    }
+  }
+</sty
+</style>
+{% schema %}
+{
+    "name": "Featured Product v2",
+    "class": "shopify-featured-product-v2",
+    "settings": [
+        {
+            "type": "text",
+            "id": "pretitle",
+            "label": "Pre-title",
+            "default": "Featured"
+        },
+        {
+            "type": "richtext",
+            "id": "content",
+            "label": "Section title",
+            "info": "Please make the word bold if you want to highlight to show the highlight color",
+            "default": "<p>Lorem ipsum dolor <strong>sit amet</strong></p>"
+        },
+        {
+            "type": "image_picker",
+            "id": "img",
+            "label": "Main Image"
+        },
+        {
+            "type": "text",
+            "id": "salebadge",
+            "label": "Sale Badge",
+            "default": "15% OFF"
+        },
+        {
+            "type": "text",
+            "id": "btntext",
+            "label": "Button label",
+            "default": "SHOP NOW"
+        },
+        {
+            "type": "url",
+            "id": "btnurl",
+            "label": "Button link"
+        }
+    ],
+    "blocks":[
+        {
+            "type": "list",
+            "name": "Featured list",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "listtext",
+                    "label": "List text",
+                    "default": "Lorem ipsum dolor sit amet"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+          "name": "Featured Product v2",
+          "category": "Product",
+          "blocks":[
+            {
+                "type": "list"
+            },
+            {
+                "type": "list"
+            },
+            {
+                "type": "list"
+            }
+          ]
+        }
+    ]
+}
+{% endschema %}

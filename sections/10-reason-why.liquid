@@ -1,0 +1,421 @@
+{{ '10reasoncsss.css' | asset_url | stylesheet_tag }}
+{{ 'https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700&display=swap' | stylesheet_tag }}
+
+<div class="section-10-reasons">
+  {% schema %}
+{
+  "name": "10 Reasons Landing",
+  "settings": [
+    {
+          "type": "url",
+          "id": "link_product",
+          "label": "Select Product Link for Above Side bar"
+        },
+    {
+          "type": "url",
+          "id": "link_product1",
+          "label": "Select Product Above Footer"
+        },
+    {
+      "type": "header",
+      "content": "Header Settings"
+    },
+    {
+      "type": "text",
+      "id": "brand_name",
+      "label": "Brand Name",
+      "default": "FOOT-SECRETS"
+    },
+    {
+      "type": "text",
+      "id": "main_title",
+      "label": "Main Title",
+      "default": "10 Reasons to Add These New Barefoot Shoes to your 2025 Wardrobe"
+    },
+    {
+      "type": "text",
+      "id": "author_name",
+      "label": "Author Name",
+      "default": "Hannah Brown"
+    },
+    {
+      "type": "text",
+      "id": "publish_date",
+      "label": "Publish Date",
+      "default": "January 2nd, 2025"
+    },
+    {
+      "type": "text",
+      "id": "publish_time",
+      "label": "Publish Time",
+      "default": "11:23 am ET"
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero Image"
+    },
+    {
+      "type": "header",
+      "content": "Intro Text"
+    },
+    {
+      "type": "richtext",
+      "id": "intro_text",
+      "label": "Introduction Text",
+      "default": "<p><strong>1 out of every 3 individuals will encounter foot discomfort, which can eventually restrict their mobility and independence.</strong> Fortunately, a revolutionary barefoot shoe, endorsed by <em>Harvard University</em>, is helping people beat the statistics and even avoid foot surgery.</p>"
+    },
+    {
+      "type": "header",
+      "content": "Product Sidebar"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo Image"
+    },
+    {
+      "type": "text",
+      "id": "product_title",
+      "label": "Product Title",
+      "default": "HF Cloud Barefoot Shoes"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product Image"
+    },
+    {
+      "type": "text",
+      "id": "rating_stars",
+      "label": "Rating Stars",
+      "default": "4.8"
+    },
+    {
+      "type": "text",
+      "id": "rating_count",
+      "label": "Rating Count",
+      "default": "5,467"
+    },
+    {
+      "type": "header",
+      "content": "Best Results Section"
+    },
+    {
+      "type": "text",
+      "id": "best_results_heading",
+      "label": "Best Results Heading",
+      "default": "How To Get The Best Results For Your Feet At The Best Price Possible! (And FREE Shipping!)"
+    },
+    {
+      "type": "text",
+      "id": "availability_text",
+      "label": "Availability Text",
+      "default": "Right now, the [product] are ONLY available on the brand's website."
+    },
+    {
+      "type": "text",
+      "id": "special_offer_text",
+      "label": "Special Offer Text",
+      "default": "⚠️ We're offering a special introductory limited-time offer with a massive discount of over 50% off."
+    },
+    {
+      "type": "text",
+      "id": "step_1_text",
+      "label": "Step 1 Text",
+      "default": "Order your [product] today to secure a 50% discount (while supplies last)."
+    },
+    {
+      "type": "text",
+      "id": "step_2_text",
+      "label": "Step 2 Text",
+      "default": "Once your Hike Footwear arrives, take a couple of days to get used to these shoes."
+    },
+    {
+      "type": "text",
+      "id": "step_3_text",
+      "label": "Step 3 Text",
+      "default": "Wear your [product] from Hike Footwear all day for lasting comfort, support, and an enhanced hiking experience. Enjoy every step while discomfort disappears."
+    },
+    {
+      "type": "textarea",
+      "id": "helpful_hint_text",
+      "label": "Helpful Hint Text",
+      "default": "Helpful Hint: If you have an outdoor enthusiast in your life, consider giving these as a gift - the gift of comfort, support, and the freedom to explore nature to the fullest. They deserve the best gear for their hiking adventures."
+    },
+    {
+      "type": "text",
+      "id": "cta_button_text",
+      "label": "CTA Button Text",
+      "default": "CLICK HERE TO CHECK THE PRICE AND AVAILABILITY ⚡"
+    },
+    {
+      "type": "header",
+      "content": "Footer Settings"
+    },
+    {
+      "type": "text",
+      "id": "company_name",
+      "label": "Company Name",
+      "default": "Hike Footwear"
+    },
+    {
+      "type": "url",
+      "id": "privacy_policy_url",
+      "label": "Privacy Policy URL"
+    },
+    {
+      "type": "url",
+      "id": "terms_url",
+      "label": "Terms of Service URL"
+    },
+    {
+      "type": "text",
+      "id": "disclaimer_text",
+      "label": "Disclaimer Text",
+      "default": "THIS IS AN ADVERTISEMENT AND NOT AN ACTUAL NEWS ARTICLE, BLOG, OR CONSUMER PROTECTION UPDATE"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "check_icon",
+          "label": "Check Icon"
+        },
+        {
+          "type": "textarea",
+          "id": "feature_text",
+          "label": "Feature Text"
+        }
+      ]
+    },
+    {
+      "type": "reason",
+      "name": "Reason Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "reason_image",
+          "label": "Reason Image"
+        },
+        {
+          "type": "text",
+          "id": "reason_title",
+          "label": "Reason Title"
+        },
+        {
+          "type": "richtext",
+          "id": "reason_content",
+          "label": "Reason Content"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "10 Reasons Landing",
+      "blocks": [
+        {
+          "type": "feature"
+        },
+        {
+          "type": "reason"
+        }
+      ]
+    }
+  ]
+}
+  {% endschema %}
+
+  <div class="heading_title_container heading_title_container_custom">
+    <p class="heading_title_text">{{ section.settings.brand_name }}</p>
+  </div>
+
+  <div class="container main_content_container_custom">
+    <div class="main-content main_content_custom">
+      <div class="article">
+        <h3 class="heading_title_1">
+          <strong>{{ section.settings.main_title }}</strong>
+        </h3>
+        <div class="author-date">
+          By {{ section.settings.author_name }} | {{ section.settings.publish_date }} |
+          {{ section.settings.publish_time }}
+        </div>
+
+        <div class="img_section">
+          {% if section.settings.hero_image %}
+            {{
+              section.settings.hero_image
+              | image_url: width: 1200
+              | image_tag: class: 'grid-image', alt: 'Hero Image'
+            }}
+          {% endif %}
+        </div>
+
+        <div class="intro-text">
+          {{ section.settings.intro_text }}
+        </div>
+      </div>
+    </div>
+
+    <div class="product-sidebar">
+      <div class="product-card">
+        <div class="recommended">
+          <p>Recommended:</p>
+          <div class="rating">
+            <div class="stars">★★★★★</div>
+            <div class="rating-count">
+              {{ section.settings.rating_stars }} | {{ section.settings.rating_count }} Reviews
+            </div>
+          </div>
+        </div>
+
+        <div class="product-info">
+          {% if section.settings.logo_image %}
+            {{
+              section.settings.logo_image
+              | image_url: width: 200
+              | image_tag: class: 'logo_icon_right_side', alt: 'Logo'
+            }}
+          {% endif %}
+          <h2 class="product-title_text_logo">
+            <strong>{{ section.settings.product_title }}</strong>
+          </h2>
+          {% if section.settings.product_image %}
+            {{
+              section.settings.product_image
+              | image_url: width: 600
+              | image_tag: class: 'product-image', alt: section.settings.product_title
+            }}
+          {% endif %}
+        </div>
+
+        <div class="features">
+          {% for block in section.blocks %}
+            {% if block.type == 'feature' %}
+              <div class="feature-item">
+                {% if block.settings.check_icon %}
+                  {{ block.settings.check_icon | image_url: width: 20 | image_tag: alt: 'Check' }}
+                {% endif %}
+                <p>{{ block.settings.feature_text }}</p>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+
+        <a href="{{ section.settings.link_product }}" class="cta-button">Check Availability 👉</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="sticky-cta-container" id="sticky-cta">
+    <a href="{{ section.settings.link_product }}" class="cta-button">CLICK TO APPLY DISCOUNT & CHECK AVAILABILITY 👉</a>
+  </div>
+
+
+ <div class="">
+
+  
+  {% for block in section.blocks %}
+    {% if block.type == 'reason' %}
+      <div class="container feature_section_container_custom">
+        <div class="feature-section">
+          <div class="feature-image">
+            {% if block.settings.reason_image %}
+              {{ block.settings.reason_image | image_url: width: 600 | image_tag: alt: block.settings.reason_title }}
+            {% endif %}
+          </div>
+          <div class="feature-content">
+            <h3 class="heading">
+              <strong style="color: rgb(30, 29, 29);">{{ block.settings.reason_title }}</strong>
+            </h3>
+            {{ block.settings.reason_content }}
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+
+
+
+
+ </div>
+
+
+
+   
+  <div class="best-results-section">
+    <div class="best-results-content">
+      <h2>{{ section.settings.best_results_heading }}</h2>
+      <div class="mainbest-results">
+        <p>{{ section.settings.availability_text | replace: '[product]', section.settings.product_title }}</p>
+
+        <p class="special-offer">{{ section.settings.special_offer_text }}</p>
+
+        <div class="steps-container">
+          <div class="step">
+            <strong>Step 1:</strong>
+            {{ section.settings.step_1_text | replace: '[product]', section.settings.product_title }}
+          </div>
+
+          <div class="step"><strong>Step 2:</strong> {{ section.settings.step_2_text }}</div>
+
+          <div class="step">
+            <strong>Step 3:</strong>
+            {{ section.settings.step_3_text | replace: '[product]', section.settings.product_title }}
+          </div>
+        </div>
+
+        <p class="helpful-hint">{{ section.settings.helpful_hint_text }}</p>
+      </div>
+      <a href="{{ section.settings.link_product1 }}" class="cta-button special">{{ section.settings.cta_button_text }}</a>
+    </div>
+  </div>
+
+  <footer class="disclaimer-section">
+    <div class="copyright">
+      {{ 'now' | date: '%Y' }}
+      {{ section.settings.company_name }}. All Rights Reserved.
+      <a href="{{ section.settings.privacy_policy_url }}">Privacy Policy</a> |
+      <a href="{{ section.settings.terms_url }}">Terms of Service</a>
+    </div>
+    <div class="disclaimer">{{ section.settings.disclaimer_text }}</div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const stickyCta = document.getElementById('sticky-cta');
+
+      window.addEventListener('scroll', function() {
+        if (window.scrollY > 600) {
+          stickyCta.classList.add('visible');
+        } else {
+          stickyCta.classList.remove('visible');
+        }
+      });
+    });
+  </script>
+
+  {% stylesheet %}
+    /* Include all your existing CSS here */
+    .heading_title_container {
+        background-color: black;
+        padding: 15px;
+        text-align: center;
+    }
+
+    .heading_title_text {
+        color: white;
+        margin: 0;
+        font-size: 1.2rem;
+        font-weight: bold;
+    }
+
+    /* Add all other CSS styles from your style.css file */
+  {% endstylesheet %}
+</div>

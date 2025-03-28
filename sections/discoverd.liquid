@@ -1,0 +1,459 @@
+<style>
+  .product-feature {
+  padding: 60px 0;
+}
+
+.product-feature__container {
+  display: grid;
+  gap: 40px;
+  align-items: center;
+}
+
+@media screen and (min-width: 750px) {
+  .product-feature__container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.product-feature__content {
+  max-width: 600px;
+}
+
+.product-feature__kicker {
+  font-size: 1rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  color: var(--color-base-accent-1);
+}
+
+.product-feature__title {
+  font-size: 2.5rem;
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+
+.product-feature__description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+.product-feature__blocks {
+  margin: 2rem 0;
+}
+
+.feature-block {
+  border: 1px solid rgba(var(--color-base-text), 0.1);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.feature-block__header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.feature-block__icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 1rem;
+  flex-shrink: 0;
+}
+
+.feature-block__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.feature-block__title {
+  flex-grow: 1;
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.feature-block__toggle {
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+}
+
+.feature-block.expanded .feature-block__toggle {
+  transform: rotate(180deg);
+}
+
+.feature-block__content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  padding: 0 1rem;
+}
+
+.feature-block.expanded .feature-block__content {
+  padding: 0 1rem 1rem;
+}
+
+.product-feature__testimonials {
+  margin: 2rem 0;
+  display: grid;
+  gap: 1rem;
+}
+
+@media screen and (min-width: 750px) {
+  .product-feature__testimonials {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.testimonial-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.testimonial-item__image {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.testimonial-item__name {
+  font-weight: 600;
+  margin: 0;
+}
+
+.testimonial-item__subtitle {
+  color: rgba(var(--color-base-text), 0.7);
+  margin: 0.25rem 0 0;
+}
+
+.product-feature__certifications {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.certification-image {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+.product-feature__button {
+  display: inline-block;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  background: #00c853;
+  color: white;
+  border-radius: 4px;
+  text-decoration: none;
+  margin: 1rem 0;
+  transition: background-color 0.3s ease;
+}
+
+.product-feature__button:hover {
+  background: #00b34a;
+}
+
+.product-feature__guarantee {
+  font-size: 0.9rem;
+  color: rgba(var(--color-base-text), 0.7);
+  margin: 0.5rem 0;
+}
+
+.product-feature__media {
+  position: relative;
+  width: 100%;
+}
+
+.product-feature__image {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+@media screen and (max-width: 749px) {
+  .product-feature {
+    padding: 40px 0;
+  }
+
+  .product-feature__title {
+    font-size: 2rem;
+  }
+
+  .product-feature__content {
+    order: 1;
+  }
+
+  .product-feature__media {
+    order: 0;
+  }
+}
+
+</style>
+
+{{ 'section-product-feature.css' | asset_url | stylesheet_tag }}
+
+<div class="product-feature">
+  <div class="product-feature__container page-width">
+    <div class="product-feature__content">
+      <h3 class="product-feature__kicker">{{ section.settings.kicker_text }}</h3>
+      <h2 class="product-feature__title">{{ section.settings.heading }}</h2>
+      <div class="product-feature__description">{{ section.settings.description }}</div>
+
+      <div class="product-feature__blocks">
+        {%- for block in section.blocks -%}
+          <div class="feature-block {% if block.settings.expanded %}expanded{% endif %}" {{ block.shopify_attributes }}>
+            <button class="feature-block__header" aria-expanded="false">
+              <div class="feature-block__icon">
+                {%- if block.settings.icon != blank -%}
+                  <img src="{{ block.settings.icon | img_url: '40x' }}" alt="{{ block.settings.title }}" loading="lazy">
+                {%- endif -%}
+              </div>
+              <h3 class="feature-block__title">{{ block.settings.title }}</h3>
+              <span class="feature-block__toggle">+</span>
+            </button>
+            <div class="feature-block__content">
+              {{ block.settings.content }}
+            </div>
+          </div>
+        {%- endfor -%}
+      </div>
+
+      {%- if section.settings.show_testimonials -%}
+        <div class="product-feature__testimonials">
+          {%- for block in section.blocks -%}
+            {%- if block.type == 'testimonial' -%}
+              <div class="testimonial-item" {{ block.shopify_attributes }}>
+                <img src="{{ block.settings.profile_image | img_url: '60x60', crop: 'center' }}" alt="{{ block.settings.name }}" class="testimonial-item__image">
+                <div class="testimonial-item__content">
+                  <p class="testimonial-item__name">{{ block.settings.name }}</p>
+                  <p class="testimonial-item__subtitle">{{ block.settings.subtitle }}</p>
+                </div>
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+
+      <div class="product-feature__certifications">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'certification' -%}
+            <img src="{{ block.settings.certification_image | img_url: '100x' }}" alt="{{ block.settings.certification_name }}" class="certification-image" {{ block.shopify_attributes }}>
+          {%- endif -%}
+        {%- endfor -%}
+      </div>
+
+      {%- if section.settings.show_button -%}
+        <a href="{{ section.settings.button_link }}" class="product-feature__button button button--primary">
+          {{ section.settings.button_text }}
+        </a>
+        <p class="product-feature__guarantee">{{ section.settings.guarantee_text }}</p>
+      {%- endif -%}
+    </div>
+
+    <div class="product-feature__media">
+      {%- if section.settings.image != blank -%}
+        <img
+          srcset="{%- if section.settings.image.width >= 165 -%}{{ section.settings.image | img_url: '165x' }} 165w,{%- endif -%}
+            {%- if section.settings.image.width >= 360 -%}{{ section.settings.image | img_url: '360x' }} 360w,{%- endif -%}
+            {%- if section.settings.image.width >= 535 -%}{{ section.settings.image | img_url: '535x' }} 535w,{%- endif -%}
+            {%- if section.settings.image.width >= 750 -%}{{ section.settings.image | img_url: '750x' }} 750w,{%- endif -%}
+            {%- if section.settings.image.width >= 1070 -%}{{ section.settings.image | img_url: '1070x' }} 1070w,{%- endif -%}
+            {%- if section.settings.image.width >= 1500 -%}{{ section.settings.image | img_url: '1500x' }} 1500w,{%- endif -%}"
+          src="{{ section.settings.image | img_url: '750x' }}"
+          sizes="(min-width: 750px) 50vw, 100vw"
+          alt="{{ section.settings.image.alt | escape }}"
+          loading="lazy"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          class="product-feature__image"
+        >
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg' }}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.querySelectorAll('.feature-block__header').forEach(button => {
+    button.addEventListener('click', () => {
+      const block = button.closest('.feature-block');
+      const content = block.querySelector('.feature-block__content');
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+      button.setAttribute('aria-expanded', !isExpanded);
+      block.classList.toggle('expanded');
+
+      if (isExpanded) {
+        content.style.maxHeight = null;
+      } else {
+        content.style.maxHeight = content.scrollHeight + 'px';
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Product Feature Figma",
+  "settings": [
+    {
+      "type": "text",
+      "id": "kicker_text",
+      "label": "Kicker text",
+      "default": "Discover Solderstick"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The World's Most Gravida Aliquet Cursus"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sed odio sit amet nibh vulputate cursus.</p>"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Main image"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_testimonials",
+      "label": "Show testimonials",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_button",
+      "label": "Show button",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "text",
+      "id": "guarantee_text",
+      "label": "Guarantee text",
+      "default": "30-Day Money Back Guarantee"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "feature",
+      "name": "Feature",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "icon",
+          "label": "Icon"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Feature Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content",
+          "default": "<p>Feature description goes here</p>"
+        },
+        {
+          "type": "checkbox",
+          "id": "expanded",
+          "label": "Expanded by default",
+          "default": false
+        }
+      ]
+    },
+    {
+      "type": "testimonial",
+      "name": "Testimonial",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "profile_image",
+          "label": "Profile image"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "Name",
+          "default": "Customer Name"
+        },
+        {
+          "type": "text",
+          "id": "subtitle",
+          "label": "Subtitle",
+          "default": "24.5K Subscribers"
+        }
+      ]
+    },
+    {
+      "type": "certification",
+      "name": "Certification",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "certification_image",
+          "label": "Certification image"
+        },
+        {
+          "type": "text",
+          "id": "certification_name",
+          "label": "Certification name"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Feature Figma",
+      "blocks": [
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "feature"
+        },
+        {
+          "type": "testimonial"
+        },
+        {
+          "type": "certification"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

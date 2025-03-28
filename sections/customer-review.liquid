@@ -1,0 +1,215 @@
+<div class="sectionSeven">
+	<div class="page-width">
+      {% if section.settings.title != blank %}
+        <div class="common_heading hide-mob">{{ section.settings.title }}</div>
+      {% endif %}
+      {% if section.settings.mobiletitle != blank %}
+        <div class="common_heading forMob">{{ section.settings.mobiletitle }}</div>
+      {% endif %}
+        
+        <div class="s7-review-media-row">
+        	<div class="s7-review-media-col">
+            	<img src="{{ section.settings.social_img1 | image_url:width:220 }}" width="220" height="48" alt="{{ section.settings.social_img1.alt }}" class="review-log review-log1">
+                <img src="{{ section.settings.widget_img1 | image_url:width:190 }}" width="200" height="38" alt="{{ section.settings.widget_img1.alt }}" class="review-star">
+            </div>
+            <div class="s7-review-media-col">
+            	<img src="{{ section.settings.social_img2 | image_url:width:220 }}" width="220" height="48" alt="{{ section.settings.social_img2.alt }}" class="review-log review-log2">
+                <img src="{{ section.settings.widget_img2 | image_url:width:190 }}" width="190" height="40" alt="{{ section.settings.widget_img2.alt }}" class="review-star">
+            </div>
+            <div class="s7-review-media-col">
+            	<img src="{{ section.settings.social_img3 | image_url:width:220 }}" width="220" height="48" alt="{{ section.settings.social_img3.alt }}" class="review-log review-log3">
+                <img src="{{ section.settings.widget_img3 | image_url:width:190 }}" width="190" height="40" alt="{{ section.settings.widget_img3.alt }}" class="review-star">
+            </div>
+        </div>
+        
+        <div class="s7-review-row">
+            {% for block in section.blocks %}
+               {% if block.settings.image != blank or block.settings.review_text != blank %}
+        	<div class="s7-review-col {% if forloop.index > 4 %}hide-review{% endif %}">
+
+              {% if block.settings.image != blank %}
+            	<img src="{{ block.settings.image | image_url:width:252 }}" width="252" height="164" alt="img" class="s7-review-col-img">
+              {% endif %} 
+                <div class="s7-review-content">
+                	<p class="s7-review-col-text1">{{ block.settings.text }}</p>
+                  {% if block.settings.show_verifited_tag %}
+                    <p class="s7-review-col-vrfy"><img src="https://cdn.shopify.com/s/files/1/0750/2325/3792/files/vrfy-tick.png?v=1724507432" width="26" height="26" alt="icn" class="vrfy-tick">Verified Buyer</p>
+                    {% endif %}
+                    <img src="https://cdn.shopify.com/s/files/1/0750/2325/3792/files/review-star_48e43eeb-e8f1-41cf-94af-0654e837e4ea.png?v=1724508072" width="190" height="40" alt="log" class="s7-review-col-star">
+                    {% if block.settings.review_text != blank %}
+                      <div class="s7-review-col-text2">{{ block.settings.review_text }}</div>
+                    {% endif %}
+                </div>
+            </div>
+                   {% endif %} 
+            {% endfor %}
+        </div>
+         
+        <a href="javascript:void(0);" class="load-more">{{ section.settings.view_more_review }}</a>
+        
+        <div class="clearall"></div>
+         <div class="common-button__box">
+      {% if section.settings.sub_title != blank %}
+        <div class="selefast {% if section.settings.border %}border{% endif %}">
+          <img
+            src="{{ section.settings.subtitleimage | image_url:width:10 }}"
+            width=""
+            height=""
+            alt="{{ section.settings.image.alt }}"
+          >
+          {{ section.settings.sub_title }}
+        </div>
+      {% endif %}
+      {% if section.settings.button != blank %}
+        <a href="{{ section.settings.button_link }}" class="common-button">{{ section.settings.button }}</a>
+      {% endif %}
+      {% if section.settings.caption != blank or section.settings.captionimage != blank %}
+        <p class="money-bk-btn-text">
+          <img
+            src="{{ section.settings.captionimage | image_url:width:50 }}"
+            width=""
+            height=""
+            alt="{{ section.settings.captionimage.alt }}"
+          >
+          {{- section.settings.caption }}
+        </p>
+      {% endif %}
+    </div>
+        
+    </div>
+</div>
+{% schema %}
+  {
+    "name": "Customer Reviews",
+    "settings": [
+        {
+          "type":"richtext",
+          "id":"title",
+          "label":"Title"
+        },
+         {
+          "type":"richtext",
+          "id":"mobiletitle",
+          "label":"Mobile Title"
+        },
+        {
+          "type":"header",
+          "content":"Social Widgets"
+        },
+      {
+        "type":"image_picker",
+        "id":"social_img1",
+        "label":"Social Logo 1" 
+      },
+      {
+        "type":"image_picker",
+        "id":"widget_img1",
+        "label":"Rating Image 1"
+      },
+      {
+        "type":"image_picker",
+        "id":"social_img2",
+        "label":"Social Logo 2"
+      },
+      {
+        "type":"image_picker",
+        "id":"widget_img2",
+        "label":"Rating Image 2"
+      },
+      {
+        "type":"image_picker",
+        "id":"social_img3",
+        "label":"Social Logo 3"
+      },
+      {
+        "type":"image_picker",
+        "id":"widget_img3",
+        "label":"Rating Image 3"
+      },
+      {
+        "type":"header",
+        "content":"Rewiew Block"
+      },
+      {
+        "type":"text",
+        "id":"view_more_review",
+        "label":"View More review Button text",
+        "default":"Read More Reviews"
+      },
+              {
+    "type":"header",
+    "content":"Bottom Content"
+  },
+  {
+    "type":"richtext",
+    "id":"sub_title",
+    "label":"Sub Title"
+  },
+           {
+        "type":"checkbox",
+        "id":"border",
+        "label":"Show Border",
+        "default":false
+      },
+  {
+    "type":"image_picker",
+    "id":"subtitleimage",
+    "label":"Sub Title Logo"
+  },
+  {
+    "type":"text",
+    "id":"button",
+    "label":"Button"
+  },
+  {
+    "type":"url",
+    "id":"button_link",
+    "label":"Link"
+  },
+  {
+    "type":"text",
+    "id":"caption",
+    "label":"Caption"
+  },
+  {
+    "type":"image_picker",
+    "id":"captionimage",
+    "label":"Caption Image"
+  }
+    ],
+    "blocks": [
+      {
+        "type":"review",
+        "name":"Review",
+        "settings":[
+          {
+            "type":"image_picker",
+            "id":"image",
+            "label":"Image"
+          },
+          {
+            "type":"text",
+            "id":"text",
+            "label":"Reviewer Name"
+          },
+          {
+            "type":"checkbox",
+            "id":"show_verifited_tag",
+            "label":"Verified Tag",
+            "default":true
+          },
+          {
+            "type":"richtext",
+            "id":"review_text",
+            "label":"Text"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name":"Customer Reviews"
+      }
+    ]
+  }
+{% endschema %}

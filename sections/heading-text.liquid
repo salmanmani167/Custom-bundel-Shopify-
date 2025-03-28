@@ -1,0 +1,53 @@
+<div class="HEading-main" style="background-color: {{ section.settings.bg_color }};">
+  <div class="heading-ps">
+    <h2 style="padding-bottom: unset !important">{{ section.settings.heading-PS }}</h2>
+    <h2 style="padding-top: unset !important">{{ section.settings.heading-PS_1 }}</h2>
+  </div>
+</div>
+<style>
+.heading-ps h2{
+      margin: 0;
+    font-size: 55px;
+    color: white;
+    font-weight: 900;
+    text-align: center;
+  line-height: 56px;
+  padding: 5px 0px;
+}
+
+
+
+
+
+  
+</style>
+{% schema %}                      
+  {
+    "name": "Heading",
+    "class": "heading-Ps",
+    "settings": [
+      { 
+        "type": "text",
+        "id": "heading-PS",
+        "label": "Heading"
+      },
+       { 
+        "type": "text",
+        "id": "heading-PS_1",
+        "label": "Heading"
+      },
+      {
+        "type": "color",
+        "id": "bg_color",
+        "label": "Background Color",
+        "default": "#ffffff"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Heading",
+        "category": "ADVANCED LAYOUT"
+      }
+    ]
+  }
+{% endschema %}

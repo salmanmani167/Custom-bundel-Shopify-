@@ -1,0 +1,161 @@
+<style>
+    .discount-bar {
+        background-color: {{ section.settings.bg_color }};
+        color: {{ section.settings.text_color }};
+        text-align: center;
+        padding: 10px;
+        font-size: {{ section.settings.font_size }}px;
+        font-weight: bold;
+        border-radius: {{ section.settings.border_radius }}px;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        animation: fadeIn 1s ease-in-out;
+    }
+    .timer {
+        color: {{ section.settings.timer_color }};
+        font-size: {{ section.settings.timer_font_size }}px;
+        font-weight: bold;
+    }
+  .discount-bar{
+    border-radius:0!Important;
+  }
+    .timer-icon {
+        width: 17px;
+        height: 17px;
+        vertical-align: middle;
+       
+    margin-left: 3px;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+  .timer{
+   font-size:21px!Important; 
+  }
+</style>
+
+<div class="discount-bar">
+    {{ section.settings.message }}
+    {% if section.settings.timer_icon %}
+        <img src="{{ section.settings.timer_icon | img_url: '30x30' }}" alt="Timer Icon" class="timer-icon">
+    {% endif %}
+    <span class="timer" id="countdown"></span>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let endDate = "{{ section.settings.end_date }}";
+        let endTime = "{{ section.settings.end_time }}";
+
+        if (!endDate) {
+            let today = new Date();
+            let yyyy = today.getFullYear();
+            let mm = String(today.getMonth() + 1).padStart(2, '0');
+            let dd = String(today.getDate()).padStart(2, '0');
+            endDate = `${yyyy}-${mm}-${dd}`;
+        }
+
+        let saleEndTime = new Date(`${endDate}T${endTime}`).getTime();
+        let countdownElement = document.getElementById("countdown");
+
+        function updateCountdown() {
+            let now = new Date().getTime();
+            let timeLeft = saleEndTime - now;
+
+            if (timeLeft > 0) {
+                let hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                let minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                let seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+
+                countdownElement.textContent =
+                    (hours < 10 ? "0" : "") + hours + ":" +
+                    (minutes < 10 ? "0" : "") + minutes + ":" +
+                    (seconds < 10 ? "0" : "") + seconds;
+
+                setTimeout(updateCountdown, 1000);
+            } else {
+                countdownElement.textContent = "Sale Ended!";
+            }
+        }
+
+        updateCountdown();
+    });
+</script>
+
+{% schema %}
+{
+    "name": "Sale Countdown Timer",
+    "settings": [
+        {
+            "type": "text",
+            "id": "message",
+            "label": "Message",
+            "default": "Sale Ends In:"
+        },
+        {
+            "type": "text",
+            "id": "end_date",
+            "label": "End Date (YYYY-MM-DD)",
+            "default": "2025-03-10"
+        },
+        {
+            "type": "text",
+            "id": "end_time",
+            "label": "End Time (HH:MM:SS, 24-hour format)",
+            "default": "23:59:59"
+        },
+        {
+            "type": "image_picker",
+            "id": "timer_icon",
+            "label": "Timer Icon"
+        },
+        {
+            "type": "color",
+            "id": "bg_color",
+            "label": "Background Color",
+            "default": "#e74c3c"
+        },
+        {
+            "type": "color",
+            "id": "text_color",
+            "label": "Text Color",
+            "default": "#ffffff"
+        },
+        {
+            "type": "color",
+            "id": "timer_color",
+            "label": "Timer Color",
+            "default": "#ffff00"
+        },
+        {
+            "type": "range",
+            "id": "font_size",
+            "label": "Font Size",
+            "min": 12,
+            "max": 30,
+            "default": 18
+        },
+        {
+            "type": "range",
+            "id": "timer_font_size",
+            "label": "Timer Font Size",
+            "min": 12,
+            "max": 40,
+            "default": 24
+        },
+        {
+            "type": "range",
+            "id": "border_radius",
+            "label": "Border Radius",
+            "min": 0,
+            "max": 30,
+            "default": 10
+        }
+    ],
+    "presets": [
+        {
+            "name": "Sale Countdown Timer"
+        }
+    ]
+}
+{% endschema %}

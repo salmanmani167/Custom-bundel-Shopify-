@@ -1,0 +1,309 @@
+<div class="slider__content-items">
+  {% if section.settings.content != blank %}
+      <div class="slider__content-header">
+          {{ section.settings.content }}
+
+          {% if section.settings.img != blank %}
+              <img src="{{ section.settings.img | img_url: 'master' }}">
+          {% endif %}
+      </div>
+  {% endif %}
+
+  {% if section.blocks.size > 0 %}
+      <div class="slider__content-inner-items">
+          <div class="slider__content-row-items slider-testimonial-{{ section.id}}">
+              {% for block in section.blocks %}
+                  <div style="background-color: {{ block.settings.bgcolor }}; color: {{ block.settings.tcolor }};" class="slider__content-col-items">
+
+                      {% if block.settings.pretitle != blank or block.settings.title != blank or block.settings.content != blank %}
+                          <div class="slider__content-text">
+                              {% if block.settings.rating > 0 %}
+                                  <div class="slider__content-rating">
+                                      {% case block.settings.rating %}
+                                          {% when 5 %}
+                                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2500 468.75"><g data-name="Layer 2"><g data-name="Layer 1"><path d="M0 0h468.75v468.75H0Zm507.81 0h468.75v468.75H507.81Zm507.81 0h468.76v468.75h-468.76Zm507.82 0h468.75v468.75h-468.75Zm507.81 0H2500v468.75h-468.75Z" style="fill:#00b67a"/><path d="m234.38 315.92 71.28-18.07 29.79 91.8Zm164.06-118.65H273L234.38 79.1 195.8 197.27H70.31l101.56 73.24-38.57 118.16 101.56-73.24 62.5-44.92Zm343.75 118.65 71.29-18.07 29.78 91.8Zm164.06-118.65H780.76L742.19 79.1l-38.58 118.17H578.13l101.56 73.24-38.58 118.16 101.57-73.24 62.5-44.92ZM1250 315.92l71.29-18.07 29.78 91.8Zm164.06-118.65h-125.49L1250 79.1l-38.57 118.17h-125.49l101.56 73.24-38.57 118.16 101.56-73.24 62.5-44.92Zm343.75 118.65 71.29-18.07 29.79 91.8Zm164.07-118.65h-125.49L1757.81 79.1l-38.57 118.17h-125.49l101.56 73.24-38.57 118.16 101.56-73.24 62.5-44.92Zm343.74 118.65 71.29-18.07 29.79 91.8Zm164.07-118.65H2304.2L2265.62 79.1l-38.57 118.17h-125.49l101.56 73.24-38.57 118.16 101.56-73.24 62.5-44.92Z" style="fill:#fff"/></g></g></svg>
+
+                                          {% when 4 %}
+                                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1992.19 468.75"><g data-name="Layer 2"><g data-name="Layer 1"><path d="M0 0h468.75v468.75H0Zm507.81 0h468.75v468.75H507.81Zm507.81 0h468.75v468.75h-468.75Zm507.82 0h468.75v468.75h-468.75Z" style="fill:#00b67a"/><path d="m234.37 315.92 71.29-18.07 29.79 91.8Zm164.07-118.65H273L234.37 79.1 195.8 197.27H70.31l101.56 73.24-38.57 118.16C211 332.61 321 253.59 398.44 197.27Zm343.75 118.65 71.29-18.07 29.78 91.8Zm164.06-118.65H780.76L742.19 79.1l-38.58 118.17H578.13l101.56 73.24-38.58 118.16c77.68-56.06 187.68-135.08 265.14-191.4ZM1250 315.92l71.29-18.07 29.78 91.8Zm164.06-118.65h-125.49L1250 79.1l-38.57 118.17h-125.49l101.56 73.24-38.57 118.16c77.67-56.06 187.67-135.08 265.13-191.4Zm343.75 118.65 71.29-18.07 29.79 91.8Zm164.07-118.65h-125.49L1757.81 79.1l-38.57 118.17h-125.49l101.56 73.24-38.57 118.16c77.67-56.06 187.68-135.08 265.14-191.4Z" style="fill:#fff"/></g></g></svg>
+                                          {% when 3 %}
+                                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1484.37 468.75"><g data-name="Layer 2"><g data-name="Layer 1"><path d="M0 0h468.75v468.75H0Zm507.81 0h468.75v468.75H507.81Zm507.81 0h468.75v468.75h-468.75Z" style="fill:#00b67a"/><path d="m234.37 315.92 71.29-18.07 29.79 91.8Zm164.07-118.65H273L234.37 79.1 195.8 197.27H70.31l101.56 73.24-38.57 118.16C211 332.61 321 253.59 398.44 197.27Zm343.75 118.65 71.29-18.07 29.78 91.8Zm164.06-118.65H780.76L742.19 79.1l-38.58 118.17H578.13l101.56 73.24-38.58 118.16c77.68-56.06 187.68-135.08 265.14-191.4ZM1250 315.92l71.29-18.07 29.78 91.8Zm164.06-118.65h-125.49L1250 79.1l-38.57 118.17h-125.49l101.56 73.24-38.57 118.16c77.67-56.06 187.67-135.08 265.13-191.4Z" style="fill:#fff"/></g></g></svg>
+                                          {% when 2 %}
+                                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 976.56 468.75"><g data-name="Layer 2"><g data-name="Layer 1"><path d="M0 0h468.75v468.75H0Zm507.81 0h468.75v468.75H507.81Z" style="fill:#00b67a"/><path d="m234.37 315.92 71.29-18.07 29.79 91.8Zm164.07-118.65H273L234.37 79.1 195.8 197.27H70.31l101.56 73.24-38.57 118.16C211 332.61 321 253.59 398.44 197.27Zm343.75 118.65 71.29-18.07 29.78 91.8Zm164.06-118.65H780.76L742.19 79.1l-38.58 118.17H578.13l101.56 73.24-38.58 118.16c77.68-56.06 187.68-135.08 265.14-191.4Z" style="fill:#fff"/></g></g></svg>
+                                          {% when 1 %}
+                                              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 468.75 468.75"><g data-name="Layer 2"><g data-name="Layer 1"><path d="M0 0h468.75v468.75H0z" style="fill:#00b67a"/><path d="m234.37 315.92 71.29-18.07 29.79 91.8Zm164.07-118.65H273L234.37 79.1 195.8 197.27H70.31l101.56 73.24-38.57 118.16C211 332.61 321 253.59 398.44 197.27Z" style="fill:#fff"/></g></g></svg>
+                                      {% endcase %}
+                                  </div>
+                              {% endif %}
+
+                              {% if block.settings.content != blank %}
+                                  <div class="slider__content-description">
+                                      {{ block.settings.content }}
+                                  </div>
+                              {% endif %}
+
+                              {% if block.settings.author != blank %}
+                                  <div class="slider__content-author">
+                                      <p>{{ block.settings.author }}</p>
+                                  </div>
+                              {% endif %}
+
+                          </div>
+                      {% endif %}
+                  </div>
+              {% endfor %}
+          </div>
+      </div>
+  {% endif %}
+  {% if section.settings.btntext != blank %}
+  <div class="view__all-button">
+      <a href="{{ section.settings.btnurl }}">{{ section.settings.btntext }}</a>
+  </div>
+  {% endif %}
+</div>
+<style>
+  #shopify-section-{{ section.id }}{
+      border-bottom: 1px solid #000;
+      overflow: hidden;
+      padding: 46px 30px;
+      background-color: {{ section.settings.bgcolor }};
+  }
+
+  #shopify-section-{{ section.id }} .slider__content-header {
+      margin-bottom: 20px;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content-header p,
+  #shopify-section-{{ section.id }} .slider__content-header {
+      line-height: 1.2;
+      font-weight: 600;
+      text-align: center;
+      font-family: 'Sora', sans-serif !important;
+      font-size: 24px;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content-header p{
+      margin-bottom: 9px;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content-header strong{
+      color: #F2542C;
+      font-weight: 600;
+  }
+
+  #shopify-section-{{ section.id }} .slick-dots li button:before{
+      font-size: 8px;
+  }
+
+  #shopify-section-{{ section.id }} .slick-dotted.slick-slider{
+      margin-bottom: 0;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content-row-items .slick-list {
+      padding: 0 !important;
+  }
+
+  #shopify-section-{{ section.id }} .slick-dots{
+      position: relative;
+      bottom: -8px;
+  }
+
+  #shopify-section-{{ section.id }} .slick-dots li {
+      margin: 0;
+  }
+
+  #shopify-section-{{ section.id }} .slick-slider .slick-track {
+      display: flex;
+      column-gap: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .slick-slider .slick-slide{
+      height: inherit !important;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content-text {
+      text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content-text h4{
+      padding: 0;
+      font-size: 14px;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content-text h3{
+      margin-bottom: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      text-transform: inherit;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content-rating {
+      margin-bottom: 6px;
+      width: 80px;
+      margin-left: auto;
+      margin-right: auto;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content-text .slider__content-description,
+  #shopify-section-{{ section.id }} .slider__content-text .slider__content-description p{
+      font-size: 24px;
+      font-weight: 600;
+      line-height: 1.2;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content-text .slider__content-description p{
+      margin-bottom: 10px;
+  }
+
+
+  #shopify-section-{{ section.id }} .slider__content-author p {
+      margin: 0;
+      font-size: 14px;
+      font-weight: bold;
+  }
+
+  #shopify-section-{{ section.id }} .slider__content-items{
+      max-width: 1160px;
+      margin-left: auto;
+      margin-right: auto;
+  }
+
+
+  @media (min-width: 1025px){
+    #shopify-section-{{ section.id }} .slider__content-row-items{
+        display: grid;
+        column-gap: 50px;
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    #shopify-section-{{ section.id }} .view__all-button a{
+        margin-top: 28px;
+    }
+
+}
+
+
+  @media (max-width: 768px){
+      #shopify-section-{{ section.id }}{
+          padding: 42px 14px;
+      }
+      #shopify-section-{{ section.id }} .slider__content-header{
+          font-size: 24px;
+      }
+
+      #shopify-section-{{ section.id }} .slider__content-row-items .slick-list {
+          padding: 0 !important;
+          overflow: visible !important;
+      }
+
+      #shopify-section-{{ section.id }} .slider__content-author p {
+        font-size: 14px;
+      }
+
+
+  }
+</style>
+<script>
+  if( window.innerWidth < 1024){
+    $('.slider-testimonial-{{ section.id}}').slick({
+      dots: true,
+      arrows: false,
+      infinite: false,
+      slidesToShow: 3,
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            arrows: false,
+            slidesToShow: 3
+          }
+        },
+        {
+          breakpoint: 480,
+          settings: {
+            arrows: false,
+            slidesToShow: 1
+          }
+        }
+      ]
+    });
+}
+</script>
+
+{% schema %}
+{
+  "name": "Testimonial v2",
+  "class": "shopify-testimonial-v2",
+  "settings": [
+      {
+          "type": "richtext",
+          "id": "content",
+          "label": "Section title",
+          "info": "Please make the word bold if you want to highlight to show the highlight color",
+          "default": "<p>Lorem ipsum dolor <strong>sit amet</strong></p>"
+      },
+      {
+          "type": "color",
+          "id": "bgcolor",
+          "label": "Background color",
+          "default": "transparent"
+      }
+  ],
+  "blocks": [
+      {
+          "type": "testimonial",
+          "name": "Testimonials",
+          "settings": [
+              {
+                  "type": "color",
+                  "id": "bgcolor",
+                  "label": "Background color",
+                  "default": "transparent"
+              },
+              {
+                  "type": "color",
+                  "id": "tcolor",
+                  "label": "Text color",
+                  "default": "#000"
+              },
+              {
+                  "type": "range",
+                  "id": "rating",
+                  "label": "Rating",
+                  "default": 5,
+                  "min": 1,
+                  "max": 5
+              },
+              {
+                  "type": "richtext",
+                  "id": "content",
+                  "label": "Content",
+                  "default": "<p>Lorem ipsum dolor sit amet</p>"
+              },
+              {
+                  "type": "text",
+                  "id": "author",
+                  "label": "Author",
+                  "default": "John Doe - Verified Buyer"
+              }
+          ]
+      }
+  ],
+  "presets": [
+      {
+        "name": "Testimonial v2",
+        "category": "Text",
+        "blocks": [
+          {
+            "type": "testimonial"
+          },
+          {
+            "type": "testimonial"
+          },
+          {
+            "type": "testimonial"
+          }
+        ]
+      }
+  ]
+}
+{% endschema %}

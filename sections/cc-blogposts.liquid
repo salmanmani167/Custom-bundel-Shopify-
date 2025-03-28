@@ -1,0 +1,300 @@
+<div class="slider__content-items">
+    {% if section.settings.content != blank %}
+        <div class="slider__content-header">
+            {{ section.settings.content }}
+        </div>
+    {% endif %}
+
+    {% if section.settings.blog != blank %}
+        <div class="slider__content-inner-items">
+            <div class="slider__content-row-items slider-blog-{{ section.id}}">
+                {% for blog in section.settings.blog.articles limit: 4 %}
+                    <div class="slider__content-inner-blog">
+                        <div class="slider__content-container-inner">
+                            <a href="{{ blog.url }}">
+                            <div class="tag__blog">
+                                {% for tag in blog.tags %}
+                                    <span>{{ tag.title }}</span>
+                                {% endfor %}
+                            </div>
+                            <h3>{{ blog.title }}</h3>
+                            <div class="blog__excerpt">
+                                {{ blog.excerpt | truncate: 185}}
+                            </div>
+
+                            <div class="read__more">
+                                READ MORE
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="view__all-button">
+        <a href="{{ section.settings.blog.url }}">view more articles</a>
+    </div>
+</div>
+<style>
+    #shopify-section-{{ section.id }}{
+        border-bottom: 1px solid #000;
+        overflow: hidden;
+        padding: 50px 30px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-header p,
+    #shopify-section-{{ section.id }} .slider__content-header {
+        line-height: 1.2;
+        font-weight: 600;
+        text-align: center;
+        font-family: 'Sora', sans-serif !important;
+        font-size: 24px;
+        color: #000;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-container-inner h3{
+        font-family: 'Sora', sans-serif !important;
+        font-size: 22px;
+        line-height: 1.2;
+        text-transform: CAPITALIZE;
+        font-weight: 600;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-container-inner {
+        padding: 12px;
+        border: 1px solid #000;
+        width: 100%;
+        height: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-container-inner p{
+        color: #4d4d4d;
+    }
+
+    #shopify-section-{{ section.id }} .tag__blog span{
+        text-transform: UPPERCASE;
+        color: #808080;
+        font-size: 12px;
+        letter-spacing: 0.3em !important;
+    }
+
+    #shopify-section-{{ section.id }} .tag__blog{
+        margin-bottom: 10px;
+    }
+
+    #shopify-section-{{ section.id }} .blog__excerpt {
+        margin-bottom: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .blog__excerpt span,
+    #shopify-section-{{ section.id }} .blog__excerpt{
+        color: #4d4d4d;
+        font-size: 12px;
+        line-height: 1.2;
+        font-weight: 300;
+        font-family: 'Sora', sans-serif !important;
+    }
+
+    #shopify-section-{{ section.id }} .read__more{
+        color: #F2542C;
+        font-size: 16px;
+        font-family: 'Sora', sans-serif !important;
+        text-decoration: underline;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-container-inner a{
+        color: #4d4d4d;
+        text-decoration: none;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-header strong{
+        color: #F2542C;
+        font-weight: 600;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-col-items {
+        border: 1px solid #000;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text{
+        padding: 28px 14px;
+    }
+
+    #shopify-section-{{ section.id }} .slick-dots li button:before{
+        font-size: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-row-items .slick-list {
+        padding: 0 !important;
+    }
+
+    #shopify-section-{{ section.id }} .slick-dots{
+        position: relative;
+        bottom: -8px;
+    }
+
+    #shopify-section-{{ section.id }} .slick-dots li {
+        margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .slick-slider .slick-track {
+        display: flex;
+        column-gap: 14px;
+    }
+
+
+
+
+    #shopify-section-{{ section.id }} .slider__content-text {
+        text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text h4{
+        padding: 0;
+        font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text h3{
+        margin-bottom: 6px;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: inherit;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text .slider__content-description,
+    #shopify-section-{{ section.id }} .slider__content-text .slider__content-description p{
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text .slider__content-description p:last-child{
+        margin-bottom: 0px;
+    }
+
+    #shopify-section-{{ section.id }} .view__all-button a{
+        display: block;
+        padding: 18px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: UPPERCASE;
+        color: #F2542C;
+        background-color: transparent;
+        border: 1px solid #000;
+        width: 332px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        font-family: 'Sora', sans-serif !important;
+        text-decoration: none;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-img {
+        width: 100%;
+        height: 100%;
+        max-height: 120px;
+        padding: 16px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-img img {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        object-fit: contain;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #shopify-section-{{ section.id }} .border-bottom-img{
+        border-bottom: 1px solid #000;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-items{
+        max-width: 860px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    @media (max-width: 768px){
+        #shopify-section-{{ section.id }}{
+            padding: 38px 14px;
+        }
+
+    #shopify-section-{{ section.id }} .slick-slider .slick-slide{
+        height: inherit !important;
+    }
+        #shopify-section-{{ section.id }} .slider__content-header{
+            font-size: 24px;
+        }
+
+        #shopify-section-{{ section.id }} .view__all-button a{
+            width: 100%;
+        }
+
+        #shopify-section-{{ section.id }} .slider__content-row-items .slick-list {
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+        #shopify-section-{{ section.id }} .slider__content-container-inner {
+            padding: 14px;
+        }
+    }
+</style>
+<script>
+$('.slider-blog-{{ section.id}}').slick({
+    dots: true,
+    arrows: false,
+    infinite: false,
+    slidesToShow: 3,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false,
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          arrows: false,
+          slidesToShow: 1.25
+        }
+      }
+    ]
+  });
+
+</script>
+{% if blog.posts.metafields.seo.noindex %}
+    <meta name="robots" content="noindex, follow">
+{% endif %}
+{% schema %}
+{
+    "name": "Blog posts v2",
+    "class": "shopify-content-blog-postv2",
+    "settings": [
+        {
+            "type": "richtext",
+            "id": "content",
+            "label": "Section title",
+            "info": "Please make the word bold if you want to highlight to show the highlight color",
+            "default": "<p>Lorem ipsum dolor <strong>sit amet</strong></p>"
+        },
+        {
+            "type": "blog",
+            "id": "blog",
+            "label": "Blog"
+        }
+    ],
+    "presets": [
+        {
+          "name": "Blog posts v2",
+          "category": "Blog"
+        }
+    ]
+}
+{% endschema %}

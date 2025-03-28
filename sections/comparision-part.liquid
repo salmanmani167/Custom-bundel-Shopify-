@@ -1,0 +1,140 @@
+<div class="sectionFive comparision comparision-part">
+  <div class="page-width">
+    <div class="s5-inner">
+      <div class="s5-inner-left">
+        {% if section.settings.title != blank %}
+          <div class="common_heading ">{{ section.settings.title }}</div>
+        {% endif %}
+        {% if section.settings.subtitle != blank %}
+          <div class="common-text">{{ section.settings.subtitle }}</div>
+        {% endif %}
+        {% if section.settings.rightimage != blank %}
+          <div class="s5-inner-right forTab forMob">
+            <img
+              src="{{ section.settings.rightimage | image_url:width:960 }}"
+              width="960"
+              height="571"
+              alt="{{ section.settings.rightimage.alt }}"
+              class="s5-right-img"
+            >
+          </div>
+        {% endif %}
+
+        <div class="common-button__box">
+          {% if section.settings.sub_title != blank %}
+            <div class="selefast {% if section.settings.border %}border{% endif %}">
+              <img
+                src="{{ section.settings.subtitleimage | image_url:width:10 }}"
+                width=""
+                height=""
+                alt="{{ section.settings.image.alt }}"
+              >
+              {{- section.settings.sub_title }}
+            </div>
+          {% endif %}
+          {% if section.settings.button != blank %}
+            <a href="{{ section.settings.button_link }}" class="common-button">{{ section.settings.button }}</a>
+          {% endif %}
+          {% if section.settings.caption != blank or section.settings.captionimage != blank %}
+            <p class="money-bk-btn-text">
+              <img
+                src="{{ section.settings.captionimage | image_url:width:50 }}"
+                width=""
+                height=""
+                alt="{{ section.settings.captionimage.alt }}"
+              >
+              {{- section.settings.caption }}
+            </p>
+          {% endif %}
+        </div>
+      </div>
+      {% if section.settings.rightimage != blank %}
+        <div class="s5-inner-right forDesk">
+          <img
+            src="{{ section.settings.rightimage | image_url:width:960 }}"
+            width="960"
+            height="571"
+            alt="{{ section.settings.rightimage.alt }}"
+            class="s5-right-img"
+          >
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="clearall"></div>
+
+  
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Comparision Part",
+  "settings": [
+    {
+      "type":"header",
+      "content":"Top Content"
+    },
+          {
+      "type":"image_picker",
+      "id":"rightimage",
+      "label":"Right Image"
+    },
+    {
+      "type":"richtext",
+      "id":"title",
+      "label":"Title"
+    },
+     {
+      "type":"richtext",
+      "id":"subtitle",
+      "label":"Sub Text"
+    },
+    {
+      "type":"header",
+      "content":"Bottom Content"
+    },
+    {
+      "type":"richtext",
+      "id":"sub_title",
+      "label":"Sub Title"
+    },
+    {
+        "type":"checkbox",
+        "id":"border",
+        "label":"Show Border",
+        "default":false
+      },
+    {
+      "type":"image_picker",
+      "id":"subtitleimage",
+      "label":"Sub Title Logo"
+    },
+    {
+      "type":"text",
+      "id":"button",
+      "label":"Button"
+    },
+    {
+      "type":"url",
+      "id":"button_link",
+      "label":"Link"
+    },
+    {
+      "type":"text",
+      "id":"caption",
+      "label":"Caption"
+    },
+    {
+      "type":"image_picker",
+      "id":"captionimage",
+      "label":"Caption Image"
+    }
+  ],
+"presets": [
+  {
+    "name":"Comparision Part"
+  }
+]
+}
+{% endschema %}

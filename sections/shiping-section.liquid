@@ -1,0 +1,270 @@
+<div id="custom-countdown-section" class="custom-countdown-section" style="border: 4px solid {{ section.settings.heading_color }}; padding: 20px 15px; margin: {{ section.settings.top_margin }}% auto {{ section.settings.bottom_margin }}%;">
+  <h1 style="color: {{ section.settings.heading_color }}; font-size: {{ section.settings.heading_font_size }}px; font-weight: {{ section.settings.heading_font_weight }}; text-align: center; margin-bottom:30px;">
+    {{ section.settings.discount_text }}
+  </h1>
+  <div style="text-align: center;">
+    <a href="{{ section.settings.button_link }}" class="custom-button" style="text-decoration:none; background-color: {{ section.settings.button_bg_color }}; color: {{ section.settings.button_text_color }}; font-size: {{ section.settings.button_font_size }}px; font-weight: {{ section.settings.button_font_weight }}; padding: 16px 28px; border: 2px solid {{ section.settings.button_bg_color }}; border-radius: 6px;">
+      {{ section.settings.button_text }}
+    </a>
+  </div>
+  
+  <!-- Centered Sell-Out Risk and Free Shipping Section -->
+  <div class="centered-info" style="width: max-content;
+    margin: auto;
+    margin-top: 25px; border: 2px dotted {{ section.settings.heading_color }}; display: flex; align-items: center; justify-content: center; padding: 10px;">
+    <span style="color: {{ section.settings.sell_out_risk_label_color }}; font-weight: {{ section.settings.sell_out_risk_label_font_weight }}; margin-right: 5px;">
+      {{ section.settings.sell_out_risk_label }}
+    </span>
+    <span style="color: {{ section.settings.sell_out_risk_status_color }}; font-weight: {{ section.settings.sell_out_risk_status_font_weight }}; margin-right: 10px;">
+      {{ section.settings.sell_out_risk_status }}
+    </span>
+    <img src="https://cdn.shopify.com/s/files/1/0514/4343/3638/files/608075d5635b4eec46b538a8_mdi_truck-fast_b9bc7ea1-ce8f-4639-9507-67f4c5345dcc.svg?v=1735905643" alt="Free Shipping" style="height: 28px; vertical-align: middle; margin-right: 5px;">
+    <span style="color: {{ section.settings.free_shipping_color }}; font-weight: {{ section.settings.free_shipping_text_font_weight }};">
+      {{ section.settings.free_shipping_text }}
+    </span>
+  </div>
+  
+  <!-- Offer text and timer section -->
+  <div class="offer-timer-section" style="text-align: center; display: flex; flex-direction: column; align-items: center;">
+    <span style="color: {{ section.settings.timer_label_color }}; font-weight: {{ section.settings.timer_label_font_weight }}; margin-bottom: 10px; display: block;">
+      {{ section.settings.timer_label }}
+    </span>
+    <div id="countdown-timer" style="color: {{ section.settings.timer_text_color }}; font-size: 24px; display: block;"></div>
+  </div>
+  
+  <!-- Date Section -->
+  <div id="current-date" class="current-date" style="text-align: center; margin-top: 10px; color: {{ section.settings.heading_color }};">
+    {{ 'now' | date: "%a %b %d %Y" }}
+  </div>
+</div>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const timerDuration = {{ section.settings.timer_duration }} * 60; // Convert minutes to seconds
+    const countdownTimer = document.getElementById("countdown-timer");
+    const currentDate = document.getElementById("current-date");
+    let remainingTime = timerDuration;
+
+    // Function to update the timer
+    function updateTimer() {
+      const minutes = Math.floor(remainingTime / 60);
+      const seconds = remainingTime % 60;
+      countdownTimer.textContent = `${minutes}m ${seconds}s`;
+
+      if (remainingTime > 0) {
+        remainingTime--;
+        setTimeout(updateTimer, 1000);
+      } else {
+        countdownTimer.textContent = "Expired";
+        currentDate.style.display = "none"; // Hide the date div when the timer expires
+      }
+    }
+
+    // Ensure countdown works only if timerDuration is greater than 0
+    if (timerDuration > 0) {
+      updateTimer();
+    } else {
+      countdownTimer.textContent = "Timer not set";
+    }
+  });
+</script>
+
+<style>
+   /* Styles for mobile */
+  @media (max-width: 767px) {
+    .custom-countdown-section h1{
+      font-size: 28px !important;
+    }
+  }
+  /* Styles for desktop */
+  @media (min-width: 768px) {
+    .custom-countdown-section {
+      width: 50%;
+      margin: {{ section.settings.top_margin }}px auto {{ section.settings.bottom_margin }}px; /* Margin for desktop */
+    }
+  }
+
+  /* Styles for mobile */
+  @media (max-width: 767px) {
+    .custom-countdown-section {
+      width: 100%;
+      margin: {{ section.settings.top_margin }}px auto {{ section.settings.bottom_margin }}px; /* Margin for mobile */
+    }
+  }
+</style>
+
+
+
+
+
+
+{% schema %}
+{
+  "name": "Custom Countdown Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "discount_text",
+      "label": "Discount Text",
+      "default": "25% OFF EXCLUSIVE ONLINE SALE"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Get Your Blissy Now!"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_bg_color",
+      "label": "Button Background Color",
+      "default": "#28a745"
+    },
+    {
+      "type": "number",
+      "id": "button_font_size",
+      "label": "Button Font Size (px)",
+      "default": 16
+    },
+    {
+      "type": "text",
+      "id": "button_font_weight",
+      "label": "Button Font Weight",
+      "default": "bold"
+    },
+    {
+      "type": "text",
+      "id": "sell_out_risk_label",
+      "label": "Sell-out Risk Label",
+      "default": "Sell-out Risk:"
+    },
+    {
+      "type": "text",
+      "id": "sell_out_risk_status",
+      "label": "Sell-out Risk Status",
+      "default": "HIGH"
+    },
+    {
+      "type": "color",
+      "id": "sell_out_risk_label_color",
+      "label": "Sell-out Risk Label Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "sell_out_risk_status_color",
+      "label": "Sell-out Risk Status Color",
+      "default": "#ff0000"  // Red color
+    },
+    {
+      "type": "text",
+      "id": "sell_out_risk_label_font_weight",
+      "label": "Sell-out Risk Label Font Weight",
+      "default": "normal"
+    },
+    {
+      "type": "text",
+      "id": "sell_out_risk_status_font_weight",
+      "label": "Sell-out Risk Status Font Weight",
+      "default": "bold"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_text",
+      "label": "Free Shipping Text",
+      "default": "Free Shipping"
+    },
+    {
+      "type": "color",
+      "id": "free_shipping_color",
+      "label": "Free Shipping Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "free_shipping_text_font_weight",
+      "label": "Free Shipping Font Weight",
+      "default": "bold"
+    },
+    {
+      "type": "text",
+      "id": "timer_label",
+      "label": "Timer Label",
+      "default": "OFFER EXPIRES IN:"
+    },
+    {
+      "type": "number",
+      "id": "timer_duration",
+      "label": "Timer Duration (minutes)",
+      "default": 15
+    },
+    {
+      "type": "color",
+      "id": "timer_label_color",
+      "label": "Timer Label Color",
+      "default": "#000000"
+    },
+    {
+      "type": "color",
+      "id": "timer_text_color",
+      "label": "Timer Text Color",
+      "default": "#ff0000"  // Red color
+    },
+    {
+      "type": "text",
+      "id": "timer_label_font_weight",
+      "label": "Timer Label Font Weight",
+      "default": "bold"
+    },
+    {
+      "type": "number",
+      "id": "heading_font_size",
+      "label": "Heading Font Size (px)",
+      "default": 24
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Color",
+      "default": "#000000"
+    },
+    {
+      "type": "text",
+      "id": "heading_font_weight",
+      "label": "Heading Font Weight",
+      "default": "bold"
+    },
+    {
+      "type": "number",
+      "id": "top_margin",
+      "label": "Top Margin (%)",
+      "default": 2
+    },
+    {
+      "type": "number",
+      "id": "bottom_margin",
+      "label": "Bottom Margin (%)",
+      "default": 2
+    }
+  ],
+  "presets": [
+    {
+      "name": "Custom Countdown Section"
+    }
+  ]
+}
+
+{% endschema %}

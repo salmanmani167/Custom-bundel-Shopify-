@@ -1,0 +1,137 @@
+<div class="sectionEight {{ section.id }}">
+  <style>.sectionEight.{{ section.id }} { background-color:{{ section.settings.bg_color }} }</style>
+    <div class="page-width">
+      {% if section.settings.title != blank %}
+        <div class="common_heading">{{ section.settings.title }}</div>
+      {% endif %}
+        
+        <div class="faq-box">
+             {% for block in section.blocks %}
+                 {% if  block.settings.content != blank or block.settings.content != blank %}
+        	<div class="faq-row">
+            {% if block.settings.text != blank %}<div class="accordion acdn-heading">   {{ block.settings.text }}</div>             {% endif %}
+                {% if  block.settings.content != blank %}
+                  <div class="acdn-content {% if forloop.index == 1 %}accordion-open{% endif %}">
+                  {{ block.settings.content }}
+                  </div>
+                {% endif %}
+            </div>
+                {% endif %}    
+               {% endfor %}
+        </div>
+        
+        <div class="clearall"></div>
+        
+ <div class="common-button__box">
+      {% if section.settings.sub_title != blank %}
+        <div class="selefast {% if section.settings.border %}border{% endif %}">
+          <img
+            src="{{ section.settings.subtitleimage | image_url:width:10 }}"
+            width=""
+            height=""
+            alt="{{ section.settings.image.alt }}"
+          >
+          {{- section.settings.sub_title }}
+        </div>
+      {% endif %}
+      {% if section.settings.button != blank %}
+        <a href="{{ section.settings.button_link }}" class="common-button">{{ section.settings.button }}</a>
+      {% endif %}
+      {% if section.settings.caption != blank or section.settings.captionimage != blank %}
+        <p class="money-bk-btn-text">
+          <img
+            src="{{ section.settings.captionimage | image_url:width:50 }}"
+            width=""
+            height=""
+            alt="{{ section.settings.captionimage.alt }}"
+          >
+          {{- section.settings.caption }}
+        </p>
+      {% endif %}
+    </div>
+        
+    </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "Custom Faq",
+    "settings": [
+          {
+      "type":"color",
+      "id":"bg_color",
+      "label":"Background Color",
+      "default":"#f7f7f7"
+    },
+        {
+          "type":"richtext",
+          "id":"title",
+          "label":"Title"
+        },
+                    {
+    "type":"header",
+    "content":"Bottom Content"
+  },
+  {
+    "type":"richtext",
+    "id":"sub_title",
+    "label":"Sub Title"
+  },
+           {
+        "type":"checkbox",
+        "id":"border",
+        "label":"Show Border",
+        "default":false
+      },
+  {
+    "type":"image_picker",
+    "id":"subtitleimage",
+    "label":"Sub Title Logo"
+  },
+  {
+    "type":"text",
+    "id":"button",
+    "label":"Button"
+  },
+  {
+    "type":"url",
+    "id":"button_link",
+    "label":"Link"
+  },
+  {
+    "type":"text",
+    "id":"caption",
+    "label":"Caption"
+  },
+  {
+    "type":"image_picker",
+    "id":"captionimage",
+    "label":"Caption Image"
+  }
+    ],
+    "blocks": [
+      {
+        "type":"Faq",
+        "name":"Faq",
+        "settings":[
+          {
+            "type":"text",
+            "id":"text",
+            "label":"Question"
+          },
+          {
+            "type":"richtext",
+            "id":"content",
+            "label":"Answer"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name":"Custom Faq"
+      }
+    ]
+  }
+{% endschema %}

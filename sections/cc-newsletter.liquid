@@ -1,0 +1,205 @@
+<script
+    type="application/json"
+    data-section-type="newsletter"
+    data-section-id="{{ section.id }}"
+  >
+  </script>
+
+  {% include 'cc-include-newsletter' %}
+
+  <style>
+    #shopify-section-{{ section.id }}{
+      background-color: {{ section.settings.bgcolor }};
+      padding: 42px 24px;
+      position: relative;
+    }
+
+    #shopify-section-{{ section.id }} .section_form{
+      padding: 0px;
+      max-width: 732px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #shopify-section-{{ section.id }} .newsletter{
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .section_form  h2{
+      text-transform: inherit;
+      color: #212121;
+      font-family: 'Sora', sans-serif !important;
+      font-weight: 600;
+      font-size: 18px;
+      margin-bottom: 8px;
+      line-height: 1.2;
+      margin-top: unset;
+    }
+
+    #shopify-section-{{ section.id }} .newsletter_section{
+      background-color: transparent;
+      color: #212121;
+      padding: 0px;
+      font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .contact_email{
+      background-color: #e6e6e6;
+      border: 1px solid #B3B3B3;
+      color: #4d4d4d;
+      padding: 15px;
+      width: 100%;
+      margin-bottom: 15px;
+    }
+
+    #shopify-section-{{ section.id }} #contact_form input.newsletter-form__sign-up[type=submit]{
+      padding: 18px;
+      /* border: 1px solid #000000;
+      background-color: #f2542c; */
+      border-radius: 6px;
+      background: #00bd4c;
+      border:none;
+      font-size: 16px;
+      line-height: 1.2;
+      letter-spacing: 2px !important;
+      text-transform: UPPERCASE;
+      max-height: 100%;
+      margin-bottom: 8px;
+      width: 100%;
+      display: block;
+      margin-left: 0px;
+      color: white;
+    }
+
+    #shopify-section-{{ section.id }} .below__btn-text {
+      width: 100%;
+    }
+
+    #shopify-section-{{ section.id }} .below__btn-text p{
+      font-size: 12px;
+      text-align: center !important;
+      color: #808080;
+    }
+
+    #shopify-section-{{ section.id }} .below__btn-text p:last-child{
+      margin-bottom: 0px;
+    }
+
+
+
+    @media (max-width: 480px){
+      #shopify-section-{{ section.id }}{
+        padding: 20px 14px;
+      }
+
+      #shopify-section-{{ section.id }} .newsletter-text p{
+        font-size: 12px;
+      }
+
+      #shopify-section-{{ section.id }} .below__btn-text p{
+        font-size: 12px;
+      }
+
+
+    }
+  </style>
+
+  {% schema %}
+  {
+    "name": "Newsletter v2",
+    "class": "shopify-section--newsletter-v2",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "wide_display",
+        "label": "Wide display",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "display_first_name",
+        "label": "Show first name",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "display_last_name",
+        "label": "Show last name",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "newsletter_title",
+        "label": "Heading",
+        "default": "Subscribe"
+      },
+      {
+        "type": "richtext",
+        "id": "newsletter_text",
+        "label": "Subheading",
+        "default": "<p>Sign up to get the latest on sales, new releases and more …</p>"
+      },
+      {
+        "type": "richtext",
+        "id": "newsletter_btn_text",
+        "label": "Text below button",
+        "default": "<p>You can unsubscribe at any time</p>"
+      },
+      {
+        "type": "select",
+        "id": "newsletter_section_text_align",
+        "label": "Text alignment",
+        "default": "center",
+        "options": [
+            {
+            "value": "left",
+            "label": "Left"
+          },
+          {
+            "value": "center",
+            "label": "Center"
+          },
+          {
+            "value": "right",
+            "label": "Right"
+          }
+        ]
+      },
+      {
+        "type": "header",
+        "content": "Banner"
+      },
+      {
+        "type": "image_picker",
+        "id": "image",
+        "label": "Banner image",
+        "info": "1600 x 300px recommended"
+      },
+      {
+        "type": "image_picker",
+        "id": "mobile_image",
+        "label": "Mobile banner image",
+        "info": "Display a different image on mobile screens. This only appears when the desktop image is set."
+      },
+      {
+        "type": "header",
+        "content": "Styles"
+      },
+      {
+        "type": "color",
+        "id": "bgcolor",
+        "label": "Background color",
+        "default": "transparent"
+      }
+    ],
+    "presets": [{
+      "name": "Newsletter v2",
+      "category": "Promotional"
+    }],
+    "templates": [
+      "index",
+      "page"
+    ]
+  }
+
+  {% endschema %}

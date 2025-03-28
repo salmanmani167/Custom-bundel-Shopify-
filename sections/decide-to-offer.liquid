@@ -1,0 +1,197 @@
+{% schema %}
+{
+  "name": "Decide To Offer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "offer_heading",
+      "label": "Offer Heading",
+      "default": "They Decided to Offer a Special Limited-Time Discount and Let You Have Your Own OptiFuel at 50% OFF"
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product Image"
+    },
+    {
+      "type": "text",
+      "id": "old_price",
+      "label": "Old Price",
+      "default": "$59.90"
+    },
+    {
+      "type": "text",
+      "id": "new_price",
+      "label": "New Price",
+      "default": "$29.95"
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Get 50% Off OptiFuel Today"
+    },
+     {
+      "type": "text",
+      "id": "button_text1",
+      "label": "Button Text",
+      "default": "Get 50% Off OptiFuel Today"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "text_block",
+      "name": "Text Block",
+      "settings": [
+        {
+          "type": "textarea",
+          "id": "block_text",
+          "label": "Text",
+          "default": "This is the lowest price they’ll ever offer."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Decide To Offer",
+      "category": "Product",
+      "blocks": [
+        {
+          "type": "text_block"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="limited-offer">
+  <h2>{{ section.settings.offer_heading }}</h2>
+
+  {% if section.settings.product_image %}
+    <img src="{{ section.settings.product_image | image_url }}" alt="Product Image">
+  {% endif %}
+
+  {% if section.settings.old_price != blank %}
+  <p class="price">
+    <span class="old-price">{{ section.settings.old_price }}</span>
+    <span class="new-price">{{ section.settings.new_price }}</span>
+  </p>
+    {% endif %}
+
+  {% for block in section.blocks %}
+    <p class="offer-text">{{ block.settings.block_text }}</p>
+  {% endfor %}
+
+  <a href="{{ section.settings.button_link }}" class="offer-button">
+   <span class="button-top-text-decide">  {{ section.settings.button_text }}</span>  <br>
+    <span class="button-bottom-text-decide"> {{ section.settings.button_text1 }}</span>
+  </a>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+
+
+  .limited-offer {
+  margin: 30px 0px;
+    max-width:819px;
+}
+
+.limited-offer h2 {
+  font-size: 30px;
+  font-weight: 900;
+  line-height:36px;
+  margin:0px;
+  color: #000;
+}
+
+.limited-offer img {
+  width:100%;
+  margin: 10px auto;
+}
+
+.price {
+  font-size: 20px;
+  margin: 10px 0;
+  font-weight:400;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: red;
+  margin-right: 5px;
+}
+
+.new-price {
+  font-size: 24px;
+  font-weight: bold;
+  color: green;
+}
+
+.offer-text {
+  font-size: 20px;
+  margin: 30px 0;
+  font-weight:400;
+  line-height:normal;
+}
+
+.offer-text a{
+  color:#f37527;
+  font-weight:900;
+  line-height:normal;
+}
+  
+.offer-button {
+  background-color: #00bd4c;
+  color: white;
+  padding: 20px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 5px;
+  margin-top: 10px;
+  width: 100%;
+    display: block;
+    text-align: center;
+}
+.offer-button .button-top-text-decide{
+  font-size:30px;
+  font-weight:bold;
+}
+.offer-button .button-bottom-text-decide{
+  font-size:20px;
+  font-weight:bold;
+}
+
+
+
+
+  
+
+
+  
+</style>
+
+
+
+

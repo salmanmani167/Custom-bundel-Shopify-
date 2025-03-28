@@ -1,0 +1,129 @@
+{% schema %}
+    {
+      "name": "Bundle Builder",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Build Your Own Bundle"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "Mix and match cases of your favourite flavours to create a custom bundle."
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Bundle Products Collection"
+        }
+      ],
+      "presets": [
+        {
+          "name": "Bundle Builder",
+          "category": "Custom"
+        }
+      ]
+    }
+    {% endschema %}
+    
+    <div class="bundle-builder-section">
+      <div class="bundle-builder-container">
+        <div class="bundle-builder-header">
+          <h2 class="bundle-builder-title">{{ section.settings.heading }}</h2>
+          <p class="bundle-builder-subtitle">{{ section.settings.subheading }}</p>
+        </div>
+    
+        <div class="bundle-builder-content">
+          <div class="bundle-products-slider">
+            <button type="button" class="slider-button prev-button" aria-label="Previous">
+              <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+              </svg>
+            </button>
+            
+            <div class="bundle-products">
+              {% assign collection = collections[section.settings.collection] %}
+              {% for product in collection.products %}
+                <div class="bundle-product-card">
+                  <div class="product-image">
+                    <img src="{{ product.featured_image | img_url: '300x' }}" alt="{{ product.title }}">
+                  </div>
+                  <div class="product-info">
+                    <div class="product-vendor">{{ product.vendor }}</div>
+                    <h3 class="product-title">{{ product.title }}</h3>
+                    <div class="product-price">{{ product.price | money }}</div>
+                    <button type="button" class="add-to-bundle-btn"
+                      data-product-id="{{ product.id }}"
+                      data-variant-id="{{ product.variants.first.id }}"
+                      data-product-title="{{ product.title }}"
+                      data-product-price="{{ product.price }}"
+                      data-product-image="{{ product.featured_image | img_url: '300x' }}">
+                      ADD
+                    </button>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+    
+            <button type="button" class="slider-button next-button" aria-label="Next">
+              <svg width="24" height="24" viewBox="0 0 24 24">
+                <path d="M8.59 16.59L10 18l6-6-6-6-1.41 1.41L13.17 12z"/>
+              </svg>
+            </button>
+          </div>
+    
+          <div class="bundle-builder-sidebar">
+            <div class="bundle-summary">
+              <div class="bundle-rating">
+                <span class="stars">★★★★★</span>
+                <span class="reviews">175 Reviews</span>
+              </div>
+              <div class="bundle-shipping">Free Shipping on All Bundles!</div>
+              
+              <div class="bundle-options">
+                <div class="bundle-option active">
+                  <span class="option-quantity">2</span>
+                  <span class="option-text">Case</span>
+                </div>
+                <div class="bundle-option">
+                  <span class="option-quantity">4</span>
+                  <span class="option-text">Case</span>
+                </div>
+                <div class="bundle-option">
+                  <span class="option-quantity">6</span>
+                  <span class="option-text">Case</span>
+                </div>
+              </div>
+    
+              <div class="bundle-preview">
+                <div class="bundle-slots">
+                  {% for i in (1..2) %}
+                    <div class="bundle-slot empty">
+                      <div class="slot-remove">✕</div>
+                    </div>
+                  {% endfor %}
+                </div>
+                <div class="bundle-size">2 Case of 12 x 17 oz bot</div>
+                
+                <button type="button" class="add-to-cart-btn" disabled>
+                  ADD TO CART
+                  <span class="bundle-price">
+                    <span class="price-current">£304.20</span>
+                    <span class="price-original">£338.00</span>
+                  </span>
+                </button>
+              </div>
+    
+              <button type="button" class="add-more-btn">ADD 2 MORE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    {{ 'bundle-builder.css' | asset_url | stylesheet_tag }}
+    <script src="{{ 'bundle-builder.js' | asset_url }}" defer></script>
+    

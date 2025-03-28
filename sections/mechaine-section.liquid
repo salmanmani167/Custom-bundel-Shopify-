@@ -1,0 +1,63 @@
+{% schema %}
+{
+  "name": "Mechanic Story",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A mechanic from California who had found a way to beat high gas prices."
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Christian Reynolds, a 42-year-old mechanic from Bakersfield, a small town in California..."
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Upload Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Mechanic Story",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  .mechanic-section {
+    max-width: 819px;
+    margin:20px 0px 0px;
+  }
+  .mechanic-section h2 {
+    font-size: 30px;
+    line-height:36px;
+   margin:0px;
+    font-weight: 900;
+    line-height:normal;
+  }
+  .mechanic-section img {
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  .mechanic-section p {
+    font-size: 20px;
+    font-weight:400;
+    line-height:30px;
+    margin-top: 10px;
+  }
+</style>
+
+<section class="mechanic-section">
+  <h2>{{ section.settings.heading }}</h2>
+  {% if section.settings.image %}
+    <img src="{{ section.settings.image | img_url: 'large' }}" alt="Mechanic Image">
+  {% endif %}
+  <p>{{ section.settings.description }}</p>
+</section>

@@ -1,0 +1,683 @@
+<div class="sectionTwo">
+  <div class="page-width">
+    {% if section.settings.title != blank %}
+      <div class="common_heading hide-mob">{{ section.settings.title }}</div>
+    {% endif %}
+    {% if section.settings.mobiletitle != blank %}
+      <div class="common_heading forMob">{{ section.settings.mobiletitle }}</div>
+    {% endif %}
+    {% if section.settings.subtitle != blank %}
+      <div class="common-text hide-mob">{{ section.settings.subtitle }}</div>
+    {% endif %}
+    {% if section.settings.mobiolesubtitle != blank %}
+      <div class="common-text forMob">{{ section.settings.mobiolesubtitle }}</div>
+    {% endif %}
+
+    <div class="sec2_row">
+      <div class="sec2_col-1">
+        {% if section.settings.video.sources[1].url != blank %}
+          <div class="sec2-video">
+            {% if section.settings.imgbanner == 'image' %}
+              <div class="image_banner">
+                <img src="{{ section.settings.video_poster | img_url:'master' }}" alt="img">
+              </div>
+            {% else %}
+              <div class="sec2_video-img">
+                <img src="{{ section.settings.video_poster | img_url:'master' }}" alt="img_video">
+              </div>
+              <video
+                controls
+                playsinline
+                width="100%"
+                height="auto"
+                id="myVdo1"
+                style="display:none;"
+                {% if section.settings.video_poster != blank %}
+                  poster="{{ section.settings.video_poster | img_url: 'master' }}"
+                {% endif %}
+              >
+                <source src="{{ section.settings.video.sources[1].url }}" type="video/mp4">
+              </video>
+            {% endif %}
+          </div>
+        {% endif %}
+
+        <div class="forDesk">
+          {% if section.settings.appica_title != blank %}
+            <h3 class="sec2-app-heading">
+              <img src="{{ section.settings.appica_title_logo | image_url:width:48 }}" width="48" height="52" alt="ic">
+              {{- section.settings.appica_title }}
+            </h3>
+          {% endif %}
+          <ul class="sec2_app-list">
+            {% for block in section.blocks %}
+              {% if block.settings.image != blank %}
+                <li>
+                  {% if block.settings.image != blank %}
+                    <img
+                      src="{{ block.settings.image | image_url:width:100 }}"
+                      width="100"
+                      height="100"
+                      alt="{{ section.settings.image.alt }}"
+                    >
+                  {% endif %}
+                  {% if block.settings.text != blank %}
+                    <p>{{ block.settings.text }}</p>
+                  {% endif %}
+                </li>
+              {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+      <div class="sec2_col-2">
+        {% if section.settings.tech_title != blank %}
+          <h3 class="tech_specification-hdng">{{ section.settings.tech_title }}</h3>
+        {% endif %}
+        {% if section.settings.tech_logo1 != blank
+          or section.settings.Specification_title1 != blank
+          or section.settings.Specification_text1 != blank
+        %}
+          <div class="specification_row">
+            <div class="specification_col-1">
+              <img
+                src="{{ section.settings.tech_logo1 | image_url:width:70 }}"
+                width="70"
+                height="70"
+                alt="{{ section.settings.tech_logo1.alt }}"
+              >
+
+              <p>{{ section.settings.Specification_title1 }}</p>
+            </div>
+            <div class="specification_col-2">
+              <div>{{ section.settings.Specification_text1 }}</div>
+            </div>
+          </div>
+        {% endif %}
+        {% if section.settings.tech_logo2 != blank
+          or section.settings.Specification_title2 != blank
+          or section.settings.Specification_text2 != blank
+        %}
+          <div class="specification_row">
+            <div class="specification_col-1">
+              <img
+                src="{{ section.settings.tech_logo2 | image_url:width:70 }}"
+                width="70"
+                height="70"
+                alt="{{ section.settings.tech_logo2.alt }}"
+              >
+              <p>{{ section.settings.Specification_title2 }}</p>
+            </div>
+            <div class="specification_col-2">
+              <div>{{ section.settings.Specification_text2 }}</div>
+            </div>
+          </div>
+        {% endif %}
+        {% if section.settings.tech_logo3 != blank
+          or section.settings.Specification_title3 != blank
+          or section.settings.Specification_text3 != blank
+        %}
+          <div class="specification_row">
+            <div class="specification_col-1">
+              <img
+                src="{{ section.settings.tech_logo3 | image_url:width:70 }}"
+                width="70"
+                height="70"
+                alt="{{ section.settings.tech_logo3.alt }}"
+              >
+
+              <p>{{ section.settings.Specification_title3 }}</p>
+            </div>
+            <div class="specification_col-2">
+              <div>{{ section.settings.Specification_text3 }}</div>
+            </div>
+          </div>
+        {% endif %}
+        {% if section.settings.tech_logo4 != blank
+          or section.settings.Specification_title4 != blank
+          or section.settings.Specification_text4 != blank
+        %}
+          <div class="specification_row">
+            <div class="specification_col-1">
+              <img
+                src="{{ section.settings.tech_logo4 | image_url:width:70 }}"
+                width="70"
+                height="70"
+                alt="{{ section.settings.tech_logo4.alt }}"
+              >
+              <p>{{ section.settings.Specification_title4 }}</p>
+            </div>
+            <div class="specification_col-2">
+              <div>{{ section.settings.Specification_text4 }}</div>
+            </div>
+          </div>
+        {% endif %}
+        {% if section.settings.tech_logo5 != blank or section.settings.Specification_title5 != blank %}
+          <div class="specification_row specification_row-size">
+            <div class="specification_col-1">
+              <img
+                src="{{ section.settings.tech_logo5 | image_url:width:70 }}"
+                width="70"
+                height="70"
+                alt="{{ section.settings.tech_logo5.alt }}"
+              >
+
+              <p>{{ section.settings.Specification_title5 }}</p>
+            </div>
+          </div>
+        {% endif %}
+        <ul class="cable-size-list">
+          {% if section.settings.wire_logo1 != blank or section.settings.wire_logoetitle1 != blank %}
+            <li>
+              <p class="cable-size-text1">
+                {% if section.settings.wire_logo1 != blank %}
+                  <img
+                    src="{{ section.settings.wire_logo1 | image_url:width:52  }}"
+                    width="52"
+                    height="12"
+                    alt="{{ section.settings.wire_logo1.alt }}"
+                  >
+                {% endif %}
+                <span style="color:{{ section.settings.wire_color1 | default: 'black' }}">{{ section.settings.wire_logoetitle1 }}</span>
+              </p>
+
+              {% if section.settings.wire_logoetext1 != blank %}
+                <p class="cable-size-text2">
+                  {{ section.settings.wire_logoetext1 -}}
+                  <sup>2</sup>
+                </p>
+              {% endif %}
+            </li>
+          {% endif %}
+          {% if section.settings.wire_logo2 != blank or section.settings.wire_logoetitle2 != blank %}
+            <li>
+              <p class="cable-size-text1">
+                {% if section.settings.wire_logo2 != blank %}
+                  <img
+                    src="{{ section.settings.wire_logo2 | image_url:width:52  }}"
+                    width="52"
+                    height="12"
+                    alt="{{ section.settings.wire_logo2.alt }}"
+                  >
+                {% endif %}
+                <span style="color:{{ section.settings.wire_color2 | default: 'black' }}">{{ section.settings.wire_logoetitle2 }}</span>
+              </p>
+
+              {% if section.settings.wire_logoetext2 != blank %}
+                <p class="cable-size-text2">
+                  {{ section.settings.wire_logoetext2 -}}
+                  <sup>2</sup>
+                </p>
+              {% endif %}
+            </li>
+          {% endif %}
+          {% if section.settings.wire_logo3 != blank or section.settings.wire_logoetitle3 != blank %}
+            <li>
+              <p class="cable-size-text1">
+                {% if section.settings.wire_logo3 != blank %}
+                  <img
+                    src="{{ section.settings.wire_logo3 | image_url:width:52  }}"
+                    width="52"
+                    height="12"
+                    alt="{{ section.settings.wire_logo3.alt }}"
+                  >
+                {% endif %}
+                <span style="color:{{ section.settings.wire_color3 | default: 'black' }}">{{ section.settings.wire_logoetitle3 }}</span>
+              </p>
+
+              {% if section.settings.wire_logoetext3 != blank %}
+                <p class="cable-size-text2">
+                  {{ section.settings.wire_logoetext3 -}}
+                  <sup>2</sup>
+                </p>
+              {% endif %}
+            </li>
+          {% endif %}
+          {% if section.settings.wire_logo4 != blank or section.settings.wire_logoetitle4 != blank %}
+            <li>
+              <p class="cable-size-text1">
+                {% if section.settings.wire_logo4 != blank %}
+                  <img
+                    src="{{ section.settings.wire_logo4 | image_url:width:52  }}"
+                    width="52"
+                    height="12"
+                    alt="{{ section.settings.wire_logo4.alt }}"
+                  >
+                {% endif %}
+                <span style="color:{{ section.settings.wire_color4 | default: 'black' }}">{{ section.settings.wire_logoetitle4 }}</span>
+              </p>
+
+              {% if section.settings.wire_logoetext4 != blank %}
+                <p class="cable-size-text2">
+                  {{ section.settings.wire_logoetext4 -}}
+                  <sup>2</sup>
+                </p>
+              {% endif %}
+            </li>
+          {% endif %}
+          {% if section.settings.wire_logo5 != blank or section.settings.wire_logoetitle5 != blank %}
+            <li>
+              <p class="cable-size-text1">
+                {% if section.settings.wire_logo5 != blank %}
+                  <img
+                    src="{{ section.settings.wire_logo5 | image_url:width:52  }}"
+                    width="52"
+                    height="12"
+                    alt="{{ section.settings.wire_logo5.alt }}"
+                  >
+                {% endif %}
+                <span style="color:{{ section.settings.wire_color5 | default: 'black' }}">{{ section.settings.wire_logoetitle5 }}</span>
+              </p>
+
+              {% if section.settings.wire_logoetext5 != blank %}
+                <p class="cable-size-text2">
+                  {{ section.settings.wire_logoetext5 -}}
+                  <sup>2</sup>
+                </p>
+              {% endif %}
+            </li>
+          {% endif %}
+        </ul>
+        <div class="forTab forMob">
+          {% if section.settings.appica_title != blank %}
+            <h3 class="sec2-app-heading">
+              <img src="{{ section.settings.appica_title_logo | image_url:width:48 }}" width="48" height="52" alt="ic">
+              {{- section.settings.appica_title }}
+            </h3>
+          {% endif %}
+          <ul class="sec2_app-list">
+            {% for block in section.blocks %}
+              <li>
+                {% if block.settings.image != blank %}
+                  <img
+                    src="{{ block.settings.image | image_url:width:100 }}"
+                    width="100"
+                    height="100"
+                    alt="{{ section.settings.image.alt }}"
+                  >
+                {% endif %}
+                {% if block.settings.text != blank %}
+                  <p>{{ block.settings.text }}</p>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearall"></div>
+    <div class="common-button__box">
+      {% if section.settings.sub_title != blank %}
+        <div class="selefast {% if section.settings.border %}border{% endif %}">
+          <img
+            src="{{ section.settings.subtitleimage | image_url:width:10 }}"
+            width=""
+            height=""
+            alt="{{ section.settings.image.alt }}"
+          >
+          {{- section.settings.sub_title }}
+        </div>
+      {% endif %}
+      {% if section.settings.button != blank %}
+        <a href="{{ section.settings.button_link }}" class="common-button">{{ section.settings.button }}</a>
+      {% endif %}
+      {% if section.settings.caption != blank or section.settings.captionimage != blank %}
+        <p class="money-bk-btn-text">
+          <img
+            src="{{ section.settings.captionimage | image_url:width:50 }}"
+            width=""
+            height=""
+            alt="{{ section.settings.captionimage.alt }}"
+          >
+          {{- section.settings.caption }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Technical Specification",
+  "settings": [
+     {
+      "type":"richtext",
+      "id":"title",
+      "label":"Title"
+    },
+     {
+      "type":"richtext",
+      "id":"mobiletitle",
+      "label":"Mobile Title"
+    },
+     {
+      "type":"richtext",
+      "id":"subtitle",
+      "label":"Sub Text"
+    },
+     {
+      "type":"richtext",
+      "id":"mobiolesubtitle",
+      "label":"Mobile Sub Text"
+    },
+    {
+      "type": "select",
+      "id": "imgbanner",
+      "label": "Options",
+      "options": [
+        {
+          "value": "image",
+          "label": "Image"
+        },
+        {
+          "value": "video",
+          "label": "Video"
+        }
+      ]
+    },
+    {
+      "type":"header",
+      "content":"Video"
+    },
+    {
+            "type": "video",
+            "label": "Video",
+            "id": "video"
+          },
+          {
+            "type": "image_picker",
+            "label": "Poster",
+            "id": "video_poster"
+          },
+
+    {
+      "type":"header",
+      "content":"Applications Items"
+    },
+    {
+      "type":"text",
+      "id":"appica_title",
+      "label":"Main Title",
+      "default":"Applications"
+    },
+                {
+            "type": "image_picker",
+            "label": "Title Logo",
+            "id": "appica_title_logo"
+          },
+    {
+      "type":"header",
+      "content":"Technical Specification Content"
+    },
+        {
+      "type":"text",
+      "id":"tech_title",
+      "label":"Title",
+        "default":"Technical Specification"
+    },
+    {
+      "type":"header",
+      "content":"Content Row 1"
+    },
+     {
+            "type": "image_picker",
+            "label": "Logo",
+            "id": "tech_logo1"
+          },
+    {
+      "type":"text",
+      "id":"Specification_title1",
+      "label":"Specification Title",
+    }, {
+      "type":"richtext",
+      "id":"Specification_text1",
+      "label":"Specification Text",
+    },
+    {
+      "type":"header",
+      "content":"Content Row 2"
+    },
+      {
+            "type": "image_picker",
+            "label": "Title Logo",
+            "id": "tech_logo2"
+          },
+      {
+      "type":"text",
+      "id":"Specification_title2",
+      "label":"Specification Title",
+    },
+      {
+      "type":"richtext",
+      "id":"Specification_text2",
+      "label":"Specification Text",
+    },
+    {
+      "type":"header",
+      "content":"Content Row 3"
+    },
+      {
+            "type": "image_picker",
+            "label": "Title Logo",
+            "id": "tech_logo3"
+          },
+      {
+      "type":"text",
+      "id":"Specification_title3",
+      "label":"Specification Title",
+    },
+     {
+      "type":"richtext",
+      "id":"Specification_text3",
+      "label":"Specification Text",
+    },
+    {
+      "type":"header",
+      "content":"Content Row 4"
+    },
+      {
+            "type": "image_picker",
+            "label": "Title Logo",
+            "id": "tech_logo4"
+          },
+      {
+      "type":"text",
+      "id":"Specification_title4",
+      "label":"Specification Title",
+    },
+     {
+      "type":"richtext",
+      "id":"Specification_text4",
+      "label":"Specification Text",
+    },
+    {
+      "type":"header",
+      "content":"Content Row 5"
+    },
+      {
+            "type": "image_picker",
+            "label": "Title Logo",
+            "id": "tech_logo5"
+          },
+      {
+      "type":"text",
+      "id":"Specification_title5",
+      "label":"Specification Title",
+    },
+    {
+      "type":"header",
+      "content":"Wire Sizes Varients"
+    },
+          {
+            "type": "image_picker",
+            "label": "Wire Logo 1",
+            "id": "wire_logo1"
+          },
+          {
+            "type": "text",
+            "label": "Wire Title 1",
+            "id": "wire_logoetitle1"
+          },
+          {
+            "type": "color",
+            "label": "Wire Title Color 1",
+            "id": "wire_color1",
+            "default": "#878787"
+          },
+          {
+            "type": "text",
+            "label": "Wire Text 1",
+            "id": "wire_logoetext1"
+          },
+          {
+            "type": "image_picker",
+            "label": "Wire Logo 2",
+            "id": "wire_logo2"
+          },
+          {
+            "type": "text",
+            "label": "Wire Title 2",
+            "id": "wire_logoetitle2"
+          },
+          {
+            "type": "color",
+            "label": "Wire Title Color 2",
+            "id": "wire_color2",
+            "default": "#f10000"
+          },
+          {
+            "type": "text",
+            "label": "Wire Text 2",
+            "id": "wire_logoetext2"
+          },
+          {
+            "type": "image_picker",
+            "label": "Wire Logo 3",
+            "id": "wire_logo3"
+          },
+          {
+            "type": "text",
+            "label": "Wire Title 3",
+            "id": "wire_logoetitle3"
+          },
+          {
+            "type": "color",
+            "label": "Wire Title Color 3",
+            "id": "wire_color3",
+            "default": "#0093d7"
+          },
+            {
+            "type": "text",
+            "label": "Wire Text 3",
+            "id": "wire_logoetext3"
+          },
+          {
+            "type": "image_picker",
+            "label": "Wire Logo 4",
+            "id": "wire_logo4"
+          },
+         {
+            "type": "text",
+            "label": "Wire Title 4",
+            "id": "wire_logoetitle4"
+          },
+          {
+            "type": "color",
+            "label": "Wire Title Color 4",
+            "id": "wire_color4",
+            "default": "#d4c013"
+          },
+          {
+            "type": "text",
+            "label": "Wire Text 4",
+            "id": "wire_logoetext4"
+          },
+        {
+            "type": "image_picker",
+            "label": "Wire Logo 5",
+            "id": "wire_logo5"
+          },
+         {
+            "type": "text",
+            "label": "Wire Title 5",
+            "id": "wire_logoetitle5"
+          },
+          {
+            "type": "color",
+            "label": "Wire Title Color 5",
+            "id": "wire_color5",
+            "default": "#d4c013"
+          },
+          {
+            "type": "text",
+            "label": "Wire Text 5",
+            "id": "wire_logoetext5"
+          },
+     {
+      "type":"header",
+      "content":"Bottom Content"
+    },
+    {
+      "type":"richtext",
+      "id":"sub_title",
+      "label":"Sub Title"
+    },
+         {
+        "type":"checkbox",
+        "id":"border",
+        "label":"Show Border",
+        "default":false
+      },
+    {
+      "type":"image_picker",
+      "id":"subtitleimage",
+      "label":"Sub Title Logo"
+    },
+    {
+      "type":"text",
+      "id":"button",
+      "label":"Button"
+    },
+    {
+      "type":"url",
+      "id":"button_link",
+      "label":"Link"
+    },
+    {
+      "type":"text",
+      "id":"caption",
+      "label":"Caption"
+    },
+    {
+      "type":"image_picker",
+      "id":"captionimage",
+      "label":"Caption Image"
+    }
+
+  ],
+  "blocks": [
+    {
+      "type":"items_list",
+      "name":"Items",
+      "settings":[
+          {
+            "type": "image_picker",
+            "label": "Image",
+            "id": "image"
+          },
+          {
+            "type": "text",
+            "label": "Text",
+            "id": "text"
+          }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name":"Technical Specification"
+    }
+  ]
+}
+{% endschema %}

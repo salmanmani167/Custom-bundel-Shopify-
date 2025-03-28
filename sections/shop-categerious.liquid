@@ -1,0 +1,201 @@
+{% schema %}
+{
+  "name": "Shop Categories",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "main_heading",
+      "label": "Main Heading",
+      "default": "Shop Our Categories"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category Block",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "category_image",
+          "label": "Category Image"
+        },
+        {
+          "type": "text",
+          "id": "category_title",
+          "label": "Category Title",
+          "default": "Category Name"
+        },
+        {
+          "type": "textarea",
+          "id": "category_description",
+          "label": "Category Description",
+          "default": "Short description here..."
+        },
+        {
+          "type": "text",
+          "id": "feature_1",
+          "label": "Feature 1",
+          "default": "Feature 1"
+        },
+        {
+          "type": "text",
+          "id": "feature_2",
+          "label": "Feature 2",
+          "default": "Feature 2"
+        },
+        {
+          "type": "text",
+          "id": "feature_3",
+          "label": "Feature 3",
+          "default": "Feature 3"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop Categories",
+      "blocks": [
+        {
+          "type": "category"
+        },
+        {
+          "type": "category"
+        },
+        {
+          "type": "category"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+.shop-categories {
+  text-align: center;
+  margin:60px auto 72px ;
+  max-width:1170px;
+  padding:0px 20px;
+}
+
+.shop-categories h2 {
+font-weight: 800;
+font-size: 45px;
+line-height: 61.38px;
+margin-bottom:40px;
+}
+
+.category-grid {
+  display: flex;
+  gap: 27px;
+  justify-content: center;
+}
+
+.category-block {
+  width: 30%;
+  background: #FFECE7;
+  padding: 22px;
+  border:1px solid #C0C0C0;
+  text-align: left;
+}
+
+.category-block img {
+  width: 100%;
+  height: 197px;
+    object-fit: contain;
+}
+
+.category-block h3 {
+font-weight: 700;
+font-size: 22px;
+line-height: 30.01px;
+color:#000000;
+  margin:10px 0px 5px;
+}
+
+.category-block p {
+font-weight: 400;
+font-size: 18px;
+line-height: 24px;
+letter-spacing: 0%;
+margin:0px;
+  color:#000000;
+}
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: center;
+  font-weight:600;
+  line-height:24px;
+  font-size: 18px;
+  gap:10px;
+  color:#000000;
+  margin-bottom: 7px;
+}
+
+.feature-list li::before {
+  content: "";
+  background-image:url("https://cdn.shopify.com/s/files/1/0922/8078/3169/files/image_21.jpg?v=1740866225");
+  width:14px;
+  height:14px;
+  background-size: contain;
+  background-repeat:no-repeat;
+}
+
+.shop-now {
+  font-size: 18px;
+  font-weight: 700;
+  line-height:24px;
+  color: black;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 10px;
+  text-decoration:underline;
+}
+</style>
+
+<div class="shop-categories">
+  <h2>{{ section.settings.main_heading }}</h2>
+  <div class="category-grid">
+    {% for block in section.blocks %}
+      <div class="category-block">
+       <a style="text-decoration:unset;" href="{{ block.settings.button_link }}">
+        {% if block.settings.category_image %}
+          <img src="{{ block.settings.category_image | img_url: 'medium' }}" alt="{{ block.settings.category_title }}">
+        {% endif %}
+        <div class="categerious-text-main">
+        <h3>{{ block.settings.category_title }}</h3>
+        <p>{{ block.settings.category_description }}</p>
+        <ul class="feature-list">
+          {% if block.settings.feature_1 != blank %}
+            <li>{{ block.settings.feature_1 }}</li>
+          {% endif %}
+          {% if block.settings.feature_2 != blank %}
+            <li>{{ block.settings.feature_2 }}</li>
+          {% endif %}
+          {% if block.settings.feature_3 != blank %}
+            <li>{{ block.settings.feature_3 }}</li>
+          {% endif %}
+        </ul>
+        {% if block.settings.button_link %}
+          <a href="{{ block.settings.button_link }}" class="shop-now">Shop Now</a>
+        {% endif %}
+       
+      </div>
+       </a>
+      </div>
+    {% endfor %}
+  </div>
+</div>

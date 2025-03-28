@@ -1,0 +1,329 @@
+<script
+    type="application/json"
+    data-section-type="text-columns-with-images"
+    data-section-id="{{ section.id }}"
+  >
+  </script>
+
+  {%- assign id = section.id -%}
+
+  {% comment %} Content settings {% endcomment %}
+  {%- assign blocks = section.blocks -%}
+  {%- assign title = section.settings.title -%}
+  {% comment %} End content settings {% endcomment %}
+
+  {% comment %} Advanced {% endcomment %}
+  {%- assign css_class = section.settings.css_class -%}
+  {%- assign custom_css = section.settings.custom_css -%}
+
+  {% comment %} Section specific CSS {% endcomment %}
+  {% style %}
+#shopify-section-{{ section.id }} .container{
+  max-width: 1200px;
+  width: 100%;
+  position: relative;
+  margin: 0 auto;
+}
+    .col-budh{
+          text-align: center;
+    }
+    .col-budh img{
+          text-align: center;
+    }
+    .column-flex{
+      display: flex;
+      column-gap: 20px;
+      flex-wrap: wrap;
+    }
+    .column-flex .column{
+        max-width: calc(20% - 20px);
+        width: 100%;
+    }
+    .column-flex .column img{
+        object-fit: contain;
+        width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+    }
+  #shopify-section-template--{{ section.id }}{
+    padding: 38px 24px;
+    width: 100%;
+
+  }
+
+  #shopify-section-{{ section.id }}{
+    background-color: {{ section.settings.bgcolor }};
+    {% if section.settings.borderbot %}
+    border-bottom: 1px solid #000;
+    {% endif %}
+  }
+    #shopify-section-template--{{ section.id }} .sub-text p{
+          font-size: 1.1rem;
+    }
+
+    #shopify-section-template--{{ section.id }} .desc.check_icon p,
+  #shopify-section-template--{{ section.id }} .desc.cross_icon p{
+      position:relative;
+      padding-left: 35px;
+    }
+    #shopify-section-template--{{ section.id }} .desc.check_icon p::before,
+   #shopify-section-template--{{ section.id }} .desc.cross_icon p::before{
+      content: "";
+      position: absolute;
+      width: 21px;
+      height: 21px;
+      background: #FDEAE5;
+      border: 2px solid #F2552C;
+      box-sizing: border-box;
+      border-radius: 50%;
+      left: 0;
+      top: 5px;
+    }
+
+    #shopify-section-template--{{ section.id }} .desc.check_icon p::after {
+      content: "";
+      position: absolute;
+      width: 5px;
+      height: 9px;
+      border: 2px solid #f2552c;
+      left: 8px;
+      z-index: 2;
+      border-left: 0;
+      border-top: 0;
+      transform: rotate(
+        45deg);
+      top: 10px;
+    }
+
+
+    #shopify-section-template--{{ section.id }} .desc.cross_icon p::after {
+      content: "\d7";
+      position: absolute;
+      left: 5px;
+      z-index: 2;
+      top: 1px;
+      font-size: 18px;
+      color: #f2552c;
+    }
+
+     #shopify-section-template--{{ section.id }} .img_badge {
+          position: absolute;
+          bottom: 3.6%;
+          background-color: {{ section.settings.badge_color }};
+          padding: 10px;
+          font-size: 18px;
+          text-transform: uppercase;
+          font-weight: bold;
+          color: #fff;
+      }
+
+      #shopify-section-template--{{ section.id }} .header--text{
+        margin-bottom: 18px;
+      }
+
+      #shopify-section-template--{{ section.id }} .header--text,
+      #shopify-section-template--{{ section.id }} .header--text p{
+        font-size: 24px;
+        line-height: 1.2;
+        font-weight: 600;
+        font-family: 'Sora', sans-serif !important;
+        color: {{ section.settings.tcolor }};
+      }
+
+      #shopify-section-template--{{ section.id }} .header--text strong{
+        color: #F2542C;
+        font-weight: 600;
+      }
+
+      #shopify-section-template--{{ section.id }} .container{
+        justify-content: center;
+        row-gap: 20px;
+      }
+
+      #shopify-section-template--{{ section.id }}  .icon-heading-text{
+        margin: 0;
+        font-size: 11px;
+        font-family: 'Sora', sans-serif !important;
+        text-transform: capitalize;
+        font-weight: 600;
+      }
+
+      #shopify-section-template--{{ section.id }} .image-element__wrap {
+          width: 60px;
+          height: 60px;
+          margin-bottom: 10px;
+      }
+
+      #shopify-section-template--{{ section.id }} .image-element__wrap img{
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+      @media (max-width: 480px){
+        #shopify-section-template--{{ section.id }}{
+            padding: 38px 24px;
+        }
+        #shopify-section-template--{{ section.id }} .header--column{
+          width: 100%;
+        }
+
+      }
+    {%
+      render 'css-loop',
+      css: custom_css,
+      id: id
+    %}
+
+    
+  {% endstyle %}
+
+  <section id="shopify-section-template--{{ section.id }}" class="section {{ css_class }}">
+    <div class="container">
+      {% if title != blank %}
+        <div class="one-whole column header--column">
+          <div class="center header--text">
+            {{ title }}
+          </div>
+        </div>
+      {% endif %}
+ <div class="column-flex">
+      {% for block in blocks %}
+        {% comment %} Content settings {% endcomment %}
+        {%- assign image = block.settings.image -%}
+        {% comment %} End content settings {% endcomment %}
+       
+        <div class="column {% if blocks.size > 3 %}medium-down--one-third{% else %}medium-down--one-third{% endif %} text-column" {{ block.shopify_attributes }}>
+          <div class="col-budh border-style--{{ block.settings.border_style }} text-align--{{ block.settings.align_text }}">
+          {% if block.settings.enable_image %}
+            {% if image != blank %}
+              <img src={{ block.settings.image | img_url:"master" }} /> 
+            {% endif %}
+          {% endif %}
+
+          {% if block.settings.title != blank %}
+            <h3 class="icon-heading-text">{{ block.settings.title | escape }}</h3>
+          {% endif %}
+
+          {% if block.settings.subtitle != blank %}
+            <div class="sub-text">
+              {{ block.settings.subtitle }}
+            </div>
+          {% endif %}
+
+          {% if block.settings.text != blank %}
+            <div class="desc rte-setting {{ block.settings.ullink }}">
+              {{ block.settings.text }}
+            </div>
+          {% endif %}
+
+          {% if block.settings.button_label != blank and block.settings.button_link != blank %}
+            <a href="{{ block.settings.button_link }}" class="text-columns-with-images__button global-button global-button--text">{{ block.settings.button_label | escape }}</a>
+          {% endif %}
+          </div>
+        </div>
+         
+        {% endfor %}
+   </div>
+    </div>
+  </section>
+
+  {% schema %}
+  {
+    "name": "Columns with images v2",
+    "class": "shopify-section--text-columns-with-images-v2",
+    "settings": [
+      {
+        "type": "richtext",
+        "id": "title",
+        "label": "Section title",
+        "info": "Please make the word bold if you want to highlight to show the highlight color",
+        "default": "<p>Lorem ipsum dolor <strong>sit amet</strong></p>"
+      },
+      {
+        "type": "checkbox",
+        "id": "borderbot",
+        "label": "Show bottom border",
+        "default": false
+      },
+      {
+        "type": "color",
+        "id": "bgcolor",
+        "label": "Background color",
+        "default": "transparent"
+      },
+      {
+        "type": "color",
+        "id": "tcolor",
+        "label": "Text color",
+        "default": "#333"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "text_block",
+        "name": "Column",
+        "limit": 5,
+        "settings": [
+          {
+            "type": "checkbox",
+            "id": "enable_image",
+            "label": "Show image",
+            "default": true
+          },
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Image"
+          },
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Heading",
+            "default": "Add a title or tagline"
+          },
+          {
+            "type": "select",
+            "id": "align_text",
+            "label": "Text alignment",
+            "default": "left",
+            "options": [
+              {
+                "value": "left",
+                "label": "Left"
+              },
+              {
+                "value": "center",
+                "label": "Center"
+              },
+              {
+                "value": "right",
+                "label": "Right"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Columns with images v2",
+        "category": "Text",
+        "blocks": [
+          {
+            "type": "text_block"
+          },
+          {
+            "type": "text_block"
+          }
+        ]
+      }
+    ],
+    "templates": [
+      "index",
+      "product",
+      "page"
+    ]
+  }
+
+  {% endschema %}

@@ -1,0 +1,70 @@
+{% schema %}
+{
+  "name": "icon with text",
+  "class": "icon with text",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "banner_item",
+      "name": "Banner Item",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free Shipping"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "icon with text",
+      "category": "Custom",
+      "blocks": [
+        { "type": "banner_item" },
+        { "type": "banner_item" },
+        { "type": "banner_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="simple-banner">
+    {% for block in section.blocks %}
+        <div class="banner-item">
+            {% if block.settings.image %}
+                <img src="{{ block.settings.image | img_url: 'small' }}" alt="Banner Icon">
+            {% endif %}
+            <span>{{ block.settings.text }}</span>
+        </div>
+    {% endfor %}
+</div>
+
+<style>
+    .simple-banner {
+        background: black;
+        padding: 9px 0px 7px 0px;
+        display: flex;
+        justify-content: center;
+           column-gap: 148px;
+    }
+    .banner-item {
+        display: flex;
+        align-items: center;
+        color: white;
+        font-size: 15px;
+        column-gap: 7px;
+    }
+    .banner-item img {
+        width: 21px;
+        height: 15px;
+          object-fit: contain;
+    }
+</style>

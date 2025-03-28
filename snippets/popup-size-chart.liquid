@@ -1,0 +1,44 @@
+{% if product_tags contains 'meta-size-chart-' %}
+<dialog class="js-sizechart-lightbox" id="size-chart{{ product.id }}">
+  <div class="size-chart-wrap">
+    {%- assign product_tags = product.tags | join: ' ' -%}
+    {% if product_tags contains 'meta-size-chart-' %}
+      {% for tag in product.tags %}
+        {% if tag contains 'meta-size-chart-' %}
+          {%- assign size_chart = tag | handle | remove: 'meta-size-chart-' -%}
+          <h5 class="center">{{ pages[size_chart].title }}</h5>
+          <div class="feature_divider"></div>
+          {{ pages[size_chart].content }}
+        {% endif %}
+      {% endfor %}
+    {% elsif size_chart != blank %}
+      <h5 class="center">{{ pages[size_chart].title }}</h5>
+      <div class="feature_divider"></div>
+      {{ pages[size_chart].content }}
+    {% endif %}
+  </div>
+  <button type="button" data-fancybox-close="" class="fancybox-button fancybox-close-small" title="Close" aria-label="close"><svg xmlns="http://www.w3.org/2000/svg" version="1" viewBox="0 0 24 24"><path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"></path></svg></button>
+</dialog>
+{% else %}
+<dialog class="js-sizechart-lightbox" id="size-chart{{ product.id }}">
+  <div class="size-chart-wrap okok">  
+      <h5 class="center">Size chart</h5>
+      <div class="feature_divider"></div>
+      <div class="mob-hide">
+        <div style="text-align: left;" data-mce-fragment="1" data-mce-style="text-align: left;"><img src="{{ desktop_size_img | img_url:'master' }}"></div>
+      </div>
+      <div class="desk-hide">
+      <div style="text-align: left;" data-mce-fragment="1" data-mce-style="text-align: left;"><img src="{{ mobile_size_img | img_url:'master' }}"></div>
+      </div>
+  </div>
+  <button type="button" data-fancybox-close="" class="fancybox-button fancybox-close-small" title="Close" aria-label="close"><svg xmlns="http://www.w3.org/2000/svg" version="1" viewBox="0 0 24 24"><path d="M13 12l5-5-1-1-5 5-5-5-1 1 5 5-5 5 1 1 5-5 5 5 1-1z"></path></svg></button>
+</dialog>
+{% endif %}
+<script>
+  document.querySelector('[data-src="#size-chart{{ product.id }}"]').addEventListener('click',function(){
+    document.querySelector('#size-chart{{ product.id }}').showModal();
+  });
+  document.querySelector('#size-chart{{ product.id }} .fancybox-close-small').addEventListener('click',function(){
+    document.querySelector('#size-chart{{ product.id }}').close();
+  });
+</script>

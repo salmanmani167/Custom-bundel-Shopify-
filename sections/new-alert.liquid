@@ -1,0 +1,322 @@
+{% schema %}
+{
+  "name": "News Alert Section",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "breacumbers",
+        "label": "Breadcrumb",
+      "default": "Home > Automotive > OptiFuel"
+    },
+    {
+      "type": "textarea",
+      "id": "upated-text",
+      "label": "upated-text",
+      "default": "OptiFuel is SELLING OUT faster than expected! Lock in your order NOW to get 50% OFF + FAST SHIPPING"
+    },
+    {
+      "type": "text",
+      "id": "headline",
+      "label": "Headline",
+      "default": "NEWS ALERT: Oil Giants Push to Ban Fuel-Saving Device"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Did you know there's a new portable fuel-saving device that optimizes your car’s fuel consumption to save you money on gas?"
+    },
+    {
+      "type": "textarea",
+      "id": "rebietext",
+      "label": "Reviews",
+      "default": "3,791 Ratings"
+    },
+    {
+              "type": "video",
+              "label": "Video",
+              "id": "video"
+    },
+    {
+      "type": "image_picker",
+      "id": "profile-image",
+      "label": "Profile Image"
+    },
+     {
+      "type": "textarea",
+      "id": "Niklas-name",
+      "label": "Niklas-name",
+      "default": "Niklas-name"
+    },
+     {
+      "type": "textarea",
+      "id": "Lifestyle",
+      "label": "Lifestyle",
+      "default": "Lifestyle"
+    },
+   {
+      "type": "image_picker",
+      "id": "imagee",
+      "label": "Image"
+    },
+         {
+      "type": "text",
+      "id": "headings",
+      "label": "Heading",
+      "default": "I KNEW GAS PRICES WERE HIGH, BUT I DIDN’T EXPECT THIS!"
+    },
+         {
+      "type": "textarea",
+      "id": "descps",
+      "label": "Description",
+      "default": "As someone who relies on my car every day—to get to work, pick up my kids, and run errands—I’ve always kept a close eye on our family’s fuel expenses. But lately, the rising gas prices have made it harder than ever to stay on budget."
+    },
+    {
+      "type": "text",
+      "id": "cta_text",
+      "label": "CTA Text",
+      "default": "GET 50% OFF OptiFuel Now!"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link"
+    },
+    {
+        "type": "image_picker",
+        "id": "car-image",
+        "label": "Product-image"
+      },
+    {
+        "type": "image_picker",
+        "id": "review-iamge",
+        "label": "Review Image"
+      }
+  ],
+  "presets": [
+    {
+      "name": "News Alert Section",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="news-alert-section">
+  <div class="containerps-a">
+
+    <div class="update-text-warning">
+      <img Style="width:25px; height:25px; margin-top:5px;" src="https://img.funnelish.com/41885/307267/1716537244-1711367301667_info.png"/>
+      <h6>{{ section.settings.upated-text }}</h6>
+    </div>
+    
+    <div class="content">
+      <p class="breacumbers">{{ section.settings.breacumbers }}</p>
+      <h1 class="first-section-heading">{{ section.settings.headline }}</h1>
+      <p class="highlight">{{ section.settings.subtext }}</p>
+      <div class="cust-review">
+        <img src="https://img.funnelish.com/41885/307267/1716272284-stars.png"/>
+        <span>{{ section.settings.rebietext }}</span>
+      </div>
+     <div class="details-ps-customer">
+       <img src="{{ section.settings.profile-image | img_url: '' }}  "/>
+       <h6>{{ section.settings.Niklas-name }}</h6>
+       <img class="logo-frevied" src="https://img.funnelish.com/41885/307267/1716537809-1707336831448_greentick.png"/>
+       <p>{{ section.settings.Lifestyle }}</p>
+     </div>
+      
+      
+     <div class="iamge-container">
+         <!-- <img src="{{ section.settings.imagee | img_url: '' }}"/> -->
+     <video autoplay playsinline muted width="100%" height="auto" loop>
+    <source src="{{ section.settings.video.sources[1].url }}" type="video/mp4">
+</video>
+
+     </div>
+
+   <h5 class="cusmrn-heading">{{ section.settings.headings }}</h5>
+    <p class="custon-pargraph">{{ section.settings.descps }}</p>
+    </div>
+    <aside class="sidebar">
+      <div class="recommended">
+        <h3>Recommended</h3>
+        <img src="{{ section.settings.car-image | img_url: '' }}"/>
+      </div>
+      <div class="customer-reviews">
+       
+       <a href="{{ section.settings.cta_link }}"> 
+         <span class="ps-top-side=-ps">{{ section.settings.cta_text }}</span>
+       </a>
+       <img src="{{ section.settings.review-iamge | img_url: '' }}"/>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+.news-alert-section {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+.containerps-a {
+  display: flex;
+  flex-wrap: wrap;
+      width: 100%;
+    max-width: 1170px;
+    margin: 0px auto;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+  .update-text-warning{
+    border-width: 3px;
+    border-style: solid;
+    border-color: rgb(235, 233, 188);
+    border-radius: 10px;
+    color: rgb(48, 48, 48);
+    text-align: initial;
+    margin: 20px 0px 30px;
+    padding: 10px;
+    background-color: rgb(254, 251, 217);
+    display:flex;
+    width:100%;
+        align-items:start;
+    gap: 12px;
+  }
+  .update-text-warning h6{
+     font-size: 20px;
+    font-weight:800;
+    margin:0px;
+    color:black;
+    line-height:normal;
+  }
+.content {
+  width: 74%;
+}
+  .breacumbers{
+    margin:0px;
+    font-size:12px;
+    font-weight:400;
+  }
+  .first-section-heading{
+    font-size:40px;
+    font-weight:800;
+    line-height:normal;
+    margin:0px;
+  }
+  .highlight{
+    margin:0px;
+    font-size:20px;
+    font-weight:900;
+    color:black;
+  }
+   .highlight span{
+     background-color:#ffbc2b;
+   }
+
+  .recommended h3{
+        margin: 0px;
+    font-size: 19px;
+    font-weight: 700;
+        text-align: center;
+    line-height:normal;
+  }
+.sidebar {
+  width: 24%;
+  background: #fff;
+  padding: 10px;
+  border:1px solid #a6a6a6;
+}
+.cta-button {
+  display: block;
+  background: green;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.recommended img{
+  width:100%;
+}
+.customer-reviews{
+      width:100%;
+}
+  .customer-reviews a{
+    width: 100%;
+    display: block;
+    text-align: center;
+    background: #019e3f;
+    color: white;
+    border-radius: 4px;
+    text-decoration: unset;
+    font-size:20px;
+    font-weight:700;
+    line-height: normal;
+    padding: 10px 50px;
+  }
+  .iamge-container video{
+    border-radius:10px;
+  }
+  .iamge-container img{
+    width:100%;
+  }
+  .cust-review{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin:20px 0px;
+  }
+ .cust-review img{
+   width:100px;
+ }
+ .cust-review span{
+    color:#007185;
+   font-size:16px;
+   line-height:normal;
+   font-weight:900;
+  }
+  .details-ps-customer{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom:15px;
+  }
+  .details-ps-customer img{
+    width:35px;
+    height:35px;
+    border-radius:50px;
+  }
+  .details-ps-customer h6{
+     margin: 0px;
+    color: black;
+    line-height: normal;
+    font-size: 18px;
+    font-weight: 700;
+  }
+  .details-ps-customer p{
+    margin:0px;
+    color:#575757;
+    font-size:18px;
+    font-weight:400;
+  }
+  .logo-frevied{
+    width:25px!important;
+    height:25px!important;
+  }
+ .cusmrn-heading{
+   margin: 10px 0px 10px;
+    color: black;
+    font-size: 20px;
+   line-height:normal;
+    font-weight: 700;
+ }
+ .custon-pargraph{
+   margin:0px;
+   color:#303030;
+   font-size:20px;
+   font-weight:400;
+ }
+
+  
+</style>

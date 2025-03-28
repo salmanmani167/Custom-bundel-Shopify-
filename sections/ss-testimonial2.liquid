@@ -1,0 +1,338 @@
+<div class="slider__content-items">
+    {% if section.settings.content != blank %}
+        <div class="slider__content-header">
+            {{ section.settings.content }}
+
+            {% if section.settings.img != blank %}
+                <img src="{{ section.settings.img | img_url: 'master' }}">
+            {% endif %}
+        </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+        <div class="slider__content-inner-items">
+            <div class="slider__content-row-items slider-testimonial-{{ section.id}}">
+                {% for block in section.blocks %}
+                    <div style="background-color: {{ block.settings.bgcolor }}; color: {{ block.settings.tcolor }};" class="slider__content-col-items">
+
+                        {% if block.settings.pretitle != blank or block.settings.title != blank or block.settings.content != blank %}
+                            <div class="slider__content-text">
+                                {% if block.settings.title != blank %}
+                                    <h3>{{ block.settings.title }}</h3>
+                                {% endif %}
+
+                                {% if block.settings.rating > 0 %}
+                                    <div class="slider__content-rating">
+                                        {% case block.settings.rating %}
+                                            {% when 5 %}
+                                            <svg width="59" height="10" viewBox="0 0 59 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <path d="M5.5 0L6.85967 3.56012L10.5 3.81966L7.7 6.27947L8.59017 10L5.5 7.96012L2.40983 10L3.3 6.27947L0.5 3.81966L4.14033 3.56012L5.5 0Z" fill="#51B37F"/>
+                                                <path d="M17.5 0L18.8597 3.56012L22.5 3.81966L19.7 6.27947L20.5902 10L17.5 7.96012L14.4098 10L15.3 6.27947L12.5 3.81966L16.1403 3.56012L17.5 0Z" fill="#51B37F"/>
+                                                <path d="M29.5 0L30.8597 3.56012L34.5 3.81966L31.7 6.27947L32.5902 10L29.5 7.96012L26.4098 10L27.3 6.27947L24.5 3.81966L28.1403 3.56012L29.5 0Z" fill="#51B37F"/>
+                                                <path d="M41.5 0L42.8597 3.56012L46.5 3.81966L43.7 6.27947L44.5902 10L41.5 7.96012L38.4098 10L39.3 6.27947L36.5 3.81966L40.1403 3.56012L41.5 0Z" fill="#51B37F"/>
+                                                <path d="M53.5 0L54.8597 3.56012L58.5 3.81966L55.7 6.27947L56.5902 10L53.5 7.96012L50.4098 10L51.3 6.27947L48.5 3.81966L52.1403 3.56012L53.5 0Z" fill="#51B37F"/>
+                                            </svg>
+
+                                            {% when 4 %}
+                                                <svg width="59" height="10" viewBox="0 0 59 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5.5 0L6.85967 3.56012L10.5 3.81966L7.7 6.27947L8.59017 10L5.5 7.96012L2.40983 10L3.3 6.27947L0.5 3.81966L4.14033 3.56012L5.5 0Z" fill="#51B37F"/>
+                                                    <path d="M17.5 0L18.8597 3.56012L22.5 3.81966L19.7 6.27947L20.5902 10L17.5 7.96012L14.4098 10L15.3 6.27947L12.5 3.81966L16.1403 3.56012L17.5 0Z" fill="#51B37F"/>
+                                                    <path d="M29.5 0L30.8597 3.56012L34.5 3.81966L31.7 6.27947L32.5902 10L29.5 7.96012L26.4098 10L27.3 6.27947L24.5 3.81966L28.1403 3.56012L29.5 0Z" fill="#51B37F"/>
+                                                    <path d="M41.5 0L42.8597 3.56012L46.5 3.81966L43.7 6.27947L44.5902 10L41.5 7.96012L38.4098 10L39.3 6.27947L36.5 3.81966L40.1403 3.56012L41.5 0Z" fill="#51B37F"/>
+
+                                                </svg>
+                                            {% when 3 %}
+                                                <svg width="59" height="10" viewBox="0 0 59 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5.5 0L6.85967 3.56012L10.5 3.81966L7.7 6.27947L8.59017 10L5.5 7.96012L2.40983 10L3.3 6.27947L0.5 3.81966L4.14033 3.56012L5.5 0Z" fill="#51B37F"/>
+                                                    <path d="M17.5 0L18.8597 3.56012L22.5 3.81966L19.7 6.27947L20.5902 10L17.5 7.96012L14.4098 10L15.3 6.27947L12.5 3.81966L16.1403 3.56012L17.5 0Z" fill="#51B37F"/>
+                                                    <path d="M29.5 0L30.8597 3.56012L34.5 3.81966L31.7 6.27947L32.5902 10L29.5 7.96012L26.4098 10L27.3 6.27947L24.5 3.81966L28.1403 3.56012L29.5 0Z" fill="#51B37F"/>
+
+
+                                                </svg>
+                                            {% when 2 %}
+                                                <svg width="59" height="10" viewBox="0 0 59 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5.5 0L6.85967 3.56012L10.5 3.81966L7.7 6.27947L8.59017 10L5.5 7.96012L2.40983 10L3.3 6.27947L0.5 3.81966L4.14033 3.56012L5.5 0Z" fill="#51B37F"/>
+                                                    <path d="M17.5 0L18.8597 3.56012L22.5 3.81966L19.7 6.27947L20.5902 10L17.5 7.96012L14.4098 10L15.3 6.27947L12.5 3.81966L16.1403 3.56012L17.5 0Z" fill="#51B37F"/>
+
+                                                </svg>
+                                            {% when 1 %}
+                                                <svg width="59" height="10" viewBox="0 0 59 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5.5 0L6.85967 3.56012L10.5 3.81966L7.7 6.27947L8.59017 10L5.5 7.96012L2.40983 10L3.3 6.27947L0.5 3.81966L4.14033 3.56012L5.5 0Z" fill="#51B37F"/>
+
+                                                </svg>
+                                        {% endcase %}
+                                    </div>
+                                {% endif %}
+
+                                {% if block.settings.content != blank %}
+                                    <div class="slider__content-description">
+                                        {{ block.settings.content }}
+                                    </div>
+                                {% endif %}
+
+                                {% if block.settings.author != blank %}
+                                    <div class="slider__content-author">
+                                        <p>{{ block.settings.author }}</p>
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% if section.settings.btntext != blank %}
+    <div class="view__all-button">
+        <a href="{{ section.settings.btnurl }}">{{ section.settings.btntext }}</a>
+    </div>
+    {% endif %}
+</div>
+<style>
+    #shopify-section-{{ section.id }}{
+        border-bottom: 1px solid #000;
+        overflow: hidden;
+        padding: 46px 30px;
+        background-color: {{ section.settings.bgcolor }};
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-header {
+        margin-bottom: 20px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-header p,
+    #shopify-section-{{ section.id }} .slider__content-header {
+        line-height: 1.2;
+        font-weight: 600;
+        text-align: center;
+        font-family: 'Sora', sans-serif !important;
+        font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-header p{
+        margin-bottom: 9px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-header strong{
+        color: #F2542C;
+        font-weight: 600;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-col-items {
+        border: 1px solid #000;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text{
+        padding: 34px 14px;
+    }
+
+    #shopify-section-{{ section.id }} .slick-dots li button:before{
+        font-size: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .slick-dotted.slick-slider{
+        margin-bottom: 0;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-row-items .slick-list {
+        padding: 0 !important;
+    }
+
+    #shopify-section-{{ section.id }} .slick-dots{
+        position: relative;
+        bottom: -8px;
+    }
+
+    #shopify-section-{{ section.id }} .slick-dots li {
+        margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .slick-slider .slick-track {
+        display: flex;
+        column-gap: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .slick-slider .slick-slide{
+        height: inherit !important;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text {
+        text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text h4{
+        padding: 0;
+        font-size: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text h3{
+        margin-bottom: 10px;
+        font-size: 18px;
+        font-weight: bold;
+        text-transform: inherit;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-rating {
+        margin-bottom: 6px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text .slider__content-description,
+    #shopify-section-{{ section.id }} .slider__content-text .slider__content-description p{
+        font-size: 13px;
+        font-weight: 300;
+        line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text .slider__content-description p{
+        margin-bottom: 10px;
+    }
+
+
+    #shopify-section-{{ section.id }} .slider__content-author p {
+        margin: 0;
+        font-size: 10px;
+        font-weight: bold;
+    }
+
+    #shopify-section-{{ section.id }} .slick-dots li.slick-active button:before{
+        color: #F2542C;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-items{
+        max-width: 860px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    @media (max-width: 480px){
+        #shopify-section-{{ section.id }}{
+            padding: 38px 14px;
+        }
+        #shopify-section-{{ section.id }} .slider__content-header{
+            font-size: 24px;
+        }
+
+        #shopify-section-{{ section.id }} .slider__content-row-items .slick-list {
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+    }
+</style>
+<script>
+$('.slider-testimonial-{{ section.id}}').slick({
+    dots: true,
+    arrows: false,
+    infinite: false,
+    slidesToShow: 3,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false,
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          arrows: false,
+          slidesToShow: 1.25
+        }
+      }
+    ]
+  });
+
+</script>
+
+{% schema %}
+{
+    "name": "Testimonial v3",
+    "class": "shopify-testimonial-v3",
+    "settings": [
+        {
+            "type": "richtext",
+            "id": "content",
+            "label": "Section title",
+            "info": "Please make the word bold if you want to highlight to show the highlight color",
+            "default": "<p>Lorem ipsum dolor <strong>sit amet</strong></p>"
+        },
+        {
+            "type": "image_picker",
+            "id": "img",
+            "label": "Image",
+            "info": "This will show under the title"
+        },
+        {
+            "type": "color",
+            "id": "bgcolor",
+            "label": "Background color",
+            "default": "transparent"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "testimonial",
+            "name": "Testimonials",
+            "settings": [
+                {
+                    "type": "color",
+                    "id": "bgcolor",
+                    "label": "Background color",
+                    "default": "transparent"
+                },
+                {
+                    "type": "color",
+                    "id": "tcolor",
+                    "label": "Text color",
+                    "default": "#000"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title",
+                    "default": "Testimonial Title"
+                },
+                {
+                    "type": "range",
+                    "id": "rating",
+                    "label": "Rating",
+                    "default": 5,
+                    "min": 1,
+                    "max": 5
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content",
+                    "default": "<p>Lorem ipsum dolor sit amet</p>"
+                },
+                {
+                    "type": "text",
+                    "id": "author",
+                    "label": "Author",
+                    "default": "John Doe - Verified Buyer"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+          "name": "Testimonial v3",
+          "category": "Text",
+          "blocks": [
+            {
+              "type": "testimonial"
+            },
+            {
+              "type": "testimonial"
+            },
+            {
+              "type": "testimonial"
+            }
+          ]
+        }
+    ]
+}
+{% endschema %}

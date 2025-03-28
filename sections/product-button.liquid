@@ -1,0 +1,102 @@
+<style>
+.product-button-section-unique {
+  position: relative;
+}
+
+.product-button-unique {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-weight: bold; /* Makes the button text bold */
+  border-radius: 50%; /* Circular for desktop */
+  background-color: #000; /* Default background color, adjustable in settings */
+  color: #fff; /* Default text color, adjustable in settings */
+  width: 150px; /* Default size for desktop */
+  height: 150px; /* Default size for desktop */
+  z-index: 9999;
+  transition: all 0.3s ease;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.product-button-unique:hover {
+  transform: scale(1.1);
+}
+
+@media screen and (min-width: 768px) {
+  .product-button-unique {
+    bottom: 20px;
+    right: 100px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .product-button-unique {
+    bottom: 0; /* Positioned at the bottom */
+    right: 0; /* Ensures it spans the width */
+    left: 0; /* Ensures full width */
+    width: auto; /* Auto width to span screen */
+    height: 50px; /* Height adjusted for mobile */
+    border-radius: 0; /* Removes circular styling for mobile */
+    font-weight: bold; /* Ensures bold text on mobile */
+  }
+}
+</style>
+
+
+
+<!-- Sections/product-button.liquid -->
+<section class="product-button-section-unique">
+  <a id="product-button-unique" 
+     href="{{ section.settings.button_link }}" 
+     class="product-button-unique" 
+     style="color: {{ section.settings.button_text_color }}; font-size: {{ section.settings.button_font_size }}px; background-color: {{ section.settings.button_background_color }};">
+    {{ section.settings.button_text }}
+  </a>
+</section>
+
+
+{% schema %}
+{
+  "name": "Product Button",
+  "settings": [
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Shop Now"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link",
+      "default": "/collections/all"
+    },
+    {
+      "type": "color",
+      "id": "button_text_color",
+      "label": "Button Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "button_background_color",
+      "label": "Button Background Color",
+      "default": "#000000"
+    },
+    {
+      "type": "number",
+      "id": "button_font_size",
+      "label": "Button Font Size (px)",
+      "default": 16
+    }
+  ],
+  "presets": [
+    {
+      "name": "Product Button",
+    }
+  ]
+}
+{% endschema %}
+

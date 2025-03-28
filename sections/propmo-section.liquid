@@ -1,0 +1,398 @@
+{% schema %}
+{
+  "name": "Promo Section",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "product_image-1",
+      "label": "Download Image"
+    },
+    {
+      "type": "textarea",
+      "id": "highlight_text",
+      "label": "Highlight Text",
+      "default": "UPDATE: As of March 18, 2025 - The demand for OptiFuel has surged."
+    },
+    {
+      "type": "textarea",
+      "id": "highlight_text11",
+      "label": "2nd Highlight Text",
+      "default": "UPDATE: As of March 18, 2025 - The demand for OptiFuel has surged."
+    },
+    {
+      "type": "image_picker",
+      "id": "product_image",
+      "label": "Product Image"
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_1",
+      "label": "Badge 1"
+    },
+     {
+      "type": "text",
+      "id": "badge_text-1",
+      "label": "badge_text-1",
+      "default": "UPDATE: As of March 18, 2025 - The demand for OptiFuel has surged."
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_2",
+      "label": "Badge 2"
+    },
+     {
+      "type": "text",
+      "id": "badge_text-2",
+      "label": "badge_text-2",
+      "default": "UPDATE: As of March 18, 2025 - The demand for OptiFuel has surged."
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_3",
+      "label": "Badge 3"
+    },
+     {
+      "type": "text",
+      "id": "badge_text-3",
+      "label": "badge_text-3",
+      "default": "UPDATE: As of March 18, 2025 - The demand for OptiFuel has surged."
+    },
+    {
+      "type": "image_picker",
+      "id": "badge_4",
+      "label": "Badge 4"
+    },
+     {
+      "type": "text",
+      "id": "badge_text-4",
+      "label": "badge_text-4",
+      "default": "UPDATE: As of March 18, 2025 - The demand for OptiFuel has surged."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "Get 50% Off OptiFuel Today"
+    },
+     {
+      "type": "text",
+      "id": "button_text1",
+      "label": "Button Text",
+      "default": "Get 50% Off OptiFuel Today"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button Link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "block",
+      "name": "Comment",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "author-image",
+          "label": "Author Image"
+        },
+         {
+          "type": "text",
+          "id": "author-name",
+          "label": "Author Name"
+        },
+         {
+          "type": "text",
+          "id": "author-reply",
+          "label": "Author Reply"
+        },
+         {
+          "type": "text",
+          "id": "author-timne",
+          "label": "Comment Time"
+        },
+         {
+          "type": "image_picker",
+          "id": "reply-author-image-reply",
+          "label": "Author Image Reply"
+        },
+         {
+          "type": "text",
+          "id": "author-name-reply",
+          "label": "Author Name Reply"
+        },
+         {
+          "type": "text",
+          "id": "author-reply-reply",
+          "label": "Author Reply"
+        },
+         {
+          "type": "text",
+          "id": "author-timne-reply",
+          "label": "Comment Time Reply"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Promo Section",
+      "category": "Custom Sections"
+    }
+  ]
+}
+{% endschema %}
+
+<section class="promo-section">
+
+ <div class="custom-section-propm-inner">
+   <div class="promo-section-ps-ma">
+     <img src="{{ section.settings.product_image-1 | img_url: 'large' }}" alt="Product">
+   </div>
+ 
+  <div class="product-image-sp">
+     <div class="highlight-text">{{ section.settings.highlight_text }}</div>
+    <div class="custom-ps-iv">
+      <h5 class="highlight-text">{{ section.settings.highlight_text11 }}</h5>
+    <img src="{{ section.settings.product_image | img_url: 'large' }}" alt="Product">
+  </div>
+  </div>
+
+</div>
+
+ <div class="custom-section-bottom-inner">
+  
+  <div class="badges">
+    <div class="icon-badge-custom-1">
+    <img src="{{ section.settings.badge_1 | img_url: 'small' }}" alt="Badge 1">
+    <h6>{{ section.settings.badge_text-1 }}</h6> 
+    </div>
+      
+       <div class="icon-badge-custom-1">
+    <img src="{{ section.settings.badge_2 | img_url: 'small' }}" alt="Badge 2">
+          <h6>{{ section.settings.badge_text-2 }}</h6>
+       </div>
+         
+          <div class="icon-badge-custom-1">
+    <img src="{{ section.settings.badge_3 | img_url: 'small' }}" alt="Badge 3">
+             <h6>{{ section.settings.badge_text-3 }}</h6>
+          </div>
+             <div class="icon-badge-custom-1">
+    <img src="{{ section.settings.badge_4 | img_url: 'small' }}" alt="Badge 4">
+               <h6>{{ section.settings.badge_text-4 }}</h6>
+  </div>
+  </div>
+ <a href="{{ section.settings.button_link }}" class="offer-button">
+   <span class="button-top-text-decide">  {{ section.settings.button_text }}</span>  <br>
+    <span class="button-bottom-text-decide"> {{ section.settings.button_text1 }}</span>
+  </a>
+
+ </div>
+
+  <div class="commetns-ps">
+<label for="comment">Comments</label>
+<textarea id="comment" placeholder="Write a comment..." rows="4" cols="50"></textarea>
+</div>
+  
+  <div class="comments-section">
+   
+    {% for block in section.blocks %}
+      
+
+
+     <div class="comment-section">
+    <!-- Main Comment -->
+        {% if block.settings.author-image != blank %}
+    <div class="comment">
+        <img src="{{ block.settings.author-image | img_url: 'master' }}" alt="Profile" class="profile-img">
+        <div class="comment-content">
+            <div class="name">{{ block.settings.author-name }}</div>
+            <div class="description">{{ block.settings.author-reply }}</div>
+            <div class="actions">
+                Like • Reply <img src="https://img.funnelish.com/4224/307596/1717662735-download.avif" alt="Like"> {{ block.settings.author-timne }}
+            </div>
+        </div>
+    </div>
+ {% endif %}
+    <!-- Reply -->
+   {% if block.settings.reply-author-image-reply != blank %}
+       <div class="comment reply">
+        <img src="{{ block.settings.reply-author-image-reply | img_url: 'master' }}" alt="Profile" class="profile-img">
+        <div class="comment-content">
+            <div class="name">{{ block.settings.author-name-reply }}</div>
+            <div class="description">
+                {{ block.settings.author-reply-reply }}
+            </div>
+            <div class="actions">
+                Like • Reply <img src="https://img.funnelish.com/4224/307596/1717662735-download.avif" alt="Like"> {{ block.settings.author-timne-reply }}
+              </div>
+           </div>
+        </div>
+   {% endif %}
+       
+    </div>
+
+
+
+      
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+.promo-section {
+     max-width: 819px;
+    margin: 30px 0px;
+}
+  .promo-section-ps-ma img{
+    width:100%;
+  }
+  .promo-section-ps-ma{
+    height:25px;
+  }
+  .promo-section .product-image-sp{
+    background-color:#FDFBDA;
+    padding: 20px;
+  }
+.highlight-text {
+  font-weight: 400;
+  color: black;
+  font-size:21px;
+  line-height:normal;
+}
+  .custom-ps-iv{
+    display: flex;
+    justify-content: space-between;
+  }
+.product-image-sp img {
+  width: 235px;
+  object-fit: contain;
+}
+  .badges{
+        display: flex;
+    flex-wrap: nowrap;
+    margin-bottom:25px;
+  }
+  .icon-badge-custom-1{
+    width:25%;
+  }
+  .icon-badge-custom-1 h6{
+        font-size: 18px;
+    font-weight: 700;
+    margin: 0px;
+    line-height: 21px;
+    text-align: center;
+    color:black;
+  }
+.badges img {
+  width: 160px;
+}
+  .custom-section-bottom-inner{
+        background: #fdf8ba;
+    padding: 20px;
+  }
+
+  .commetns-ps textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    line-height:normal;
+}
+  .commetns-ps label{
+        font-size: 20px;
+    font-weight: 700;
+    color: black;
+    margin: 20px 0px 0px;
+    line-height:normal;
+  }
+  .commetns-ps{
+    margin-top:20px;
+  }
+
+.cta-button a {
+  background: green;
+  color: white;
+  padding: 10px 20px;
+  text-decoration: none;
+  display: inline-block;
+}
+.comments-section {
+  margin-top: 20px;
+}
+
+
+
+.comment-section{
+  margin-top:20px;
+}
+ .profile-img {
+            width: 50px;
+            height: 50px;
+            object-fit:cover;
+            margin-right: 10px;
+        }
+  .reply .profile-img {
+     width: 40px;
+     height: 40px;
+  }
+     .comment{
+           display: flex;
+         gap: 10px;
+     }
+        .comment-content {
+            flex: 1;
+        }
+
+        .name {
+            font-size: 16px;
+            font-weight: 700;
+            color: #3b5998;
+          margin:0px 0px 10px;
+          line-height: normal;
+        }
+
+        .description {
+            font-size: 16px;
+            font-weight: 400;
+            color: black;
+           margin:0px 0px 10px;
+          line-height: normal;
+        }
+
+        .actions {
+            font-size: 14px;
+            color: #3b5998;
+            display: flex;
+          gap: 10px;
+            align-items: center;
+        }
+
+        .actions img {
+            width: 15px;
+            height: 15px;
+            margin-left: 5px;
+        }
+
+        .reply {
+            display: flex;
+            align-items: flex-start;
+            margin-left: 40px;
+            border-left: 1px solid #ccc;
+            padding-left: 10px;
+              margin-top: 20px;
+        }
+
+
+
+
+
+
+
+
+
+
+
+  
+</style>

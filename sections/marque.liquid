@@ -1,0 +1,68 @@
+{% schema %}
+{
+  "name": "Marquee Section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "marquee_item",
+      "name": "Marquee Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free Shipping"
+        },
+        {
+          "type": "image_picker",
+          "id": "icon_image",
+          "label": "Icon",
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Marquee Section",
+      "category": "Custom",
+      "blocks": [
+        { "type": "marquee_item" },
+        { "type": "marquee_item" },
+        { "type": "marquee_item" }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<div class="marquee-container">
+    <div class="marquee-content">
+        {% for block in section.blocks %}
+            <div class="marquee-item">
+ <img src="{{ block.settings.icon_image | img_url: 'small' }}" alt="Icon" class="marquee-icon"> {{ block.settings.text }}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<style>
+    .marquee-container {
+        background: black;
+        padding: 16px 0px 15px 0px;
+    }
+    .marquee-content {
+        display: flex;
+        align-items: center;
+    }
+    .marquee-item {
+        display: flex!important;
+      column-gap: 9px;
+        align-items: center;
+        color: white;
+        font-size: 17px;
+        padding: 0 30px;
+    }
+    .marquee-item i {
+        margin-right: 8px;
+    }
+</style>

@@ -1,0 +1,519 @@
+{% schema %}
+{
+  "name": "Social Media Posts",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "It’s going viral on Social Media"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "post",
+      "name": "Post",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "profile_image",
+          "label": "Profile Image"
+        },
+        {
+          "type": "text",
+          "id": "name",
+          "label": "User Name",
+          "default": "John Doe"
+        },
+        {
+          "type": "text",
+          "id": "time_ago",
+          "label": "Time Ago",
+          "default": "10 minutes ago"
+        },
+        {
+          "type": "image_picker",
+          "id": "time_icon",
+          "label": "Time Icon"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Post Description",
+          "default": "This is an amazing product!"
+        },
+        {
+          "type": "image_picker",
+          "id": "post_image",
+          "label": "Post Image"
+        },
+        {
+          "type": "text",
+          "id": "comments",
+          "label": "Number of Comments",
+          "default": "212 Comments"
+        },
+         {
+          "type": "image_picker",
+          "id": "profile-image",
+          "label": "Profile Image"
+        },
+        {
+          "type": "text",
+          "id": "heading-ps",
+          "label": "User Name",
+          "default": "Sandra Adams"
+        },
+        {
+          "type": "text",
+          "id": "desacription",
+          "label": "Desacription",
+          "default": "Are you serious??? 70% OFF? Where can I get one? I was looking for one too!"
+        },
+         {
+          "type": "text",
+          "id": "houres-agos",
+          "label": "Hour's",
+          "default": "26 days ago"
+        },
+         {
+          "type": "image_picker",
+          "id": "profile-image1",
+          "label": "Profile Image1"
+        },
+        {
+          "type": "text",
+          "id": "heading-ps1",
+          "label": "User Name1",
+          "default": "Sandra Adams1"
+        },
+        {
+          "type": "text",
+          "id": "desacription1",
+          "label": "Desacription1",
+          "default": "Are you serious??? 70% OFF? Where can I get one? I was looking for one too!"
+        },
+         {
+          "type": "text",
+          "id": "houres-agos1",
+          "label": "Hour's1",
+          "default": "26 days ago"
+        },
+         {
+          "type": "image_picker",
+          "id": "profile-image2",
+          "label": "Profile Image2"
+        },
+        {
+          "type": "text",
+          "id": "heading-ps2",
+          "label": "User Name2",
+          "default": "Sandra Adams2"
+        },
+        {
+          "type": "text",
+          "id": "desacription2",
+          "label": "Desacription2",
+          "default": "Are you serious??? 70% OFF? Where can I get one? I was looking for one too!2"
+        },
+         {
+          "type": "text",
+          "id": "houres-agos2",
+          "label": "Hour's2",
+          "default": "26 days ago"
+        },
+         {
+          "type": "image_picker",
+          "id": "profile-image3",
+          "label": "Profile Image"
+        },
+        {
+          "type": "text",
+          "id": "heading-ps3",
+          "label": "User Name3",
+          "default": "Sandra Adams"
+        },
+        {
+          "type": "text",
+          "id": "desacription3",
+          "label": "Desacription3",
+          "default": "Are you serious??? 70% OFF? Where can I get one? I was looking for one too!"
+        },
+         {
+          "type": "text",
+          "id": "houres-agos3",
+          "label": "Hour's3",
+          "default": "26 days ago"
+        },
+         {
+          "type": "image_picker",
+          "id": "profile-image4",
+          "label": "Profile Image"
+        },
+        {
+          "type": "text",
+          "id": "heading-ps4",
+          "label": "User Name4",
+          "default": "Sandra Adams"
+        },
+        {
+          "type": "text",
+          "id": "desacription4",
+          "label": "Desacription4",
+          "default": "Are you serious??? 70% OFF? Where can I get one? I was looking for one too!"
+        },
+         {
+          "type": "text",
+          "id": "houres-agos4",
+          "label": "Hour's4",
+          "default": "26 days ago"
+        },
+         {
+          "type": "image_picker",
+          "id": "profile-image5",
+          "label": "Profile Image5"
+        },
+        {
+          "type": "text",
+          "id": "heading-ps5",
+          "label": "User Name5",
+          "default": "Sandra Adams"
+        },
+        {
+          "type": "text",
+          "id": "desacription5",
+          "label": "Desacription5",
+          "default": "Are you serious??? 70% OFF? Where can I get one? I was looking for one too!"
+        },
+         {
+          "type": "text",
+          "id": "houres-agos5",
+          "label": "Hour's5",
+          "default": "26 days ago"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social Media Posts",
+      "blocks": [
+        {
+          "type": "post"
+        },
+        {
+          "type": "post"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<section class="social-media">
+  <h2 class="headoing-social-media">{{ section.settings.heading }}</h2>
+
+  <div class="posts">
+    {% for block in section.blocks %}
+      <div class="post" {{ block.shopify_attributes }}>
+        <div class="user-info">
+          {% if block.settings.profile_image %}
+            <img src="{{ block.settings.profile_image | img_url: '40x40' }}" alt="Profile" class="profile-img">
+          {% endif %}
+          <div class="details">
+            <h3>{{ block.settings.name }}</h3>
+            <p>{{ block.settings.time_ago }}
+              {% if block.settings.time_icon %}
+                <img src="{{ block.settings.time_icon | img_url: '10x10' }}" alt="Icon" class="time-icon">
+              {% endif %}
+            </p>
+          </div>
+        </div>
+        <p class="description">{{ block.settings.description }}</p>
+        {% if block.settings.post_image %}
+          <img src="{{ block.settings.post_image | img_url: '500x500' }}" alt="Post Image" class="post-img">
+        {% endif %}
+        <div class="post-footer">
+      <div class="react-icons-emoih">
+        <img src="https://img.funnelish.com/4224/387149/1720895419-like.svg"/>
+         <img src="https://img.funnelish.com/4224/387149/1720895456-love.svg"/>
+         <img src="https://img.funnelish.com/4224/387149/1720895491-haha.svg"/>
+      </div>    
+          <span>{{ block.settings.comments }}</span>
+        </div>
+
+      
+      <div class="like-comment-section">
+         <div class="like-coomention-part">
+           <div class="like-coomention">
+             <svg width="16" height="16"  xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path fill="#718096" d="M21.3,10.08A3,3,0,0,0,19,9H14.44L15,7.57A4.13,4.13,0,0,0,11.11,2a1,1,0,0,0-.91.59L7.35,9H5a3,3,0,0,0-3,3v7a3,3,0,0,0,3,3H17.73a3,3,0,0,0,2.95-2.46l1.27-7A3,3,0,0,0,21.3,10.08ZM7,20H5a1,1,0,0,1-1-1V12a1,1,0,0,1,1-1H7Zm13-7.82-1.27,7a1,1,0,0,1-1,.82H9V10.21l2.72-6.12A2.11,2.11,0,0,1,13.1,6.87L12.57,8.3A2,2,0,0,0,14.44,11H19a1,1,0,0,1,.77.36A1,1,0,0,1,20,12.18Z"/>
+</svg>
+             Like
+           </div>
+      <div class="like-coomention">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 16 16">
+    <path fill="#718096"
+          d="M1 4.5C1 3.11929 2.11929 2 3.5 2H12.5C13.8807 2 15 3.11929 15 4.5V9.5C15 10.8807 13.8807 12 12.5 12H8.68787L5.62533 14.6797C4.99168 15.2342 4 14.7842 4 13.9422V12H3.5C2.11929 12 1 10.8807 1 9.5V4.5ZM3.5 3C2.67157 3 2 3.67157 2 4.5V9.5C2 10.3284 2.67157 11 3.5 11H5V13.8981L8.31213 11H12.5C13.3284 11 14 10.3284 14 9.5V4.5C14 3.67157 13.3284 3 12.5 3H3.5Z"/>
+</svg>
+              Comment
+           </div>
+         </div>
+      </div>
+
+    <div class="comment-fb-ps-main">
+
+      {% if block.settings.profile-image != blank %}
+      <div class="comment-fb-ps">
+        <img src="{{ block.settings.profile-image | img_url: 'master' }}"/>
+        <div class="comment-fb-ps-inner">
+          
+          <div class="comment-fb-ps-ago">
+            <h6>{{ block.settings.heading-ps }}</h6>
+            <p>{{ block.settings.desacription }}</p>
+          </div>
+
+      <div class="comment-fb-ps-main-time">
+        Like Reply <span>{{ block.settings.houres-agos }}</span>
+      </div>
+          
+        </div>
+      </div>
+      {% endif %}
+
+
+      {% if block.settings.profile-image1 != blank %}
+      <div class="comment-fb-ps">
+        <img src="{{ block.settings.profile-image1 | img_url: 'master' }}"/>
+        <div class="comment-fb-ps-inner">
+          
+          <div class="comment-fb-ps-ago">
+            <h6>{{ block.settings.heading-ps1 }}</h6>
+            <p>{{ block.settings.desacription1 }}</p>
+          </div>
+
+      <div class="comment-fb-ps-main-time">
+        Like Reply <span>{{ block.settings.houres-agos1 }}</span>
+      </div>
+          
+        </div>
+      </div>
+      {% endif %}
+
+
+
+      {% if block.settings.profile-image2 != blank %}
+      <div class="comment-fb-ps">
+        <img src="{{ block.settings.profile-image2 | img_url: 'master' }}"/>
+        <div class="comment-fb-ps-inner">
+          
+          <div class="comment-fb-ps-ago">
+            <h6>{{ block.settings.heading-ps2 }}</h6>
+            <p>{{ block.settings.desacription2 }}</p>
+          </div>
+
+      <div class="comment-fb-ps-main-time">
+        Like Reply <span>{{ block.settings.houres-agos2 }}</span>
+      </div>
+          
+        </div>
+      </div>
+      {% endif %}
+
+
+
+
+      {% if block.settings.profile-image3 != blank %}
+      <div class="comment-fb-ps">
+        <img src="{{ block.settings.profile-image3 | img_url: 'master' }}"/>
+        <div class="comment-fb-ps-inner">
+          
+          <div class="comment-fb-ps-ago">
+            <h6>{{ block.settings.heading-ps3 }}</h6>
+            <p>{{ block.settings.desacription3 }}</p>
+          </div>
+
+      <div class="comment-fb-ps-main-time">
+        Like Reply <span>{{ block.settings.houres-agos3 }}</span>
+      </div>
+          
+        </div>
+      </div>
+      {% endif %}
+
+
+
+
+      {% if block.settings.profile-image4 != blank %}
+      <div class="comment-fb-ps">
+        <img src="{{ block.settings.profile-image4 | img_url: 'master' }}"/>
+        <div class="comment-fb-ps-inner">
+          
+          <div class="comment-fb-ps-ago">
+            <h6>{{ block.settings.heading-ps4 }}</h6>
+            <p>{{ block.settings.desacription4 }}</p>
+          </div>
+
+      <div class="comment-fb-ps-main-time">
+        Like Reply <span>{{ block.settings.houres-agos4 }}</span>
+      </div>
+          
+        </div>
+      </div>
+      {% endif %}
+
+
+      
+      
+    </div>
+
+      
+      </div>
+    {% endfor %}
+  </div>
+</section>
+
+<style>
+  .social-media {
+    max-width: 800px;
+    margin:30px 0px;
+  }
+
+  .social-media .headoing-social-media{
+    text-align: left;
+    font-size:30px;
+    font-weight:900;
+    margin-bottom: 20px;
+  }
+
+  .social-media .posts {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  .social-media .post {
+    background: #fff;
+    padding: 15px;
+    border:10px solid #F0F2F1;
+    width: 49%;
+  }
+
+  .social-media .user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .social-media .profile-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+
+  .social-media .details h3 {
+    margin: 0;
+    font-size: 16px;
+    line-height:normal;
+  }
+
+  .social-media .details p {
+    margin: 2px 0;
+    font-size: 12px;
+    color: gray;
+    line-height:normal;
+  }
+
+  .social-media .time-icon {
+    width: 10px;
+    vertical-align: middle;
+  }
+
+  .social-media .description {
+    margin: 0px 0;
+    font-size: 14px;
+    line-height:normal;
+  }
+
+  .social-media .post-img {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .social-media .post-footer {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .social-media .react-icon {
+    width: 20px;
+  }
+
+  .social-media .post-footer span {
+    font-size: 14px;
+    color: gray;
+  }
+
+   .social-media .like-coomention-part{
+      display: flex;
+    align-items: center;
+    gap: 10px; 
+         border-top: 1px solid #ced0d4;
+    border-bottom: 1px solid #ced0d4;
+    padding: 7px 0px;
+   }
+   .social-media .like-coomention{
+     display: flex;
+    align-items: center;
+    line-height: normal;
+     gap:8px;
+   }
+  .social-media .react-icons-emoih{
+    display:flex;
+    align-items:center;
+  }
+  .social-media .comment-fb-ps{
+        display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    margin-top:18px;
+  }
+
+  .social-media .comment-fb-ps img{
+    width:35px;
+    height:35px;
+    border-radius:50px;
+  }
+
+  .social-media .comment-fb-ps-ago{
+    border-radius: 10px;
+    margin: 0px;
+    padding: 6px 10px;
+    background-color: rgb(240, 242, 245);
+  }
+  .social-media .comment-fb-ps-ago h6{
+    margin:0px;
+    font-size:13px;
+    font-weight:700;
+    color:black;
+  }
+  .social-media .comment-fb-ps-ago p{
+    margin:0px;
+    font-size:13px;
+    font-weight:400;
+    line-height:normal;
+    color:black;
+  }
+  .social-media .comment-fb-ps-main-time{
+    font-size: 10px;
+    line-height: normal;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+     color:black;
+  }
+  
+  
+</style>

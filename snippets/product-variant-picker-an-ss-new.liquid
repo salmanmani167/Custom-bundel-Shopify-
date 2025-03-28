@@ -1,0 +1,208 @@
+{% comment %}
+  Renders product variant-picker
+
+  Accepts:
+  - product: {Object} product object.
+  - block: {Object} passing the block information.
+  - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  Usage:
+  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+{% endcomment %}
+<style>
+      .option__container__custom{
+        flex-wrap: unset !important;
+        gap: 20px !important;
+        margin: 20px 0 !important;
+      }
+      .option__container__custom:not(.option__container__color) .bundle_option_label_custom{
+        font-size: 18px !important;
+        line-height: 140% !important;
+        padding: 20px 46px !important;
+        border: unset !important;
+        outline: 1px solid rgba(18, 18, 18, 0.55) !important;
+      }
+      .option__container__custom:not(.option__container__color) input[type=radio]:checked+label{
+        border: unset !important;
+        outline: 3px solid #f2552c !important;
+        box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.8);
+  -webkit-box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.8);
+  -moz-box-shadow: 0px 0px 5px 3px rgba(0,0,0,0.8);
+      }
+</style>
+{%- unless product.has_only_default_variant -%}
+  <variant-selects
+    id="variant-selects-{{ section.id }}"
+    class="custom-as-new-varaint"
+    data-section="{{ section.id }}"
+    {{ block.shopify_attributes }}
+  >
+    {%- for option in product.options_with_values -%}
+      {%- liquid
+        assign swatch_count = option.values | map: 'swatch' | compact | size
+        assign picker_type = block.settings.picker_type
+
+        if swatch_count > 0 and block.settings.swatch_shape != 'none'
+          if block.settings.picker_type == 'dropdown'
+            assign picker_type = 'swatch_dropdown'
+          else
+            assign picker_type = 'swatch'
+          endif
+        endif
+      -%}
+      {%- if picker_type == 'swatch' -%}
+        <fieldset class="js product-form__input product-form__input--swatch">
+          <legend class="form__label">
+            {{ option.name }}:
+            <span data-selected-value>
+              {{- option.selected_value -}}
+            </span>
+          </legend>
+          {% render 'product-variant-options-an-ss-new',
+            product: product,
+            option: option,
+            block: block,
+            picker_type: picker_type
+          %}
+        </fieldset>
+      {%- elsif picker_type == 'custom' -%}
+        <fieldset class="js product-form__input product-form__input--pill fieldset-{{ option.name | downcase }}">
+          <div class="select_heading">
+            <legend class="form__label">Select {{ option.name }}</legend>
+            {%- assign product_tags = product.tags | join: ' ' -%}
+            {% if block.settings.enable_sizechart and option.name contains 'Size' %}
+              {% if product_tags contains 'meta-size-chart-' %}
+                <div>
+                  <a
+                    class="size_chart"
+                    href="javascript:;"
+                    data-fancybox
+                    data-src="#size-chart{{product.id}}"
+                    data-type="inline"
+                    data-no-instant
+                  >
+                    What’s Inside {% comment %}<span class="icon-right-arrow"></span>{% endcomment %}
+                  </a>
+                  {% render 'popup-size-chart', product: product %}
+                </div>
+              {% else %}
+                <div>
+                  <a
+                    class="size_chart inside_text"
+                    href="javascript:;"
+                    data-fancybox
+                    data-src="#size-chart{{product.id}}"
+                    data-type="inline"
+                    data-no-instant
+                  >
+                    What’s Inside {% comment %}<span class="icon-right-arrow"></span>{% endcomment %}
+                  </a>
+                  {% render 'popup-size-chart',
+                    product: product,
+                    size_chart: block.settings.size_chart,
+                    desktop_size_img: block.settings.sizecart_img,
+                    mobile_size_img: block.settings.sizecart_img_mob
+                  %}
+                </div>
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="option__container__{{ option.name | downcase }} {% if option.position == 1 %}option__container__custom{% endif %}">
+            {% render 'product-variant-options-an-ss-new',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type
+            %}
+          </div>
+        </fieldset>
+      {%- elsif picker_type == 'button' -%}
+        <fieldset class="js product-form__input product-form__input--pill fieldset-{{ option.name | downcase }}">
+          <div class="select_heading">
+            <legend class="form__label">Select {{ option.name }}</legend>
+            {%- assign product_tags = product.tags | join: ' ' -%}
+            {% if block.settings.enable_sizechart and option.name contains 'Size' %}
+              {% if product_tags contains 'meta-size-chart-' %}
+                <div>
+                  <a
+                    class="size_chart"
+                    href="javascript:;"
+                    data-fancybox
+                    data-src="#size-chart{{product.id}}"
+                    data-type="inline"
+                    data-no-instant
+                  >
+                    What’s Inside {% comment %}<span class="icon-right-arrow"></span>{% endcomment %}
+                  </a>
+                  {% render 'popup-size-chart', product: product %}
+                </div>
+              {% else %}
+                <div>
+                  <a
+                    class="size_chart inside_text"
+                    href="javascript:;"
+                    data-fancybox
+                    data-src="#size-chart{{product.id}}"
+                    data-type="inline"
+                    data-no-instant
+                  >
+                    What’s Inside {% comment %}<span class="icon-right-arrow"></span>{% endcomment %}
+                  </a>
+                  {% render 'popup-size-chart',
+                    product: product,
+                    size_chart: block.settings.size_chart,
+                    desktop_size_img: block.settings.sizecart_img,
+                    mobile_size_img: block.settings.sizecart_img_mob
+                  %}
+                </div>
+              {% endif %}
+            {% endif %}
+          </div>
+          <div class="option__container__{{ option.name | downcase }}">
+            {% render 'product-variant-options-an-ss-new',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type
+            %}
+          </div>
+        </fieldset>
+      {%- else -%}
+        <div class="product-form__input product-form__input--dropdown">
+          <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+            {{ option.name }}
+          </label>
+          <div class="select">
+            {%- if picker_type == 'swatch_dropdown' -%}
+              <span
+                data-selected-value
+                class="dropdown-swatch"
+              >
+                {% render 'swatch', swatch: option.selected_value.swatch, shape: block.settings.swatch_shape %}
+              </span>
+            {%- endif -%}
+            <select
+              id="Option-{{ section.id }}-{{ forloop.index0 }}"
+              class="select__select"
+              name="options[{{ option.name | escape }}]"
+              form="{{ product_form_id }}"
+            >
+              {% render 'product-variant-options-an-ss-new',
+                product: product,
+                option: option,
+                block: block,
+                picker_type: picker_type
+              %}
+            </select>
+            <span class="svg-wrapper">
+              {{- 'icon-caret.svg' | inline_asset_content -}}
+            </span>
+          </div>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    <script type="application/json" data-selected-variant>
+      {{ product.selected_or_first_available_variant | json }}
+    </script>
+  </variant-selects>
+{%- endunless -%}

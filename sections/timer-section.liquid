@@ -1,0 +1,113 @@
+{% schema %}
+{
+  "name": "Countdown Timer",
+  "settings": [
+    {
+      "type": "text",
+      "id": "countdown_text",
+      "label": "Text before Timer",
+      "default": "Your Discount is Reserved For"
+    },
+    {
+      "type": "number",
+      "id": "countdown_minutes",
+      "label": "Set Timer (Minutes)",
+      "default": 9
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#1a1a1a"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "timer_color",
+      "label": "Timer Color",
+      "default": "#ff6600"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Countdown Timer"
+    }
+  ]
+}
+{% endschema %}
+
+<style>
+  
+  .countdown-container {
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    border-top: 5px solid #ff6600;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .countdown-container span {
+    color: {{ section.settings.timer_color }};
+    margin-left: 5px;
+  }
+</style>
+
+<div class="countdown-container">
+  <span>{{ section.settings.countdown_text }}</span> ⏰ <span id="timer"></span>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    let countdownMinutes = parseInt("{{ section.settings.countdown_minutes }}", 10);
+    let countdownTime = countdownMinutes * 60; // Convert minutes to seconds
+    let timerElement = document.getElementById("timer");
+
+    function updateTimerDisplay(timeLeft) {
+      let minutes = Math.floor(timeLeft / 60);
+      let seconds = timeLeft % 60;
+      timerElement.innerHTML = 
+        `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+
+    // Check if countdown exists in localStorage
+    let storedEndTime = localStorage.getItem("countdownEndTime");
+
+    if (storedEndTime) {
+      let now = Math.floor(Date.now() / 1000); // Current time in seconds
+      let timeLeft = storedEndTime - now;
+
+      if (timeLeft <= 0) {
+        // Timer expired, reset
+        storedEndTime = null;
+        localStorage.removeItem("countdownEndTime");
+        timeLeft = countdownTime;
+      }
+    } else {
+      // First visit or expired timer, set new countdown
+      let endTime = Math.floor(Date.now() / 1000) + countdownTime;
+      localStorage.setItem("countdownEndTime", endTime);
+      timeLeft = countdownTime;
+    }
+
+    updateTimerDisplay(timeLeft);
+
+    let countdownInterval = setInterval(function () {
+      timeLeft--;
+      updateTimerDisplay(timeLeft);
+
+      if (timeLeft <= 0) {
+        clearInterval(countdownInterval);
+        timerElement.innerHTML = "00:00";
+      }
+    }, 1000);
+  });
+</script>

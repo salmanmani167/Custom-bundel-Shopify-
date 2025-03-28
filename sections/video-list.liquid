@@ -1,0 +1,144 @@
+<div class="sectionOne video_list">
+	<div class="page-width">
+        {% if section.settings.title != blank %}
+          <div class="common_heading hide-mob">{{ section.settings.title }}</div>
+        {% endif %}
+        {% if section.settings.mobiletitle != blank %}
+          <div class="common_heading forMob">{{ section.settings.mobiletitle }}</div>
+        {% endif %}
+        {% if section.settings.subtitle != blank %}
+          <div class="common-text">{{ section.settings.subtitle }}</div>
+        {% endif %}
+        
+        <div class="s1-slider">
+        {% for block in section.blocks %}
+          <!-- test {{ block.settings.video.sources[0].url }} -->
+          {% if block.settings.video.sources[1].url != blank %}
+            <div class="s1_video-col ugc1" data-model="{{ forloop.index }}" data-vdo=" {{ block.settings.video.sources[1].url }} ">
+              {% comment %} <div class="video_wrap">
+                <video controls crossorigin playsinline {% if block.settings.video_poster != blank %}poster="{{ block.settings.video_poster | img_url:"master" }}"{% endif %}>
+                  <source src="{{ block.settings.video.sources[0].url }}" type="video/mp4" size="">
+                </video> 
+              </div> {% endcomment %}
+              <img src="{{ block.settings.video_poster | img_url:"master" }}" alt="" class="sec1_vid ugc-poster" width="283" height="439">
+              <img src="https://cdn.shopify.com/s/files/1/0750/2325/3792/files/ugc-play.png?v=1724489750" width="120" height="120" alt="" class="ugc-play">
+            </div>
+          {% endif %}
+        {% endfor %}
+        </div>
+      
+         {% for block in section.blocks %}
+            {% if block.settings.video.sources[1].url != blank %}
+             <div class="ugc-modal" data-model="{{ forloop.index }}" data-url="{{block.settings.video }}">
+                <div class="video-container" id="myVdo" style="display:none;">
+                    <div class="ugc-close">
+                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--ic" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="M18.3 5.71a.996.996 0 0 0-1.41 0L12 10.59L7.11 5.7A.996.996 0 1 0 5.7 7.11L10.59 12L5.7 16.89a.996.996 0 1 0 1.41 1.41L12 13.41l4.89 4.89a.996.996 0 1 0 1.41-1.41L13.41 12l4.89-4.89c.38-.38.38-1.02 0-1.4z"></path></svg>
+                    </div>
+                    <video controls playsinline width="100%" height="auto">
+                        <source src="{{ block.settings.video.sources[1].url }}" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+           {% endif %}
+      {% endfor %}
+        <div class="clearall"></div>
+    
+        <div class="common-button__box">
+            {% if section.settings.sub_title != blank %}
+              <div class="selefast {% if section.settings.border %}border{% endif %}"><img src="{{ section.settings.subtitleimage | image_url:width:10 }}" width="" height="" alt="{{ section.settings.image.alt }}">{{ section.settings.sub_title }}</div>
+            {% endif %}
+            {% if section.settings.button != blank %}
+              <a href="{{ section.settings.button_link }}" class="common-button">{{ section.settings.button }}</a>
+            {% endif %}
+             {% if section.settings.caption != blank or section.settings.captionimage != blank %}
+               <p class="money-bk-btn-text"><img src="{{ section.settings.captionimage | image_url:width:50 }}" width="" height="" alt="{{ section.settings.captionimage.alt }}">{{ section.settings.caption }}</p>
+            {% endif %}
+        </div> 
+    </div>
+</div>
+
+{% schema %}
+  {
+    "name": "Video List",
+    "settings": [
+       {
+        "type":"richtext",
+        "id":"title",
+        "label":"Title"
+      },
+       {
+        "type":"richtext",
+        "id":"mobiletitle",
+        "label":"Mobile Title"
+      },
+       {
+        "type":"richtext",
+        "id":"subtitle",
+        "label":"Sub Text"
+      },
+      {
+        "type":"header",
+        "content":"Bottom Content"
+      },
+      {
+        "type":"richtext",
+        "id":"sub_title",
+        "label":"Sub Title"
+      },
+           {
+        "type":"checkbox",
+        "id":"border",
+        "label":"Show Border",
+        "default":false
+      },
+      {
+        "type":"image_picker",
+        "id":"subtitleimage",
+        "label":"Sub Title Logo"
+      },
+      {
+        "type":"text",
+        "id":"button",
+        "label":"Button"
+      },
+      {
+        "type":"url",
+        "id":"button_link",
+        "label":"Link"
+      },
+      {
+        "type":"text",
+        "id":"caption",
+        "label":"Caption"
+      },
+      {
+        "type":"image_picker",
+        "id":"captionimage",
+        "label":"Caption Image"
+      }
+    ],
+        "blocks": [
+      {
+        "type":"video",
+        "name":"Video",
+        "settings":[
+            {
+              "type": "video",
+              "label": "Video",
+              "id": "video"
+            },
+            {
+              "type": "image_picker",
+              "label": "Poster",
+              "id": "video_poster"
+            }
+        ]
+      }
+    ],
+        "presets": [
+      {
+        "name":"Video List"
+      }
+    ]
+  }
+{% endschema %}

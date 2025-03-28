@@ -1,0 +1,179 @@
+<div class="sectionFour {{ section.id }}" style="">
+  <style>.sectionFour.{{ section.id }} { background-color:{{ section.settings.bg_color }} }</style>
+  <div class="page-width">
+    {% if section.settings.title != blank %}
+      <div class="common_heading hide-mob">{{ section.settings.title }}</div>
+    {% endif %}
+    {% if section.settings.mobiletitle != blank %}
+      <div class="common_heading forMob">{{ section.settings.mobiletitle }}</div>
+    {% endif %}
+
+    <div class="s4-step-row">
+      {% for block in section.blocks %}
+                  {% if block.settings.text != blank or block.settings.subtext != blank or block.settings.image != blank %}
+        <div class="s4-step-col">
+          <p class="s4-step-col-text1">{{ forloop.index }}</p>
+
+          {% if block.settings.text != blank %}
+            <p class="s4-step-col-heading">{{ block.settings.text }}</p>
+          {% endif %}
+
+          {% if block.settings.image != blank %}
+            <div class="hide-mob">
+              <img
+                src="{{ block.settings.image | image_url:width:530 }}"
+                width="530"
+                height="329"
+                alt="{{ block.settings.image.alt }}"
+                class="s4-step-col-img"
+              >
+            </div>
+          {% endif %}
+
+          {% if block.settings.mobileimage != blank %}
+            <div class="forMob">
+              <img
+                src="{{ block.settings.mobileimage | image_url:width:560 }}"
+                width="560"
+                height="149"
+                alt="{{ block.settings.mobileimage.alt }}"
+                class="s4-step-col-img"
+              >
+            </div>
+          {% endif %}
+
+          {% if block.settings.subtext != blank %}
+            <p class="s4-step-col-text2">{{ block.settings.subtext }}</p>
+          {% endif %}
+        </div>
+                      {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="common-button__box">
+      {% if section.settings.sub_title != blank %}
+        <div class="selefast {% if section.settings.border %}border{% endif %}">
+          <img
+            src="{{ section.settings.subtitleimage | image_url:width:10 }}"
+            width=""
+            height=""
+            alt="{{ block.settings.image.alt }}"
+          >
+          {{- section.settings.sub_title }}
+        </div>
+      {% endif %}
+      {% if section.settings.button != blank %}
+        <a href="{{ section.settings.button_link }}" class="common-button">{{ section.settings.button }}</a>
+      {% endif %}
+      {% if section.settings.caption != blank or section.settings.captionimage != blank %}
+        <p class="money-bk-btn-text">
+          <img
+            src="{{ section.settings.captionimage | image_url:width:50 }}"
+            width=""
+            height=""
+            alt="{{ section.settings.captionimage.alt }}"
+          >
+          {{- section.settings.caption }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Seamless Steps",
+  "settings": [
+    {
+      "type":"color",
+      "id":"bg_color",
+      "label":"Background Color",
+      "default":"#fff4f1"
+    },
+     {
+      "type":"richtext",
+      "id":"title",
+      "label":"Title"
+    },
+     {
+      "type":"richtext",
+      "id":"mobiletitle",
+      "label":"Mobile Title"
+    },
+    {
+      "type":"header",
+      "content":"Bottom Content"
+    },
+    {
+      "type":"richtext",
+      "id":"sub_title",
+      "label":"Sub Title"
+    },
+         {
+        "type":"checkbox",
+        "id":"border",
+        "label":"Show Border",
+        "default":false
+      },
+    {
+      "type":"image_picker",
+      "id":"subtitleimage",
+      "label":"Sub Title Logo"
+    },
+    {
+      "type":"text",
+      "id":"button",
+      "label":"Button"
+    },
+    {
+      "type":"url",
+      "id":"button_link",
+      "label":"Link"
+    },
+    {
+      "type":"text",
+      "id":"caption",
+      "label":"Caption"
+    },
+    {
+      "type":"image_picker",
+      "id":"captionimage",
+      "label":"Caption Image"
+    }
+  ],
+  "blocks": [
+    {
+      "type":"Steps",
+      "name":"Step",
+      "limit":4,
+      "settings":[
+          {
+            "type": "text",
+            "label": "Title",
+            "id": "text"
+          },
+          {
+            "type": "image_picker",
+            "label": "Logo",
+            "id": "image"
+          },
+          {
+            "type": "image_picker",
+            "label": "Mobile Logo",
+            "id": "mobileimage"
+          },
+            {
+            "type": "richtext",
+            "label": "Sub Text",
+            "id": "subtext"
+          }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name":"Seamless Steps"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,49 @@
+<div class="as-seen-on">
+	<div class="page-width">
+        {% if section.settings.title != blank %}
+          <h3 class="">{{ section.settings.title }}</h3>
+        {% endif %}
+        <ul>
+          {% for block in section.blocks %}
+              {% if block.settings.image != blank %}
+            	  <li>
+                  <img src="{{ block.settings.image | img_url:'master' }}" width="" height="" alt="{{ block.settings.image.alt }}" class="ass-seen-logo{{ forloop.index }}">
+                </li>
+              {% endif %}
+          {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "As Seen On",
+    "settings": [
+       {
+        "type":"text",
+        "id":"title",
+        "label":"Title",
+        "default":"As Featured In"
+      },
+    ],
+    "blocks": [
+      {
+        "type":"logo",
+        "name":"Logo",
+        "settings":[
+            {
+              "type": "image_picker",
+              "label": "Logo",
+              "id": "image"
+            }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name":"As Seen On"
+      }
+    ]
+  }
+{% endschema %}

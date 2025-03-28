@@ -1,0 +1,140 @@
+<div class="sectionThree benefits-wire-connection">
+	<div class="page-width">
+    	{% if section.settings.title != blank %}
+          <div class="common_heading">{{ section.settings.title }}</div>
+        {% endif %}
+         {% if section.settings.subtitle != blank %}
+          <div class="common-text hide-mob">{{ section.settings.subtitle }}</div>
+        {% endif %}
+        {% if section.settings.mobiolesubtitle != blank %}
+          <div class="common-text forMob">{{ section.settings.mobiolesubtitle }}</div>
+        {% endif %}
+      {% if section.settings.mobile_gif != blank %}
+        <img src="{{ section.settings.mobile_gif | image_url:width:480 }}" class="sec3-mob-img forMob" width="480" height="480" alt="{{ section.settings.mobile_gif.alt }}">
+       {% endif %}
+        <div class="s3-benefit-row">
+            {% for block in section.blocks %}
+        	  <div class="s3-benefit-col">
+              {% if block.settings.image != blank %}
+            	<img src="{{ block.settings.image | image_url:width:82 }}" width="82" height="86" alt="icn" class="s3-col-icn">
+              {% endif %}
+                {% if block.settings.text != blank %}
+            	<p class="s3-benefit-col-text1">{{ block.settings.text }}</p>
+                        {% endif %}
+                  {% if block.settings.textsubtitle != blank %}
+                <p class="s3-benefit-col-text2">{{ block.settings.textsubtitle }}</p>
+                     {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="common-button__box">
+             {% if section.settings.sub_title != blank %}
+              <div class="selefast {% if section.settings.border %}border{% endif %}"><img src="{{ section.settings.subtitleimage | image_url:width:10 }}" width="" height="" alt="{{ section.settings.image.alt }}">{{ section.settings.sub_title }}</div>
+            {% endif %}
+            {% if section.settings.button != blank %}
+              <a href="{{ section.settings.button_link }}" class="common-button">{{ section.settings.button }}</a>
+            {% endif %}
+             {% if section.settings.caption != blank or section.settings.captionimage != blank %}
+               <p class="money-bk-btn-text"><img src="{{ section.settings.captionimage | image_url:width:50 }}" width="" height="" alt="{{ section.settings.captionimage.alt }}">{{ section.settings.caption }}</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% schema %} 
+  {
+    "name": "Benefits Wire Connection",
+    "settings": [
+      {
+        "type":"text",
+        "id":"title",
+        "label":"Title"
+      },
+       {
+        "type":"richtext",
+        "id":"subtitle",
+        "label":"Sub Text"
+      },
+       {
+        "type":"richtext",
+        "id":"mobiolesubtitle",
+        "label":"Mobile Sub Text"
+      },
+            {
+        "type":"image_picker",
+        "id":"mobile_gif",
+        "label":"Mobile Gif Image"
+      },
+       {
+        "type":"header",
+        "content":"Bottom Content"
+      },
+      {
+        "type":"richtext",
+        "id":"sub_title",
+        "label":"Sub Title"
+      },
+      {
+        "type":"checkbox",
+        "id":"border",
+        "label":"Show Border",
+        "default":false
+      },
+      {
+        "type":"image_picker",
+        "id":"subtitleimage",
+        "label":"Sub Title Logo"
+      },
+      {
+        "type":"text",
+        "id":"button",
+        "label":"Button"
+      },
+      {
+        "type":"url",
+        "id":"button_link",
+        "label":"Link"
+      },
+      {
+        "type":"text",
+        "id":"caption",
+        "label":"Caption"
+      },
+      {
+        "type":"image_picker",
+        "id":"captionimage",
+        "label":"Caption Image"
+      }
+    ] ,
+    "blocks": [
+      {
+        "type":"logo",
+        "name":"Logo",
+        "settings":[
+            {
+              "type": "image_picker",
+              "label": "Logo",
+              "id": "image"
+            },
+            {
+              "type": "text",
+              "label": "Title",
+              "id": "text"
+            },
+            {
+              "type": "richtext",
+              "label": "Sub Title",
+              "id": "textsubtitle"
+            }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name":"Benefits Wire Connection"
+      }
+    ]
+  }
+{% endschema %}

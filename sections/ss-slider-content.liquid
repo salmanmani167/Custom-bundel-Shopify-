@@ -1,0 +1,348 @@
+<div class="slider__content-items">
+    {% if section.settings.content != blank %}
+        <div class="slider__content-header">
+            {{ section.settings.content }}
+        </div>
+    {% endif %}
+
+    {% if section.blocks.size > 0 %}
+        <div class="slider__content-inner-items">
+            <div class="slider__content-row-items slider-content-{{ section.id}}">
+                {% for block in section.blocks %}
+                    <div style="background-color: {{ block.settings.bgcolor }}; color: {{ block.settings.tcolor }};" class="slider__content-col-items">
+                        {% if block.settings.img != blank %}
+                            <div class="slider__content-img {% if block.settings.imageborder %}border-bottom-img{% endif %}">
+                                <img src="{{ block.settings.img | img_url: 'master' }}">
+                            </div>
+                        {% else %}
+                            <div class="slider__content-img">
+                                {{ 'image' | placeholder_svg_tag }}
+                            </div>
+                        {% endif %}
+
+                        {% if block.settings.pretitle != blank or block.settings.title != blank or block.settings.content != blank %}
+                            <div class="slider__content-text">
+                                {% if block.settings.pretitle != blank %}
+                                    <h4>{{ block.settings.pretitle }}</h4>
+                                {% endif %}
+
+                                {% if block.settings.title != blank %}
+                                    <h3>{{ block.settings.title }}</h3>
+                                {% endif %}
+
+                                {% if block.settings.content != blank %}
+                                    <div class="slider__content-description">
+                                        {{ block.settings.content }}
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+    {% if section.settings.btntext != blank %}
+    <div class="view__all-button">
+        <a href="{{ section.settings.btnurl }}">{{ section.settings.btntext }}</a>
+    </div>
+    {% endif %}
+</div>
+<style>
+    #shopify-section-{{ section.id }}{
+        border-bottom: 1px solid #000;
+        border-top: 1px solid #000;
+        overflow: hidden;
+        padding: 50px 30px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-header p,
+    #shopify-section-{{ section.id }} .slider__content-header {
+        line-height: 1.2;
+        font-weight: 600;
+        text-align: center;
+        font-family: 'Sora', sans-serif !important;
+        font-size: 24px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-header strong{
+        color: #F2542C;
+        font-weight: 600;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-col-items {
+        border: 1px solid #000;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text{
+        padding: 28px 14px;
+    }
+
+    #shopify-section-{{ section.id }} .slick-dots li button:before{
+        font-size: 8px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-row-items .slick-list {
+        padding: 0 !important;
+        overflow: visible !important;
+    }
+
+    #shopify-section-{{ section.id }} .slick-dots{
+        position: relative;
+        bottom: -8px;
+    }
+
+    #shopify-section-{{ section.id }} .slick-dots li {
+        margin: 0;
+    }
+
+    #shopify-section-{{ section.id }} .slick-slider .slick-track {
+        display: flex;
+        column-gap: 14px;
+    }
+
+    #shopify-section-{{ section.id }} .slick-slider .slick-slide{
+        height: inherit !important;
+    }
+
+
+
+    #shopify-section-{{ section.id }} .slider__content-text {
+        text-align: center;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text h4{
+        padding: 0;
+        font-size: 14px;
+        text-transform: inherit;
+    line-height: 1.2;
+    margin-bottom: 4px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text h3{
+        margin-bottom: 6px;
+        font-size: 18px;
+        font-weight: 600;
+        text-transform: inherit;
+        line-height: 1.2;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text .slider__content-description,
+    #shopify-section-{{ section.id }} .slider__content-text .slider__content-description p{
+        font-size: 12px;
+        font-weight: 300;
+        line-height: 1.2;
+        color: #4d4d4d;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-text .slider__content-description p:last-child{
+        margin-bottom: 0px;
+    }
+
+    #shopify-section-{{ section.id }} .view__all-button a{
+        display: block;
+        /* padding: 18px;
+        font-size: 16px; */
+        font-size:24px;
+        padding: 25px 18px;
+        font-weight: bold;
+        letter-spacing: 0.04em;
+        text-transform: UPPERCASE;
+        color: #fff;
+        /* background-color: #F2542C;
+        border: 1px solid #000; */
+        border-radius: 6px;
+        background: #00bd4c;
+        width: 332px;
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+      text-decoration: none;
+      line-height: 1;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-img {
+        width: 100%;
+        height: 100%;
+        max-height: 120px;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-img img {
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        object-fit: contain;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #shopify-section-{{ section.id }} .border-bottom-img{
+        border-bottom: 1px solid #000;
+    }
+
+    #shopify-section-{{ section.id }} .slider__content-items {
+        max-width: 1160px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    @media (min-width: 1025px){
+        #shopify-section-{{ section.id }} .slider__content-row-items{
+            display: grid;
+            column-gap: 14px;
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        #shopify-section-{{ section.id }} .view__all-button a{
+            margin-top: 28px;
+        }
+
+    }
+
+  @media (max-width: 767px){
+    #shopify-section-{{ section.id }} .view__all-button a{
+      font-size:20px;
+      padding: 19px 18px;
+    }
+  }
+
+    @media (max-width: 480px){
+        #shopify-section-{{ section.id }}{
+            padding: 29px 14px;
+        }
+        #shopify-section-{{ section.id }} .slider__content-header{
+            font-size: 24px;
+        }
+
+        #shopify-section-{{ section.id }} .view__all-button a{
+            width: 100%;
+        }
+    }
+</style>
+<script>
+if( window.innerWidth < 1024){
+$('.slider-content-{{ section.id}}').slick({
+    dots: true,
+    arrows: false,
+    infinite: false,
+    slidesToShow: 3,
+    responsive: [
+        {
+        breakpoint: 1024,
+        settings: {
+            arrows: false,
+            slidesToShow: 3
+        }
+        },
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false,
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          arrows: false,
+          slidesToShow: 1.25
+        }
+      }
+    ]
+  });
+}
+</script>
+
+{% schema %}
+{
+    "name": "Content text slider",
+    "class": "shopify-content-text",
+    "settings": [
+        {
+            "type": "richtext",
+            "id": "content",
+            "label": "Section title",
+            "info": "Please make the word bold if you want to highlight to show the highlight color",
+            "default": "<p>Lorem ipsum dolor <strong>sit amet</strong></p>"
+        },
+        {
+            "type": "text",
+            "id": "btntext",
+            "label": "Button label",
+            "default": "SHOP NOW"
+        },
+        {
+            "type": "url",
+            "id": "btnurl",
+            "label": "Button link"
+        }
+    ],
+    "blocks": [
+        {
+            "type": "slideritem",
+            "name": "Slider",
+            "settings": [
+                {
+                    "type": "checkbox",
+                    "id": "imageborder",
+                    "label": "Image Border separator",
+                    "default": true
+                },
+                {
+                    "type": "color",
+                    "id": "bgcolor",
+                    "label": "Background color",
+                    "default": "transparent"
+                },
+                {
+                    "type": "color",
+                    "id": "tcolor",
+                    "label": "Text color",
+                    "default": "#000"
+                },
+                {
+                    "type": "image_picker",
+                    "id": "img",
+                    "label": "Image"
+                },
+                {
+                    "type": "text",
+                    "id": "pretitle",
+                    "label": "Pre-title",
+                    "default": "Pre-title"
+                },
+                {
+                    "type": "text",
+                    "id": "title",
+                    "label": "Title",
+                    "default": "Title"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content",
+                    "default": "<p>Lorem ipsum dolor <strong>sit amet</strong></p>"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+          "name": "Content text slider",
+          "category": "Text",
+          "blocks": [
+            {
+              "type": "slideritem"
+            },
+            {
+              "type": "slideritem"
+            },
+            {
+              "type": "slideritem"
+            }
+          ]
+        }
+    ]
+}
+{% endschema %}

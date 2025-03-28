@@ -1,0 +1,4 @@
+{% assign api = shop.metafields.zipifyoneclickupsell | size %}{%- unless api == 0 -%}
+<script>((o,c,u)=>{o[c]=o[c]||{},o[u]=o[u]||{},o[c].OCU=o[c].OCU||{api:o[u]}})(window,'Zipify','OCUApi');</script>
+<script>Zipify.OCU.api.popupWasShown = () => {document.querySelector('#dynamic-checkout-cart')?.remove();document.querySelector('#dynamic-checkout-cart')?.remove();};</script>
+{%- endunless -%}

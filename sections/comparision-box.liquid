@@ -1,0 +1,196 @@
+<div class="sectionFive comparision">
+  <div class="page-width">
+    <div class="s5-compare-box">
+        {% if section.settings.table_title != blank %}
+          <div class="compare-box-heading">
+            {{ section.settings.table_title }}
+          </div>
+        {% endif %}
+
+      <div class="s5-compare-box-inner">
+        <p class="s5-compare-text">VS</p>
+        <div class="s5-compare-col fl">
+          <!-- <p class="s5-compare-col-heading"></p> -->
+          {% if  section.settings.left_title_logo != blank %}
+            <img src="{{ section.settings.left_title_logo | image_url:width:350 }}" width="350" height="62" alt="{{ section.settings.left_title_logo.alt }}" class="s5-comp-stick">
+          {% endif %}
+          {% if  section.settings.left_main_image != blank %}
+            <img src="{{ section.settings.left_main_image | image_url:width:412 }}" width="412" height="203" alt="{{ section.settings.left_main_image.alt }}" class="s5-comp-img hide-mob">
+          {% endif %}
+          {% if  section.settings.left_mobile_main_image != blank %}
+              <div class="forMob">
+                <img src="{{ section.settings.left_mobile_main_image | image_url:width:412 }}" width="118" height="118" alt="{{ section.settings.left_mobile_main_image.alt }}" class="s5-comp-img">
+              </div>
+            {% endif %}
+          <ul class="s5-compare-list">
+           {% for block in section.blocks %}
+              {% if block.settings.left_text != blank %}
+            <li>{{ block.settings.left_text }}</li>
+                {% endif %}
+            {% endfor %}
+          </ul>
+        </div>
+
+        <div class="s5-compare-col fr">
+          <p class="s5-compare-col-heading">Others</p>
+          {% if  section.settings.right_main_image != blank %}
+            <img src="{{ section.settings.right_main_image | image_url:width:412 }}" width="412" height="203" alt="{{ section.settings.right_main_image.alt }}" class="s5-comp-img hide-mob">
+          {% endif %}
+             {% if  section.settings.right_mobilemain_image != blank %}
+          <div class="forMob">
+            <img src="{{ section.settings.right_mobilemain_image | image_url:width:118 }}" width="118" height="118" alt="{{ section.settings.right_mobilemain_image.alt }}" class="s5-comp-img">
+          </div>
+                  {% endif %}
+          <ul class="s5-compare-list">
+            {% for block in section.blocks %}
+              {% if block.settings.right_text != blank %}
+            <li>{{ block.settings.right_text }}</li>
+                {% endif %}
+            {% endfor %}
+           
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearall"></div>
+
+    <div class="common-button__box">
+      {% if section.settings.sub_title != blank %}
+        <div class="selefast {% if section.settings.border %}border{% endif %}">
+          <img
+            src="{{ section.settings.subtitleimage | image_url:width:10 }}"
+            width=""
+            height=""
+            alt="{{ section.settings.image.alt }}"
+          >
+          {{- section.settings.sub_title }}
+        </div>
+      {% endif %}
+      {% if section.settings.button != blank %}
+        <a href="{{ section.settings.button_link }}" class="common-button">{{ section.settings.button }}</a>
+      {% endif %}
+      {% if section.settings.caption != blank or section.settings.captionimage != blank %}
+        <p class="money-bk-btn-text">
+          <img
+            src="{{ section.settings.captionimage | image_url:width:50 }}"
+            width=""
+            height=""
+            alt="{{ section.settings.captionimage.alt }}"
+          >
+          {{- section.settings.caption }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Comparision Box",
+  "settings": [
+    {
+      "type":"header",
+      "content":"Bottom Content"
+    },
+    {
+      "type":"richtext",
+      "id":"sub_title",
+      "label":"Sub Title"
+    },
+    {
+        "type":"checkbox",
+        "id":"border",
+        "label":"Show Border",
+        "default":false
+      },
+    {
+      "type":"image_picker",
+      "id":"subtitleimage",
+      "label":"Sub Title Logo"
+    },
+    {
+      "type":"text",
+      "id":"button",
+      "label":"Button"
+    },
+    {
+      "type":"url",
+      "id":"button_link",
+      "label":"Link"
+    },
+    {
+      "type":"text",
+      "id":"caption",
+      "label":"Caption"
+    },
+    {
+      "type":"image_picker",
+      "id":"captionimage",
+      "label":"Caption Image"
+    },
+    {
+      "type":"header",
+      "content":"Compare Table"
+    },
+    {
+      "type":"richtext",
+      "id":"table_title",
+      "label":"Main Title"
+    },
+    {
+      "type":"image_picker",
+      "label":"Left Title Logo",
+      "id":"left_title_logo"
+    },
+    {
+      "type":"image_picker",
+      "label":"Left Main Image",
+      "id":"left_main_image"
+    },
+    {
+      "type":"image_picker",
+      "label":"Mobile Left Main Image",
+      "id":"left_mobile_main_image"
+    },
+    {
+      "type":"text",
+      "label":"Right Title",
+      "id":"right_title"
+    },
+    {
+      "type":"image_picker",
+      "label":"Right Main Image",
+      "id":"right_main_image"
+    },
+    {
+      "type":"image_picker",
+      "label":"Mobile Right Main Image",
+      "id":"right_mobilemain_image"
+    },
+  ],
+    "blocks": [
+    {
+      "type":"Points",
+      "name":"Point",
+      "settings":[
+          {
+            "type":"text",
+            "label":"Advantages Point",
+            "id":"left_text"
+          },
+          {
+            "type":"text",
+            "label":"Disadvantages Point",
+            "id":"right_text"
+          }
+      ]
+    }
+    ],
+"presets": [
+  {
+    "name":"Comparision Box"
+  }
+]
+}
+{% endschema %}

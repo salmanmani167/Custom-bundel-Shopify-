@@ -1,0 +1,231 @@
+<div class="sectionSix">
+  <div class="page-width">
+    {% if section.settings.title != blank %}
+      <div class="common_heading">{{ section.settings.title }}</div>
+    {% endif %}
+    {% if section.settings.subtitle != blank %}
+      <div class="common-text hide-mob">{{ section.settings.subtitle }}</div>
+    {% endif %}
+    {% if section.settings.mobiolesubtitle != blank %}
+      <div class="common-text forMob">{{ section.settings.mobiolesubtitle }}</div>
+    {% endif %}
+    <div class="recommend_box">
+      <div class="sec6_slider-nav">
+        {% for block in section.blocks %}
+          {% if block.settings.image != blank or block.settings.text != blank %}
+            <div class="slide_tabClick {% if forloop.index == 1 %}active{% endif %}" id="tab_col_{{ forloop.index }}">
+              <div>
+                <img
+                  src="{{ block.settings.image | image_url:width:113 }}"
+                  width="113"
+                  height="112"
+                  alt="{{ block.settings.image.alt }}"
+                >
+              </div>
+              <p>{{ block.settings.text }}</p>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+
+      <div class="sec6_slide-div">
+        {% for block in section.blocks %}
+          <style>
+            .slide_inner {display:none;}
+         div#tab_cont_1 { display: block; }
+          </style>
+          <div class="slide_inner" id="tab_cont_{{ forloop.index }}">
+            {% if block.settings.tab_inner_title != blank or block.settings.no_of_subscriber != blank %}
+              <p class="s6-vdo-name-text">
+                {{ block.settings.tab_inner_title -}}
+                <span
+                  ><img
+                    src="https://cdn.shopify.com/s/files/1/0750/2325/3792/files/youtube-icn.png?v=1724503591"
+                    width="20"
+                    height="14"
+                    alt="icn"
+                    class="youtube-icn"
+                  >
+                  {{- block.settings.no_of_subscriber }}Subscribers</span
+                >
+              </p>
+            {% endif %}
+            <div class="slide_testiImg_bx">
+              {% if block.settings.video_poster != blank %}
+                <img
+                  src="{{ block.settings.video_poster | image_url:width:635 }}"
+                  width="635"
+                  height="359"
+                  alt="img"
+                  class="sec6_video-img{{ forloop.index }}"
+                >
+              {% endif %}
+              {% if block.settings.video.sources[0].url != blank %}
+                <video controls crossorigin playsinline style="display:none;" id="myVdo{{ forloop.index }}">
+                  <source src="{{ block.settings.video.sources[0].url }}" type="video/mp4" size="">
+                </video>
+              {% else %}
+                {% assign iframe_url = block.settings.iframe_url %}
+{% assign video_id = iframe_url | split: '/embed/' | last | split: '?' | first %}
+                <div class="youtube-player video-player{{ forloop.index }}" data-id="{{video_id}}">
+                  {% comment %}<iframe src="{{ block.settings.iframe_url.sources[0].url }}" frameborder="0">
+                  </iframe>
+                  <iframe  src="{{ block.settings.iframe_url }}" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  
+                  <iframe src="{{ block.settings.iframe_url }}" frameborder="0">
+                  </iframe>
+                   {% endcomment %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="clearall"></div>
+
+    <div class="common-button__box">
+      {% if section.settings.sub_title != blank %}
+        <div class="selefast {% if section.settings.border %}border{% endif %}">
+          <img
+            src="{{ section.settings.subtitleimage | image_url:width:10 }}"
+            width=""
+            height=""
+            alt="{{ section.settings.image.alt }}"
+          >
+          {{- section.settings.sub_title }}
+        </div>
+      {% endif %}
+      {% if section.settings.button != blank %}
+        <a href="{{ section.settings.button_link }}" class="common-button">{{ section.settings.button }}</a>
+      {% endif %}
+      {% if section.settings.caption != blank or section.settings.captionimage != blank %}
+        <p class="money-bk-btn-text">
+          <img
+            src="{{ section.settings.captionimage | image_url:width:50 }}"
+            width=""
+            height=""
+            alt="{{ section.settings.captionimage.alt }}"
+          >
+          {{- section.settings.caption }}
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Recommended Tabs",
+  "settings": [
+          {
+      "type":"richtext",
+      "id":"title",
+      "label":"Title"
+    },
+     {
+      "type":"richtext",
+      "id":"subtitle",
+      "label":"Sub Text"
+    },
+     {
+      "type":"richtext",
+      "id":"mobiolesubtitle",
+      "label":"Mobile Sub Text"
+    },
+        {
+    "type":"header",
+    "content":"Bottom Content"
+  },
+  {
+    "type":"richtext",
+    "id":"sub_title",
+    "label":"Sub Title"
+  },
+         {
+        "type":"checkbox",
+        "id":"border",
+        "label":"Show Border",
+        "default":false
+      },
+  {
+    "type":"image_picker",
+    "id":"subtitleimage",
+    "label":"Sub Title Logo"
+  },
+  {
+    "type":"text",
+    "id":"button",
+    "label":"Button"
+  },
+  {
+    "type":"url",
+    "id":"button_link",
+    "label":"Link"
+  },
+  {
+    "type":"text",
+    "id":"caption",
+    "label":"Caption"
+  },
+  {
+    "type":"image_picker",
+    "id":"captionimage",
+    "label":"Caption Image"
+  }
+  ],
+  "blocks": [
+    {
+      "type":"tab",
+      "name":"Tab",
+      "settings": [
+        {
+          "type":"image_picker",
+          "id":"image",
+          "label":"Image"
+        },
+        {
+          "type":"text",
+          "id":"text",
+          "label":"Text"
+        },
+                  {
+    "type":"header",
+    "content":"Tab Content"
+  },
+        {
+          "type":"text",
+          "id":"tab_inner_title",
+          "label":"Title"
+        },
+        {
+          "type":"text",
+          "id":"no_of_subscriber",
+          "label":"Subscribers"
+        },
+        {
+          "type":"video",
+          "id":"video",
+          "label":"Video"
+        },
+        {
+          "type":"url",
+          "id":"iframe_url",
+          "label":"Iframe/youtube Link"
+        },
+        {
+          "type":"image_picker",
+          "id":"video_poster",
+          "label":"Video Poster"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name":"Recommended Tabs"
+    }
+  ]
+}
+{% endschema %}

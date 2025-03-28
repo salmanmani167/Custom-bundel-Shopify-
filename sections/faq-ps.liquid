@@ -1,0 +1,110 @@
+{% schema %}
+{
+  "name": "FAQ Section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "faq_title",
+      "label": "FAQ Title",
+      "default": "FAQ"
+    },
+    {
+      "type": "text",
+      "id": "shop_button_text",
+      "label": "Shop Button Text",
+      "default": "SHOP NOW"
+    },
+    {
+      "type": "url",
+      "id": "shop_button_link",
+      "label": "Shop Button Link"
+    },
+    {
+      "type": "text",
+      "id": "money_back_text",
+      "label": "Money Back Guarantee Text",
+      "default": "30 Day Money Back Guarantee"
+    },
+    {
+      "type": "image_picker",
+      "id": "money_back_icon",
+      "label": "Money Back Guarantee Icon"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "faq",
+      "name": "FAQ Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "question",
+          "label": "Question"
+        },
+        {
+          "type": "textarea",
+          "id": "answer",
+          "label": "Answer"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ Section",
+      "blocks": [
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use a small butane torch instead of a heat gun?",
+            "answer": "Definitely! Just don’t get it too close as you will over-melt the shielding."
+          }
+        },
+        {
+          "type": "faq",
+          "settings": {
+            "question": "Can I use them for marine wiring like on a boat?",
+            "answer": "Yes, these are safe for marine wiring."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<div class="faq-container">
+  <div class="faq-title">{{ section.settings.faq_title }}</div>
+  {% for block in section.blocks %}
+    <div class="faq-block">
+      <div class="faq-question" onclick="toggleFAQ(this)">
+        {{ block.settings.question }}
+        <i class="faq-arrow fas fa-chevron-down"></i>
+      </div>
+      <div class="faq-answer">{{ block.settings.answer }}</div>
+    </div>
+  {% endfor %}
+  
+  <a href="{{ section.settings.shop_button_link }}" class="shop-now-btn">{{ section.settings.shop_button_text }}</a>
+  <div class="money-back">
+    <img src="{{ section.settings.money_back_icon | img_url: 'small' }}" alt="Money Back Icon" class="money-back-icon">
+    {{ section.settings.money_back_text }}
+  </div>
+</div>
+
+<script>
+  function toggleFAQ(element) {
+      let answer = element.nextElementSibling;
+      let icon = element.querySelector(".faq-arrow");
+      if (answer.style.display === "block") {
+          answer.style.display = "none";
+          icon.classList.remove("rotate");
+      } else {
+          answer.style.display = "block";
+          icon.classList.add("rotate");
+      }
+  }
+</script>
+
