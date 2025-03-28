@@ -124,6 +124,601 @@
       </div>
     </div>
     
-    {{ 'bundle-builder.css' | asset_url | stylesheet_tag }}
-    <script src="{{ 'bundle-builder.js' | asset_url }}" defer></script>
+<style>
+  .bundle-builder-section {
+    padding: 60px 0;
+    background-color: #fff;
+  }
+  
+  .bundle-builder-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .bundle-builder-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .bundle-builder-title {
+    font-size: 48px;
+    color: #1B4B43;
+    margin-bottom: 16px;
+    font-family: var(--font-heading-family);
+  }
+  
+  .bundle-builder-subtitle {
+    font-size: 18px;
+    color: #4A635D;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .bundle-builder-content {
+    display: grid;
+    grid-template-columns: 1fr 350px;
+    gap: 30px;
+  }
+  
+  /* Products Slider */
+  .bundle-products-slider {
+    position: relative;
+    padding: 0 40px;
+  }
+  
+  .bundle-products {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .bundle-products::-webkit-scrollbar {
+    display: none;
+  }
+  
+  .bundle-product-card {
+    flex: 0 0 220px;
+    text-align: center;
+  }
+  
+  .product-image {
+    margin-bottom: 15px;
+  }
+  
+  .product-image img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .product-vendor {
+    font-size: 14px;
+    color: #4A635D;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  
+  .product-title {
+    font-size: 18px;
+    color: #1B4B43;
+    margin-bottom: 10px;
+  }
+  
+  .product-price {
+    font-size: 16px;
+    color: #1B4B43;
+    margin-bottom: 15px;
+  }
+  
+  .add-to-bundle-btn {
+    background-color: #B5BEB1;
+    color: #1B4B43;
+    border: none;
+    padding: 8px 24px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+  }
+  
+  .add-to-bundle-btn:not(:disabled):hover {
+    background-color: #a5ada1;
+  }
+  
+  .add-to-bundle-btn:disabled {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+    opacity: 0.7;
+  }
+  
+  /* Slider Buttons */
+  .slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: white;
+    border: 1px solid #E0E0E0;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .prev-button {
+    left: 0;
+  }
+  
+  .next-button {
+    right: 0;
+  }
+  
+  /* Bundle Sidebar */
+  .bundle-builder-sidebar {
+    background-color: #F5F6F0;
+    padding: 20px;
+    border-radius: 12px;
+  }
+  
+  .bundle-rating {
+    text-align: center;
+    margin-bottom: 15px;
+  }
+  
+  .stars {
+    color: #F8D849;
+    font-size: 20px;
+  }
+  
+  .reviews {
+    font-size: 14px;
+    color: #4A635D;
+    margin-left: 5px;
+  }
+  
+  .bundle-shipping {
+    text-align: center;
+    font-weight: bold;
+    color: #1B4B43;
+    margin-bottom: 20px;
+  }
+  
+  .bundle-options {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  .bundle-option {
+    flex: 1;
+    text-align: center;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .bundle-option.active {
+    background: #1B4B43;
+    color: white;
+  }
+  
+  .option-quantity {
+    display: block;
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .bundle-preview {
+    margin-bottom: 20px;
+  }
+  
+  .selected-products {
+    margin-top: 20px;
+  }
+  
+  .selected-product {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background: white;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+  
+  .selected-product img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    margin-right: 10px;
+    border-radius: 4px;
+  }
+  
+  .selected-product-info {
+    flex-grow: 1;
+  }
+  
+  .selected-product-title {
+    font-size: 14px;
+    color: #1B4B43;
+    margin-bottom: 4px;
+  }
+  
+  .selected-product-price {
+    font-size: 14px;
+    color: #4A635D;
+  }
+  
+  .selected-product-remove {
+    background: none;
+    border: none;
+    color: #ff4444;
+    cursor: pointer;
+    padding: 5px;
+  }
+  
+  .bundle-slots {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 15px;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+  }
+  
+  .bundle-slot {
+    position: relative;
+    aspect-ratio: 3/4;
+    background: #f5f5f5;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .bundle-slot.filled {
+    background: white;
+  }
+  
+  .bundle-slot img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  
+  .slot-remove {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 20px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+  
+  .bundle-slot.filled:hover .slot-remove {
+    opacity: 1;
+  }
+  
+  .bundle-size {
+    text-align: center;
+    color: #1B4B43;
+    font-size: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .bundle-price {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .price-current {
+    font-weight: bold;
+  }
+  
+  .price-original {
+    text-decoration: line-through;
+    color: #666;
+    font-size: 14px;
+  }
+  
+  .bundle-total {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .total-label {
+    font-weight: bold;
+    color: #1B4B43;
+  }
+  
+  .total-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #1B4B43;
+  }
+  
+  .add-to-cart-btn {
+    width: 100%;
+    background: #F8D849;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+    color: #1B4B43;
+  }
+  
+  .add-to-cart-btn:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  @media (max-width: 968px) {
+    .bundle-builder-content {
+      grid-template-columns: 1fr;
+    }
+    
+    .bundle-builder-sidebar {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+  }
+  
+</style>
+<script>
+  class BundleBuilder {
+    constructor() {
+      this.init();
+      this.bundleSize = 2;
+      this.selectedProducts = [];
+      this.originalPrice = 169.00; // Set your original price here
+      this.discountPercentage = 20; // Set your discount percentage here
+      this.bindEvents();
+    }
+  
+    init() {
+      this.container = document.querySelector('.bundle-builder-section');
+      this.productsContainer = this.container.querySelector('.bundle-products');
+      this.bundleSlots = this.container.querySelector('.bundle-slots');
+      this.bundleOptions = this.container.querySelectorAll('.bundle-option');
+      this.addMoreBtn = this.container.querySelector('.add-more-btn');
+      this.addToCartBtn = this.container.querySelector('.add-to-cart-btn');
+      this.currentPriceElement = this.container.querySelector('.price-current');
+      this.originalPriceElement = this.container.querySelector('.price-original');
+      this.prevButton = this.container.querySelector('.prev-button');
+      this.nextButton = this.container.querySelector('.next-button');
+      this.selectedProductsContainer = this.container.querySelector('.selected-products');
+      this.totalPriceElement = this.container.querySelector('.total-price');
+    }
+  
+    bindEvents() {
+      // Slider navigation
+      this.prevButton.addEventListener('click', () => this.slide('prev'));
+      this.nextButton.addEventListener('click', () => this.slide('next'));
+  
+      // Bundle size selection
+      this.bundleOptions.forEach(option => {
+        option.addEventListener('click', () => this.changeBundleSize(option));
+      });
+  
+      // Add to bundle buttons
+      const addButtons = this.container.querySelectorAll('.add-to-bundle-btn');
+      addButtons.forEach(button => {
+        button.addEventListener('click', (e) => this.addToBundle(e.target));
+      });
+  
+      // Add more button
+      this.addMoreBtn.addEventListener('click', () => this.incrementBundleSize());
+  
+      // Add to cart button
+      this.addToCartBtn.addEventListener('click', () => this.addBundleToCart());
+    }
+  
+    slide(direction) {
+      const scrollAmount = 240; // Width of product card + gap
+      if (direction === 'prev') {
+        this.productsContainer.scrollLeft -= scrollAmount;
+      } else {
+        this.productsContainer.scrollLeft += scrollAmount;
+      }
+    }
+  
+    changeBundleSize(option) {
+      // Remove active class from all options
+      this.bundleOptions.forEach(opt => opt.classList.remove('active'));
+      
+      // Add active class to selected option
+      option.classList.add('active');
+      
+      // Update bundle size
+      this.bundleSize = parseInt(option.querySelector('.option-quantity').textContent);
+      
+      // Update UI
+      this.updateBundleUI();
+    }
+  
+    addToBundle(button) {
+      if (this.selectedProducts.length >= this.bundleSize) {
+        alert('Bundle is full! Please remove items or increase bundle size.');
+        return;
+      }
+  
+      const productData = {
+        id: button.dataset.productId,
+        variantId: button.dataset.variantId,
+        title: button.dataset.productTitle,
+        price: parseFloat(button.dataset.productPrice),
+        image: button.dataset.productImage
+      };
+  
+      this.selectedProducts.push(productData);
+      this.updateBundleUI();
+    }
+  
+    incrementBundleSize() {
+      // Find next bundle option
+      let currentSize = this.bundleSize;
+      let nextOption = Array.from(this.bundleOptions).find(option => {
+        let size = parseInt(option.querySelector('.option-quantity').textContent);
+        return size > currentSize;
+      });
+  
+      if (nextOption) {
+        this.changeBundleSize(nextOption);
+      }
+    }
+  
+    updateBundleUI() {
+      // Update slots
+      this.bundleSlots.innerHTML = '';
+      for (let i = 0; i < this.bundleSize; i++) {
+        const slot = document.createElement('div');
+        slot.className = 'bundle-slot';
+        
+        if (this.selectedProducts[i]) {
+          slot.classList.add('filled');
+          const img = document.createElement('img');
+          img.src = this.selectedProducts[i].image;
+          img.alt = this.selectedProducts[i].title;
+          slot.appendChild(img);
+  
+          // Add remove button
+          const removeBtn = document.createElement('div');
+          removeBtn.className = 'slot-remove';
+          removeBtn.textContent = '✕';
+          removeBtn.addEventListener('click', () => this.removeFromBundle(i));
+          slot.appendChild(removeBtn);
+        } else {
+          slot.classList.add('empty');
+        }
+        
+        this.bundleSlots.appendChild(slot);
+      }
+  
+      // Update prices
+      const originalTotal = this.bundleSize * this.originalPrice;
+      const discountedTotal = originalTotal * (1 - this.discountPercentage / 100);
+      
+      this.currentPriceElement.textContent = `£${discountedTotal.toFixed(2)}`;
+      this.originalPriceElement.textContent = `£${originalTotal.toFixed(2)}`;
+  
+      // Update add to cart button
+      this.addToCartBtn.disabled = this.selectedProducts.length < this.bundleSize;
+  
+      // Update all ADD buttons in the slider
+      const addButtons = this.container.querySelectorAll('.add-to-bundle-btn');
+      addButtons.forEach(button => {
+        button.disabled = this.selectedProducts.length >= this.bundleSize;
+      });
+  
+      // Update selected products display
+      this.selectedProductsContainer.innerHTML = '';
+      this.selectedProducts.forEach((product, index) => {
+        const productElement = document.createElement('div');
+        productElement.className = 'selected-product';
+        productElement.innerHTML = `
+          <img src="${product.image}" alt="${product.title}">
+          <div class="selected-product-info">
+            <div class="selected-product-title">${product.title}</div>
+            <div class="selected-product-price">£${product.price.toFixed(2)}</div>
+          </div>
+          <button type="button" class="selected-product-remove" aria-label="Remove ${product.title}">✕</button>
+        `;
+  
+        // Add remove button functionality
+        productElement.querySelector('.selected-product-remove').addEventListener('click', () => {
+          this.removeFromBundle(index);
+        });
+  
+        this.selectedProductsContainer.appendChild(productElement);
+      });
+  
+      // Update total price
+      const total = this.selectedProducts.reduce((sum, product) => sum + product.price, 0);
+      this.totalPriceElement.textContent = `£${total.toFixed(2)}`;
+  
+      // Update add more button text
+      const remaining = this.bundleSize - this.selectedProducts.length;
+      this.addMoreBtn.textContent = `ADD ${remaining} MORE`;
+      this.addMoreBtn.disabled = remaining === 0;
+    }
+  
+    removeFromBundle(index) {
+      this.selectedProducts.splice(index, 1);
+      this.updateBundleUI();
+    }
+  
+    async addBundleToCart() {
+      if (this.selectedProducts.length !== this.bundleSize) {
+        alert('Please complete your bundle before adding to cart.');
+        return;
+      }
+  
+      try {
+        this.addToCartBtn.disabled = true;
+        this.addToCartBtn.textContent = 'Adding to Cart...';
+  
+        // Create items array for checkout URL
+        const items = this.selectedProducts.map(product => ({
+          id: parseInt(product.variantId),
+          quantity: 1,
+          properties: {
+            '_bundle_group': 'Bundle ' + new Date().getTime(),
+            '_bundle_size': this.bundleSize
+          }
+        }));
+  
+        // Create checkout URL with items
+        const checkoutItems = items.map(item => {
+          const properties = Object.entries(item.properties).map(([key, value]) => 
+            `${encodeURIComponent(`properties[${key}]`)}=${encodeURIComponent(value)}`
+          ).join('&');
+          return `items[${encodeURIComponent(item.id)}][quantity]=${item.quantity}&${properties}`;
+        }).join('&');
+  
+        // Redirect to checkout
+        window.location.href = `${window.Shopify.routes.root}checkout?${checkoutItems}`;
+  
+      } catch (error) {
+        console.error('Error adding bundle to cart:', error);
+        alert(error.message || 'There was an error adding your bundle to cart. Please try again.');
+        this.addToCartBtn.disabled = false;
+        this.addToCartBtn.textContent = 'Add Bundle to Cart';
+      }
+    }
+  }
+  
+  // Initialize the bundle builder when the DOM is loaded
+  document.addEventListener('DOMContentLoaded', () => {
+    new BundleBuilder();
+  });
+  
+</script>
     
