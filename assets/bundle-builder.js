@@ -1,80 +1,86 @@
-class BundleBuilder {
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize Swiper
+  const swiper = new Swiper('.swiper', {
+    slidesPerView: 'auto',
+    spaceBetween: 20,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 1,
+      },
+      480: {
+        slidesPerView: 2,
+      },
+      768: {
+        slidesPerView: 3,
+      },
+      1024: {
+        slidesPerView: 4,
+      },
+    },
+  });
+
+  class BundleBuilder {
     constructor() {
       this.init();
       this.bundleSize = 2;
       this.selectedProducts = [];
-      this.originalPrice = 169.00; // Set your original price here
-      this.discountPercentage = 20; // Set your discount percentage here
       this.bindEvents();
     }
-  
+
     init() {
       this.container = document.querySelector('.bundle-builder-section');
-      this.productsContainer = this.container.querySelector('.bundle-products');
+      if (!this.container) return;
+      
       this.bundleSlots = this.container.querySelector('.bundle-slots');
       this.bundleOptions = this.container.querySelectorAll('.bundle-option');
       this.addMoreBtn = this.container.querySelector('.add-more-btn');
       this.addToCartBtn = this.container.querySelector('.add-to-cart-btn');
       this.currentPriceElement = this.container.querySelector('.price-current');
       this.originalPriceElement = this.container.querySelector('.price-original');
-      this.prevButton = this.container.querySelector('.prev-button');
-      this.nextButton = this.container.querySelector('.next-button');
-      this.selectedProductsContainer = this.container.querySelector('.selected-products');
-      this.totalPriceElement = this.container.querySelector('.total-price');
+      this.bundleSizeText = this.container.querySelector('.bundle-size');
+      
+      this.updateBundleUI();
     }
-  
+
     bindEvents() {
-      // Slider navigation
-      this.prevButton.addEventListener('click', () => this.slide('prev'));
-      this.nextButton.addEventListener('click', () => this.slide('next'));
-  
+      if (!this.container) return;
+
       // Bundle size selection
-      this.bundleOptions.forEach(option => {
+      this.bundleOptions?.forEach(option => {
         option.addEventListener('click', () => this.changeBundleSize(option));
       });
-  
+
       // Add to bundle buttons
       const addButtons = this.container.querySelectorAll('.add-to-bundle-btn');
       addButtons.forEach(button => {
-        button.addEventListener('click', (e) => this.addToBundle(e.target));
+        button.addEventListener('click', (e) => this.addToBundle(e.currentTarget));
       });
-  
+
       // Add more button
-      this.addMoreBtn.addEventListener('click', () => this.incrementBundleSize());
-  
+      this.addMoreBtn?.addEventListener('click', () => this.incrementBundleSize());
+
       // Add to cart button
-      this.addToCartBtn.addEventListener('click', () => this.addBundleToCart());
+      this.addToCartBtn?.addEventListener('click', () => this.addBundleToCart());
     }
-  
-    slide(direction) {
-      const scrollAmount = 240; // Width of product card + gap
-      if (direction === 'prev') {
-        this.productsContainer.scrollLeft -= scrollAmount;
-      } else {
-        this.productsContainer.scrollLeft += scrollAmount;
-      }
-    }
-  
+
     changeBundleSize(option) {
-      // Remove active class from all options
       this.bundleOptions.forEach(opt => opt.classList.remove('active'));
-      
-      // Add active class to selected option
       option.classList.add('active');
       
-      // Update bundle size
-      this.bundleSize = parseInt(option.querySelector('.option-quantity').textContent);
-      
-      // Update UI
+      this.bundleSize = parseInt(option.dataset.size);
       this.updateBundleUI();
     }
-  
+
     addToBundle(button) {
       if (this.selectedProducts.length >= this.bundleSize) {
         alert('Bundle is full! Please remove items or increase bundle size.');
         return;
       }
-  
+
       const productData = {
         id: button.dataset.productId,
         variantId: button.dataset.variantId,
@@ -82,25 +88,27 @@ class BundleBuilder {
         price: parseFloat(button.dataset.productPrice),
         image: button.dataset.productImage
       };
-  
+
       this.selectedProducts.push(productData);
+      button.disabled = true;
       this.updateBundleUI();
     }
-  
+
     incrementBundleSize() {
-      // Find next bundle option
       let currentSize = this.bundleSize;
       let nextOption = Array.from(this.bundleOptions).find(option => {
-        let size = parseInt(option.querySelector('.option-quantity').textContent);
+        let size = parseInt(option.dataset.size);
         return size > currentSize;
       });
-  
+
       if (nextOption) {
         this.changeBundleSize(nextOption);
       }
     }
-  
+
     updateBundleUI() {
+      if (!this.bundleSlots) return;
+
       // Update slots
       this.bundleSlots.innerHTML = '';
       for (let i = 0; i < this.bundleSize; i++) {
@@ -109,119 +117,131 @@ class BundleBuilder {
         
         if (this.selectedProducts[i]) {
           slot.classList.add('filled');
-          const img = document.createElement('img');
-          img.src = this.selectedProducts[i].image;
-          img.alt = this.selectedProducts[i].title;
-          slot.appendChild(img);
-  
-          // Add remove button
-          const removeBtn = document.createElement('div');
-          removeBtn.className = 'slot-remove';
-          removeBtn.textContent = '✕';
-          removeBtn.addEventListener('click', () => this.removeFromBundle(i));
-          slot.appendChild(removeBtn);
+          slot.innerHTML = `
+            <img src="${this.selectedProducts[i].image}" alt="${this.selectedProducts[i].title}">
+            <div class="slot-remove" data-index="${i}">✕</div>
+          `;
+          
+          slot.querySelector('.slot-remove').addEventListener('click', (e) => {
+            const index = parseInt(e.target.dataset.index);
+            this.removeFromBundle(index);
+          });
         } else {
           slot.classList.add('empty');
         }
         
         this.bundleSlots.appendChild(slot);
       }
-  
-      // Update prices
-      const originalTotal = this.bundleSize * this.originalPrice;
-      const discountedTotal = originalTotal * (1 - this.discountPercentage / 100);
-      
-      this.currentPriceElement.textContent = `£${discountedTotal.toFixed(2)}`;
-      this.originalPriceElement.textContent = `£${originalTotal.toFixed(2)}`;
-  
+
+      // Update bundle size text
+      if (this.bundleSizeText) {
+        this.bundleSizeText.textContent = `${this.bundleSize} Case of 12 x 17 oz bot`;
+      }
+
+      // Calculate prices
+      const totalPrice = this.calculateTotalPrice();
+      const discountedPrice = this.calculateDiscountedPrice(totalPrice);
+
+      // Update price displays
+      if (this.currentPriceElement) {
+        this.currentPriceElement.textContent = `£${discountedPrice.toFixed(2)}`;
+      }
+      if (this.originalPriceElement) {
+        this.originalPriceElement.textContent = `£${totalPrice.toFixed(2)}`;
+      }
+
       // Update add to cart button
-      this.addToCartBtn.disabled = this.selectedProducts.length < this.bundleSize;
-  
-      // Update all ADD buttons in the slider
+      if (this.addToCartBtn) {
+        this.addToCartBtn.disabled = this.selectedProducts.length < this.bundleSize;
+      }
+
+      // Update add buttons
       const addButtons = this.container.querySelectorAll('.add-to-bundle-btn');
       addButtons.forEach(button => {
-        button.disabled = this.selectedProducts.length >= this.bundleSize;
+        const productId = button.dataset.productId;
+        const isSelected = this.selectedProducts.some(p => p.id === productId);
+        button.disabled = isSelected || this.selectedProducts.length >= this.bundleSize;
       });
-  
-      // Update selected products display
-      this.selectedProductsContainer.innerHTML = '';
-      this.selectedProducts.forEach((product, index) => {
-        const productElement = document.createElement('div');
-        productElement.className = 'selected-product';
-        productElement.innerHTML = `
-          <img src="${product.image}" alt="${product.title}">
-          <div class="selected-product-info">
-            <div class="selected-product-title">${product.title}</div>
-            <div class="selected-product-price">£${product.price.toFixed(2)}</div>
-          </div>
-          <button type="button" class="selected-product-remove" aria-label="Remove ${product.title}">✕</button>
-        `;
-  
-        // Add remove button functionality
-        productElement.querySelector('.selected-product-remove').addEventListener('click', () => {
-          this.removeFromBundle(index);
-        });
-  
-        this.selectedProductsContainer.appendChild(productElement);
-      });
-  
-      // Update total price
-      const total = this.selectedProducts.reduce((sum, product) => sum + product.price, 0);
-      this.totalPriceElement.textContent = `£${total.toFixed(2)}`;
-  
-      // Update add more button text
-      const remaining = this.bundleSize - this.selectedProducts.length;
-      this.addMoreBtn.textContent = `ADD ${remaining} MORE`;
-      this.addMoreBtn.disabled = remaining === 0;
+
+      // Update add more button
+      if (this.addMoreBtn) {
+        const remaining = this.bundleSize - this.selectedProducts.length;
+        this.addMoreBtn.textContent = `ADD ${remaining} MORE`;
+        this.addMoreBtn.style.display = remaining > 0 ? 'block' : 'none';
+      }
     }
-  
+
+    calculateTotalPrice() {
+      return this.selectedProducts.reduce((sum, product) => sum + parseFloat(product.price), 0);
+    }
+
+    calculateDiscountedPrice(totalPrice) {
+      const discountPercentage = 10; // 10% discount
+      return totalPrice * (1 - discountPercentage / 100);
+    }
+
     removeFromBundle(index) {
+      const removedProduct = this.selectedProducts[index];
       this.selectedProducts.splice(index, 1);
+      
+      // Re-enable the add button for the removed product
+      const addButton = this.container.querySelector(`[data-product-id="${removedProduct.id}"]`);
+      if (addButton) {
+        addButton.disabled = false;
+      }
+      
       this.updateBundleUI();
     }
-  
+
     async addBundleToCart() {
       if (this.selectedProducts.length !== this.bundleSize) {
         alert('Please complete your bundle before adding to cart.');
         return;
       }
-  
+
       try {
         this.addToCartBtn.disabled = true;
         this.addToCartBtn.textContent = 'Adding to Cart...';
-  
-        // Create items array for checkout URL
+
+        const bundleId = new Date().getTime();
         const items = this.selectedProducts.map(product => ({
-          id: parseInt(product.variantId),
+          id: product.variantId,
           quantity: 1,
           properties: {
-            '_bundle_group': 'Bundle ' + new Date().getTime(),
+            '_bundle_id': bundleId,
             '_bundle_size': this.bundleSize
           }
         }));
-  
-        // Create checkout URL with items
-        const checkoutItems = items.map(item => {
-          const properties = Object.entries(item.properties).map(([key, value]) => 
-            `${encodeURIComponent(`properties[${key}]`)}=${encodeURIComponent(value)}`
-          ).join('&');
-          return `items[${encodeURIComponent(item.id)}][quantity]=${item.quantity}&${properties}`;
-        }).join('&');
-  
-        // Redirect to checkout
-        window.location.href = `${window.Shopify.routes.root}checkout?${checkoutItems}`;
-  
+
+        const formData = {
+          items: items
+        };
+
+        const response = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        // Redirect to cart page
+        window.location.href = window.Shopify.routes.root + 'cart';
+
       } catch (error) {
         console.error('Error adding bundle to cart:', error);
-        alert(error.message || 'There was an error adding your bundle to cart. Please try again.');
+        alert('There was an error adding your bundle to cart. Please try again.');
+      } finally {
         this.addToCartBtn.disabled = false;
-        this.addToCartBtn.textContent = 'Add Bundle to Cart';
+        this.addToCartBtn.textContent = 'ADD TO CART';
       }
     }
   }
-  
-  // Initialize the bundle builder when the DOM is loaded
-  document.addEventListener('DOMContentLoaded', () => {
-    new BundleBuilder();
-  });
-  
+
+  // Initialize the bundle builder
+  new BundleBuilder();
+});
