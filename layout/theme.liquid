@@ -1,25 +1,6 @@
 <!doctype html>
 <html class="js" lang="{{ request.locale.iso_code }}">
   <head>
-    <!-- Google Tag Manager -->
-    <script>
-      (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-      new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-      j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-      'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-      })(window,document,'script','dataLayer','GTM-NFX95CX');
-    </script>
-    <!-- End Google Tag Manager -->
-    <meta name="ahrefs-site-verification" content="f0acd745b7720351dc642836e820d43e1406a31b2252ba8d25db4ceb28e5a4c1">
-    <script
-      defer="defer"
-      nowprocket
-      nitro-exclude
-      type="text/javascript"
-      id="sa-dynamic-optimization"
-      data-uuid="1ffc45d7-f835-4f75-b147-97e1d52f33ca"
-      src="data:text/javascript;base64,dmFyIHNjcmlwdCA9IGRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoInNjcmlwdCIpO3NjcmlwdC5zZXRBdHRyaWJ1dGUoIm5vd3Byb2NrZXQiLCAiIik7c2NyaXB0LnNldEF0dHJpYnV0ZSgibml0cm8tZXhjbHVkZSIsICIiKTtzY3JpcHQuc3JjID0gImh0dHBzOi8vZGFzaGJvYXJkLnFlcmFtYXJrZXRpbmcuY29tL3NjcmlwdHMvZHluYW1pY19vcHRpbWl6YXRpb24uanMiO3NjcmlwdC5kYXRhc2V0LnV1aWQgPSAiMWZmYzQ1ZDctZjgzNS00Zjc1LWIxNDctOTdlMWQ1MmYzM2NhIjtzY3JpcHQuaWQgPSAic2EtZHluYW1pYy1vcHRpbWl6YXRpb24tbG9hZGVyIjtkb2N1bWVudC5oZWFkLmFwcGVuZENoaWxkKHNjcmlwdCk7"
-    ></script>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -46,28 +27,6 @@
     {% endif %}
 
     {% render 'meta-tags' %}
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css"
-      integrity="sha512-wR4oNhLBHf7smjy0K4oqzdWumd+r5/+6QO/vDda76MW5iug4PT7v86FoEkySIJft3XA0Ae6axhIvHrqwm793Nw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    >
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css"
-      integrity="sha512-6lLUdeQ5uheMFbWm3CP271l14RsX1xtx+J5x2yeIDkkiBpeVTNhTqijME7GgRKKi6hCqovwCoBTlRBEC20M8Mg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    >
-
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
-      integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
 
     <script src="{{ 'constants.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'pubsub.js' | asset_url }}" defer="defer"></script>
@@ -76,6 +35,10 @@
     <script src="{{ 'details-modal.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'search-form.js' | asset_url }}" defer="defer"></script>
 
+    {%- if settings.animations_reveal_on_scroll -%}
+      <script src="{{ 'animations.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
     {{ content_for_header }}
 
     {%- liquid
@@ -83,13 +46,6 @@
       assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
       assign body_font_bold_italic = body_font_bold | font_modify: 'style', 'italic'
     %}
-    <style>
-          @media screen and (min-width: 1024px) {
-        #shopify-section-template--19046534840559__1735718720e4279ed3 .page-width {
-          width: 69rem !important;
-        }
-      }
-    </style>
 
     {% style %}
       {{ settings.type_body_font | font_face: font_display: 'swap' }}
@@ -299,24 +255,8 @@
       }
     {% endstyle %}
 
-    <link
-      data-href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;600&family=Sora:wght@400;600&display=swap"
-      rel="stylesheet"
-    >
-
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
-    </style>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
-    </style>
-
     {{ 'base.css' | asset_url | stylesheet_tag }}
-    {{ 'custom.css' | asset_url | stylesheet_tag }}
     <link rel="stylesheet" href="{{ 'component-cart-items.css' | asset_url }}" media="print" onload="this.media='all'">
-
-    <!-- Stylesheet for Fancybox library -->
-    {{ 'fancybox.css' | asset_url | stylesheet_tag }}
 
     {%- if settings.cart_type == 'drawer' -%}
       {{ 'component-cart-drawer.css' | asset_url | stylesheet_tag }}
@@ -356,47 +296,9 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
-      integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    >
-
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
-      integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    >
-
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-      integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
-      integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
-
-    {{ 'twd.css' | asset_url | stylesheet_tag }}
-    {{ 'twd-2.css' | asset_url | stylesheet_tag }}
-    {{ 'twd.js' | asset_url | script_tag }}
-
-    {% if article.metafields.seo.noindex %}
-    <meta name="robots" content="noindex, follow">
-{% endif %}
   </head>
 
-  <body class="{{ page_title | handle }} template-{{ template.name | handle }} gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
+  <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
     <a class="skip-to-content-link button visually-hidden" href="#MainContent">
       {{ 'accessibility.skip_to_text' | t }}
     </a>
@@ -470,109 +372,5 @@
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
-    <script src="{{ 'custom.js' | asset_url }}" defer></script>
-    {% render 'oneclickupsellapp-extend' %}
-
-    <script>
-  window.addEventListener('load', function() {
-  var _learnq = window._learnq || [];
-  function addedToCart() {
-   fetch(`${window.location.origin}/cart.js`)
-   .then(res => res.clone().json().then(data => {
-    var cart = {
-      total_price: data.total_price/100,
-      $value: data.total_price/100,
-      total_discount: data.total_discount,
-      original_total_price: data.original_total_price/100,
-      items: data.items
-    }
-    if (item !== 'undefined') {
-      cart = Object.assign(cart, item)
-    }
-    if (klAjax) {
-       _learnq.push(['track', 'Added to Cart', cart]);
-       klAjax = false;
-      }
-   }))
-  };
-  (function (ns, fetch) {
-    ns.fetch = function() {
-      const response = fetch.apply(this, arguments);
-      response.then(res => {
-        if (`${window.location.origin}/cart/add.js`
-          .includes(res.url) && res.url !== '') {
-              addedToCart()
-        }
-      });
-      return response
-     }
-  }(window, window.fetch));
-  var klAjax = true;
-  var atcButtons = document.querySelectorAll("form[action*='/cart/add'] button[type='submit']");
-  for (var i = 0; i < atcButtons.length; i++) { 
-    atcButtons[i].addEventListener("click", function() {
-      if (klAjax) {
-        _learnq.push(['track', 'Added to Cart', item]);
-        klAjax = false;
-      }
-    })
-  }
-  });
-    </script>
-    {% if product %}
-      {% assign areviewsRating = product.metafields.areviewsApp.product_reviews %}
-      {%- if areviewsRating -%}
-        <script>
-          const AreviewsproductLdJsonSchema = {
-              "@context": "http://schema.org",
-              "@type": "Product",
-              "name": "{{ product.title }}",
-              "aggregateRating": {
-                  "@type": "AggregateRating",
-                  "description": "areviews",
-                  "ratingValue": {{areviewsRating.value.rating}},
-                  "reviewCount": {{areviewsRating.value.number}}
-              }
-          }
-
-          const AreviewsHandleProductLdJsonSchema = () => {
-              const scriptElement = document.createElement('script');
-              scriptElement.type = 'application/lwd+json';
-
-              const stringifyProductLdJsonSchema = JSON.stringify(AreviewsproductLdJsonSchema);
-
-              try {
-                  scriptElement.appendChild(document.createTextNode(stringifyProductLdJsonSchema));
-                  document.body.appendChild(scriptElement);
-              } catch (e) {
-                  scriptElement.textContent = stringifyProductLdJsonSchema;
-                  document.body.appendChild(scriptElement);
-              }
-          };
-
-          let CheckIfSchemaHandled = false;
-
-          window.addEventListener('DOMContentLoaded', () => {
-              try {
-                  const ldJsonScripts = document.querySelectorAll("[type='application/ld+json']");
-
-                  ldJsonScripts.forEach(script => {
-                      const json = JSON.parse(script.textContent);
-                       if (!json.hasOwnProperty('aggregateRating')) {
-                          if (json['@type'] !== 'Product' && json['@type'] !== 'ProductGroup') return;
-                          json.aggregateRating = AreviewsproductLdJsonSchema.aggregateRating;
-                          script.textContent = JSON.stringify(json);
-                          CheckIfSchemaHandled = true;
-                      }
-                  });
-
-                  if (!CheckIfSchemaHandled) AreviewsHandleProductLdJsonSchema();
-              } catch (error) {
-
-              }
-          });
-        </script>
-      {%- endif -%}
-    {% endif %}
   </body>
 </html>
