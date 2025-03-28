@@ -100,11 +100,6 @@
     
               <div class="bundle-preview">
                 <div class="bundle-slots">
-                  {% for i in (1..2) %}
-                    <div class="bundle-slot empty">
-                      <div class="slot-remove">✕</div>
-                    </div>
-                  {% endfor %}
                 </div>
                 <div class="bundle-size">2 Case of 12 x 17 oz bot</div>
                 
@@ -498,13 +493,13 @@
       this.init();
       this.bundleSize = 2;
       this.selectedProducts = [];
-      this.originalPrice = 169.00; // Set your original price here
-      this.discountPercentage = 20; // Set your discount percentage here
       this.bindEvents();
     }
   
     init() {
       this.container = document.querySelector('.bundle-builder-section');
+      if (!this.container) return;
+      
       this.productsContainer = this.container.querySelector('.bundle-products');
       this.bundleSlots = this.container.querySelector('.bundle-slots');
       this.bundleOptions = this.container.querySelectorAll('.bundle-option');
@@ -514,35 +509,36 @@
       this.originalPriceElement = this.container.querySelector('.price-original');
       this.prevButton = this.container.querySelector('.prev-button');
       this.nextButton = this.container.querySelector('.next-button');
-      this.selectedProductsContainer = this.container.querySelector('.selected-products');
-      this.totalPriceElement = this.container.querySelector('.total-price');
+      this.bundleSizeText = this.container.querySelector('.bundle-size');
     }
   
     bindEvents() {
+      if (!this.container) return;
+
       // Slider navigation
-      this.prevButton.addEventListener('click', () => this.slide('prev'));
-      this.nextButton.addEventListener('click', () => this.slide('next'));
+      this.prevButton?.addEventListener('click', () => this.slide('prev'));
+      this.nextButton?.addEventListener('click', () => this.slide('next'));
   
       // Bundle size selection
-      this.bundleOptions.forEach(option => {
+      this.bundleOptions?.forEach(option => {
         option.addEventListener('click', () => this.changeBundleSize(option));
       });
   
       // Add to bundle buttons
       const addButtons = this.container.querySelectorAll('.add-to-bundle-btn');
       addButtons.forEach(button => {
-        button.addEventListener('click', (e) => this.addToBundle(e.target));
+        button.addEventListener('click', (e) => this.addToBundle(e.currentTarget));
       });
   
       // Add more button
-      this.addMoreBtn.addEventListener('click', () => this.incrementBundleSize());
+      this.addMoreBtn?.addEventListener('click', () => this.incrementBundleSize());
   
       // Add to cart button
-      this.addToCartBtn.addEventListener('click', () => this.addBundleToCart());
+      this.addToCartBtn?.addEventListener('click', () => this.addBundleToCart());
     }
   
     slide(direction) {
-      const scrollAmount = 240; // Width of product card + gap
+      const scrollAmount = 240;
       if (direction === 'prev') {
         this.productsContainer.scrollLeft -= scrollAmount;
       } else {
@@ -551,16 +547,10 @@
     }
   
     changeBundleSize(option) {
-      // Remove active class from all options
       this.bundleOptions.forEach(opt => opt.classList.remove('active'));
-      
-      // Add active class to selected option
       option.classList.add('active');
       
-      // Update bundle size
       this.bundleSize = parseInt(option.querySelector('.option-quantity').textContent);
-      
-      // Update UI
       this.updateBundleUI();
     }
   
@@ -580,10 +570,10 @@
   
       this.selectedProducts.push(productData);
       this.updateBundleUI();
+      button.disabled = true;
     }
   
     incrementBundleSize() {
-      // Find next bundle option
       let currentSize = this.bundleSize;
       let nextOption = Array.from(this.bundleOptions).find(option => {
         let size = parseInt(option.querySelector('.option-quantity').textContent);
@@ -597,6 +587,8 @@
   
     updateBundleUI() {
       // Update slots
+      if (!this.bundleSlots) return;
+      
       this.bundleSlots.innerHTML = '';
       for (let i = 0; i < this.bundleSize; i++) {
         const slot = document.createElement('div');
@@ -604,17 +596,15 @@
         
         if (this.selectedProducts[i]) {
           slot.classList.add('filled');
-          const img = document.createElement('img');
-          img.src = this.selectedProducts[i].image;
-          img.alt = this.selectedProducts[i].title;
-          slot.appendChild(img);
-  
-          // Add remove button
-          const removeBtn = document.createElement('div');
-          removeBtn.className = 'slot-remove';
-          removeBtn.textContent = '✕';
-          removeBtn.addEventListener('click', () => this.removeFromBundle(i));
-          slot.appendChild(removeBtn);
+          slot.innerHTML = `
+            <img src="${this.selectedProducts[i].image}" alt="${this.selectedProducts[i].title}">
+            <div class="slot-remove" data-index="${i}">✕</div>
+          `;
+          
+          slot.querySelector('.slot-remove').addEventListener('click', (e) => {
+            const index = parseInt(e.target.dataset.index);
+            this.removeFromBundle(index);
+          });
         } else {
           slot.classList.add('empty');
         }
@@ -622,56 +612,63 @@
         this.bundleSlots.appendChild(slot);
       }
   
-      // Update prices
-      const originalTotal = this.bundleSize * this.originalPrice;
-      const discountedTotal = originalTotal * (1 - this.discountPercentage / 100);
-      
-      this.currentPriceElement.textContent = `£${discountedTotal.toFixed(2)}`;
-      this.originalPriceElement.textContent = `£${originalTotal.toFixed(2)}`;
+      // Update bundle size text
+      if (this.bundleSizeText) {
+        this.bundleSizeText.textContent = `${this.bundleSize} Case of 12 x 17 oz bot`;
+      }
+  
+      // Calculate prices
+      const totalPrice = this.calculateTotalPrice();
+      const discountedPrice = this.calculateDiscountedPrice(totalPrice);
+  
+      // Update price displays
+      if (this.currentPriceElement) {
+        this.currentPriceElement.textContent = `£${discountedPrice.toFixed(2)}`;
+      }
+      if (this.originalPriceElement) {
+        this.originalPriceElement.textContent = `£${totalPrice.toFixed(2)}`;
+      }
   
       // Update add to cart button
-      this.addToCartBtn.disabled = this.selectedProducts.length < this.bundleSize;
+      if (this.addToCartBtn) {
+        this.addToCartBtn.disabled = this.selectedProducts.length < this.bundleSize;
+      }
   
-      // Update all ADD buttons in the slider
+      // Update add buttons in the slider
       const addButtons = this.container.querySelectorAll('.add-to-bundle-btn');
       addButtons.forEach(button => {
-        button.disabled = this.selectedProducts.length >= this.bundleSize;
+        const productId = button.dataset.productId;
+        const isSelected = this.selectedProducts.some(p => p.id === productId);
+        button.disabled = isSelected || this.selectedProducts.length >= this.bundleSize;
       });
   
-      // Update selected products display
-      this.selectedProductsContainer.innerHTML = '';
-      this.selectedProducts.forEach((product, index) => {
-        const productElement = document.createElement('div');
-        productElement.className = 'selected-product';
-        productElement.innerHTML = `
-          <img src="${product.image}" alt="${product.title}">
-          <div class="selected-product-info">
-            <div class="selected-product-title">${product.title}</div>
-            <div class="selected-product-price">£${product.price.toFixed(2)}</div>
-          </div>
-          <button type="button" class="selected-product-remove" aria-label="Remove ${product.title}">✕</button>
-        `;
+      // Update add more button
+      if (this.addMoreBtn) {
+        const remaining = this.bundleSize - this.selectedProducts.length;
+        this.addMoreBtn.textContent = `ADD ${remaining} MORE`;
+        this.addMoreBtn.style.display = remaining > 0 ? 'block' : 'none';
+      }
+    }
   
-        // Add remove button functionality
-        productElement.querySelector('.selected-product-remove').addEventListener('click', () => {
-          this.removeFromBundle(index);
-        });
+    calculateTotalPrice() {
+      return this.selectedProducts.reduce((sum, product) => sum + parseFloat(product.price), 0);
+    }
   
-        this.selectedProductsContainer.appendChild(productElement);
-      });
-  
-      // Update total price
-      const total = this.selectedProducts.reduce((sum, product) => sum + product.price, 0);
-      this.totalPriceElement.textContent = `£${total.toFixed(2)}`;
-  
-      // Update add more button text
-      const remaining = this.bundleSize - this.selectedProducts.length;
-      this.addMoreBtn.textContent = `ADD ${remaining} MORE`;
-      this.addMoreBtn.disabled = remaining === 0;
+    calculateDiscountedPrice(totalPrice) {
+      const discountPercentage = 10; // 10% discount
+      return totalPrice * (1 - discountPercentage / 100);
     }
   
     removeFromBundle(index) {
+      const removedProduct = this.selectedProducts[index];
       this.selectedProducts.splice(index, 1);
+      
+      // Re-enable the add button for the removed product
+      const addButton = this.container.querySelector(`[data-product-id="${removedProduct.id}"]`);
+      if (addButton) {
+        addButton.disabled = false;
+      }
+      
       this.updateBundleUI();
     }
   
@@ -685,32 +682,41 @@
         this.addToCartBtn.disabled = true;
         this.addToCartBtn.textContent = 'Adding to Cart...';
   
-        // Create items array for checkout URL
+        const bundleId = new Date().getTime();
         const items = this.selectedProducts.map(product => ({
-          id: parseInt(product.variantId),
+          id: product.variantId,
           quantity: 1,
           properties: {
-            '_bundle_group': 'Bundle ' + new Date().getTime(),
+            '_bundle_id': bundleId,
             '_bundle_size': this.bundleSize
           }
         }));
   
-        // Create checkout URL with items
-        const checkoutItems = items.map(item => {
-          const properties = Object.entries(item.properties).map(([key, value]) => 
-            `${encodeURIComponent(`properties[${key}]`)}=${encodeURIComponent(value)}`
-          ).join('&');
-          return `items[${encodeURIComponent(item.id)}][quantity]=${item.quantity}&${properties}`;
-        }).join('&');
+        const formData = {
+          items: items
+        };
   
-        // Redirect to checkout
-        window.location.href = `${window.Shopify.routes.root}checkout?${checkoutItems}`;
+        const response = await fetch(window.Shopify.routes.root + 'cart/add.js', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+  
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+  
+        // Redirect to cart page
+        window.location.href = window.Shopify.routes.root + 'cart';
   
       } catch (error) {
         console.error('Error adding bundle to cart:', error);
-        alert(error.message || 'There was an error adding your bundle to cart. Please try again.');
+        alert('There was an error adding your bundle to cart. Please try again.');
+      } finally {
         this.addToCartBtn.disabled = false;
-        this.addToCartBtn.textContent = 'Add Bundle to Cart';
+        this.addToCartBtn.textContent = 'ADD TO CART';
       }
     }
   }
@@ -719,6 +725,4 @@
   document.addEventListener('DOMContentLoaded', () => {
     new BundleBuilder();
   });
-  
 </script>
-    
